@@ -154,7 +154,7 @@
                     </div>
                     
                     <!-- Default SVG Fallback logo if no image uploaded -->
-                    <svg id="pub-brand-logo-svg" viewBox="0 0 290 48" class="h-11 md:h-14 w-auto max-w-[200px] sm:max-w-[290px] block select-none">
+                    <svg id="pub-brand-logo-svg" viewBox="0 0 290 48" class="h-9 sm:h-11 md:h-14 w-auto max-w-[140px] sm:max-w-[200px] md:max-w-[290px] block select-none">
                         <defs>
                             <linearGradient id="gold-grad" x1="0%" y1="0%" x2="100%" y2="100%">
                                 <stop offset="0%" stop-color="#D4AF37" /> <!-- Metallic Gold -->
@@ -193,23 +193,23 @@
                     <a href="#contact" class="pub-link text-xs font-semibold uppercase tracking-widest hover:text-gold-400 transition" data-sec="contact">Contact</a>
                 </nav>
                 
-                <div class="flex items-center space-x-2">
-                    <a href="#home" onclick="window.showPublicSection('home'); return false;" class="w-10 h-10 bg-stone-900 border border-gold-500/10 hover:border-gold-500/30 text-gold-400 rounded-sm flex items-center justify-center transition duration-300" title="Go to Home">
-                        <i class="fa-solid fa-house text-sm"></i>
+                <div class="flex items-center space-x-1 sm:space-x-2">
+                    <a href="#home" onclick="window.showPublicSection('home'); return false;" class="w-8 h-8 sm:w-10 sm:h-10 bg-stone-900 border border-gold-500/10 hover:border-gold-500/30 text-gold-400 rounded-sm flex items-center justify-center transition duration-300" title="Go to Home">
+                        <i class="fa-solid fa-house text-xs sm:text-sm"></i>
                     </a>
-                    <a id="header-phone-link" href="tel:9301614549" class="w-10 h-10 bg-stone-900 border border-gold-500/10 hover:border-gold-500/30 text-gold-400 rounded-sm flex items-center justify-center transition duration-300" title="Call Us">
-                        <i class="fa-solid fa-phone text-sm"></i>
+                    <a id="header-phone-link" href="tel:9301614549" class="w-8 h-8 sm:w-10 sm:h-10 bg-stone-900 border border-gold-500/10 hover:border-gold-500/30 text-gold-400 rounded-sm flex items-center justify-center transition duration-300" title="Call Us">
+                        <i class="fa-solid fa-phone text-xs sm:text-sm"></i>
                     </a>
-                    <a href="https://youtube.com/@dewangan_photo_and_videography?si=-7ybdECUMBhLTKF-" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-stone-900 border border-gold-500/10 hover:border-gold-500/30 text-gold-400 rounded-sm flex items-center justify-center transition duration-300" title="YouTube Channel">
-                        <i class="fa-brands fa-youtube text-sm"></i>
+                    <a href="https://youtube.com/@dewangan_photo_and_videography?si=-7ybdECUMBhLTKF-" target="_blank" rel="noopener noreferrer" class="w-8 h-8 sm:w-10 sm:h-10 bg-stone-900 border border-gold-500/10 hover:border-gold-500/30 text-gold-400 rounded-sm flex items-center justify-center transition duration-300" title="YouTube Channel">
+                        <i class="fa-brands fa-youtube text-xs sm:text-sm"></i>
                     </a>
-                    <a href="https://www.instagram.com/dewangan_photo_and_videography?igsh=amUyc25rN3I5dmZ6" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-stone-900 border border-gold-500/10 hover:border-gold-500/30 text-gold-400 rounded-sm flex items-center justify-center transition duration-300" title="Instagram Profile">
-                        <i class="fa-brands fa-instagram text-sm"></i>
+                    <a href="https://www.instagram.com/dewangan_photo_and_videography?igsh=amUyc25rN3I5dmZ6" target="_blank" rel="noopener noreferrer" class="w-8 h-8 sm:w-10 sm:h-10 bg-stone-900 border border-gold-500/10 hover:border-gold-500/30 text-gold-400 rounded-sm flex items-center justify-center transition duration-300" title="Instagram Profile">
+                        <i class="fa-brands fa-instagram text-xs sm:text-sm"></i>
                     </a>
 
                     <!-- Mobile Hamburger -->
-                    <button id="mobile-nav-toggle" class="md:hidden text-stone-100 hover:text-gold-400 transition focus:outline-none">
-                        <i class="fa-solid fa-bars text-xl"></i>
+                    <button id="mobile-nav-toggle" class="md:hidden text-stone-100 hover:text-gold-400 transition focus:outline-none pl-1">
+                        <i class="fa-solid fa-bars text-lg sm:text-xl"></i>
                     </button>
                 </div>
             </div>
@@ -235,19 +235,19 @@
                 <!-- Slider Container -->
                 <div class="absolute inset-0 z-0" id="hero-slider">
                     <!-- Slide 1 -->
-                    <div class="slide absolute inset-0 opacity-100 transition-opacity duration-1000 ease-in-out">
-                        <img id="pub-slide-1" src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1920&q=80" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-black/40"></div>
+                    <div class="slide absolute inset-0 opacity-100 transition-opacity duration-1000 ease-in-out bg-stone-950">
+                        <img id="pub-slide-1" src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1920&q=80" class="w-full h-full object-contain">
+                        <div class="absolute inset-0 bg-black/30 pointer-events-none"></div>
                     </div>
                     <!-- Slide 2 -->
-                    <div class="slide absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out">
-                        <img id="pub-slide-2" src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1920&q=80" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-black/40"></div>
+                    <div class="slide absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out bg-stone-950">
+                        <img id="pub-slide-2" src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1920&q=80" class="w-full h-full object-contain">
+                        <div class="absolute inset-0 bg-black/30 pointer-events-none"></div>
                     </div>
                     <!-- Slide 3 -->
-                    <div class="slide absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out">
-                        <img id="pub-slide-3" src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=1920&q=80" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-black/40"></div>
+                    <div class="slide absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out bg-stone-950">
+                        <img id="pub-slide-3" src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=1920&q=80" class="w-full h-full object-contain">
+                        <div class="absolute inset-0 bg-black/30 pointer-events-none"></div>
                     </div>
                 </div>
 
@@ -549,7 +549,7 @@
                     </div>
 
                     <!-- Gallery Dynamic Grid -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="public-gallery-grid">
+                    <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6" id="public-gallery-grid">
                         <!-- Loaded dynamically via JS -->
                     </div>
 
@@ -579,7 +579,7 @@
                     </div>
 
                     <!-- YouTube Grid -->
-                    <div id="pub-media-youtube-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div id="pub-media-youtube-grid" class="grid grid-cols-2 md:grid-cols-2 gap-4 md:gap-8">
                         <!-- Loaded dynamically via JS -->
                     </div>
                 </div>
@@ -1027,8 +1027,8 @@
                         <p class="text-stone-400 text-xs mt-4 font-light">Hear what our premium clients from Durg, Bhilai, Raipur and beyond say about our dedication, timing, and luxury album packaging.</p>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div class="bg-stone-900 border border-gold-500/10 p-8 rounded-sm relative">
+                    <div class="flex md:grid md:grid-cols-3 gap-6 md:gap-8 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory flex-nowrap md:flex-wrap no-scrollbar pb-6 md:pb-0" style="scrollbar-width: none; -ms-overflow-style: none;">
+                        <div class="bg-stone-900 border border-gold-500/10 p-8 rounded-sm relative min-w-[85vw] sm:min-w-[60vw] md:min-w-0 snap-center shrink-0">
                             <i class="fa-solid fa-quote-left text-gold-500/20 text-5xl absolute top-6 right-8"></i>
                             <div class="flex items-center gap-1 text-gold-400 text-xs mb-4">
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
@@ -1040,7 +1040,7 @@
                             </div>
                         </div>
 
-                        <div class="bg-stone-900 border border-gold-500/10 p-8 rounded-sm relative">
+                        <div class="bg-stone-900 border border-gold-500/10 p-8 rounded-sm relative min-w-[85vw] sm:min-w-[60vw] md:min-w-0 snap-center shrink-0">
                             <i class="fa-solid fa-quote-left text-gold-500/20 text-5xl absolute top-6 right-8"></i>
                             <div class="flex items-center gap-1 text-gold-400 text-xs mb-4">
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
@@ -1052,7 +1052,7 @@
                             </div>
                         </div>
 
-                        <div class="bg-stone-900 border border-gold-500/10 p-8 rounded-sm relative">
+                        <div class="bg-stone-900 border border-gold-500/10 p-8 rounded-sm relative min-w-[85vw] sm:min-w-[60vw] md:min-w-0 snap-center shrink-0">
                             <i class="fa-solid fa-quote-left text-gold-500/20 text-5xl absolute top-6 right-8"></i>
                             <div class="flex items-center gap-1 text-gold-400 text-xs mb-4">
                                 <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
@@ -1281,10 +1281,7 @@
         </div>
     </div>
 
-    <!-- Floating Call Button (Mobile Focus) -->
-    <a id="floating-call-btn" href="tel:9301614549" class="fixed bottom-6 right-6 z-50 w-12 h-12 bg-gradient-to-r from-gold-600 to-gold-400 text-stone-950 rounded-full flex items-center justify-center shadow-lg hover:shadow-gold-500/30 transition-all duration-300 active:scale-95 md:hidden hover:from-gold-500 hover:to-gold-300">
-        <i class="fa-solid fa-phone text-lg animate-bounce"></i>
-    </a>
+
 
     <!-- Custom Script Logic -->
     <script>
@@ -1308,6 +1305,23 @@
             return false;
         };
     </script>
+    <!-- Gallery Lightbox Modal -->
+    <div id="gallery-lightbox" class="fixed inset-0 bg-black/95 z-[999999] hidden flex-col items-center justify-center p-4 select-none cursor-pointer" onclick="window.closeLightbox()">
+        <button class="absolute top-6 right-6 text-white text-3xl hover:text-gold-400 transition cursor-pointer" onclick="window.closeLightbox()">&times;</button>
+        <img id="lightbox-img" src="" class="max-w-full max-h-[80vh] object-contain rounded-sm border border-gold-500/10 shadow-2xl">
+        <h4 id="lightbox-title" class="font-serif text-base text-white font-bold mt-4 text-center"></h4>
+        <p id="lightbox-desc" class="text-stone-400 text-xs mt-1 text-center font-light leading-relaxed max-w-md"></p>
+    </div>
+
+    <!-- Video Lightbox Modal -->
+    <div id="video-lightbox" class="fixed inset-0 bg-black/95 z-[999999] hidden flex-col items-center justify-center p-4 select-none cursor-pointer" onclick="window.closeVideoLightbox()">
+        <button class="absolute top-6 right-6 text-white text-3xl hover:text-gold-400 transition cursor-pointer" onclick="window.closeVideoLightbox()">&times;</button>
+        <div class="w-full max-w-3xl aspect-video relative rounded-sm border border-gold-500/15 overflow-hidden shadow-2xl bg-black" onclick="event.stopPropagation()">
+            <div id="video-lightbox-container" class="w-full h-full"></div>
+        </div>
+        <h4 id="video-lightbox-title" class="font-serif text-sm text-white font-bold mt-4 text-center"></h4>
+    </div>
+
     <script src="app.js?v=1.0.2"></script>
     <script>
         // Inline functions for quick FAQ/Menu actions

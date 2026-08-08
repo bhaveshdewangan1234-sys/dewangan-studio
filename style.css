@@ -3013,6 +3013,9 @@ input, button, select, textarea {
 }
 
 @media (max-width: 768px) {
+    .public-section {
+        padding: 32px 16px !important;
+    }
     .stats-grid {
         grid-template-columns: 1fr;
         gap: 16px;
@@ -3246,14 +3249,31 @@ header.border-b.border-gold-500\/10 #pub-brand-logo-text .text-brand-sub {
 #pub-brand-logo, #pub-footer-logo {
     height: 54px !important;
     max-height: 54px !important;
+    max-width: 140px !important;
     width: auto !important;
+    object-fit: contain !important;
 }
 
 @media (min-width: 768px) {
     #pub-brand-logo, #pub-footer-logo {
         height: 68px !important;
         max-height: 68px !important;
+        max-width: none !important;
     }
+}
+
+/* Utility to hide scrollbars */
+.no-scrollbar::-webkit-scrollbar {
+    display: none !important;
+}
+.no-scrollbar {
+    -ms-overflow-style: none !important;  /* IE and Edge */
+    scrollbar-width: none !important;  /* Firefox */
+}
+
+/* Accordion content default styles */
+.accordion-content {
+    transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out;
 }
 
 /* 2. Hero Slider Styles */

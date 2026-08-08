@@ -3101,7 +3101,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const card = document.createElement('div');
                     card.className = "bg-stone-950 border border-gold-500/10 rounded-sm overflow-hidden flex flex-col h-full shadow-lg transition duration-300 hover:border-gold-500/30 group";
                     card.innerHTML = `
-                        <div class="relative pb-[56.25%] h-0 overflow-hidden bg-black cursor-pointer group" onclick="window.playYouTubeVideo(this, '${videoId}')">
+                        <div class="relative pb-[56.25%] h-0 overflow-hidden bg-black cursor-pointer group" onclick="window.openVideoLightbox('${videoId}', \`${item.title.replace(/`/g, '\\`').replace(/\$/g, '\\$')}\`)">
                             <img src="https://img.youtube.com/vi/${videoId}/sddefault.jpg" class="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100" alt="${item.title}" loading="lazy">
                             <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
                                 <div class="w-14 h-14 rounded-full bg-red-600/90 text-white flex items-center justify-center shadow-lg transition-transform duration-300 group-hover:scale-110 group-hover:bg-red-600">
@@ -3214,7 +3214,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         appState.gallery.forEach(img => {
             const card = document.createElement('div');
-            card.className = "gallery-item-card relative overflow-hidden group rounded-sm border border-gold-500/10 hover:border-gold-500/30 transition-all duration-500";
+            card.className = "gallery-item-card relative overflow-hidden group rounded-sm border border-gold-500/10 hover:border-gold-500/30 transition-all duration-500 cursor-pointer";
             card.setAttribute('data-category', img.category);
             
             // Find category title for display label, e.g. "Wedding Shoot"
@@ -3222,13 +3222,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const categoryLabel = catObj ? catObj.title : img.category;
             
             card.innerHTML = `
-                <img src="${img.url}" alt="${img.title}" class="w-full h-72 object-cover group-hover:scale-110 transition duration-700 opacity-80 group-hover:opacity-100" loading="lazy">
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end p-6 z-10">
+                <img src="${img.url}" alt="${img.title}" class="w-full h-40 sm:h-56 md:h-72 object-cover group-hover:scale-110 transition duration-700 opacity-80 group-hover:opacity-100" loading="lazy">
+                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end p-4 md:p-6 z-10">
                     <span class="text-gold-400 text-[9px] uppercase tracking-widest font-bold">${categoryLabel}</span>
-                    <h4 class="font-serif text-lg text-white font-bold mt-1">${img.title}</h4>
-                    <p class="text-stone-300 text-xs mt-1 font-light leading-relaxed">${img.desc}</p>
+                    <h4 class="font-serif text-sm md:text-lg text-white font-bold mt-1">${img.title}</h4>
+                    <p class="text-stone-300 text-[10px] md:text-xs mt-1 font-light leading-relaxed line-clamp-2 md:line-clamp-none">${img.desc}</p>
                 </div>
             `;
+            card.addEventListener('click', () => {
+                window.openLightbox(img.url, img.title, img.desc);
+            });
             publicGalleryGrid.appendChild(card);
         });
 
@@ -5380,6 +5383,189 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             lastScrollTop = scrollTop;
         });
+    }
+    
+    const initOfferingsAccordions = () => {
+        const cards = document.querySelectorAll('#sec-packages .grid > div');
+        cards.forEach((card) => {
+            if (card.querySelector('.accordion-content')) return;
+            
+            const icon = card.querySelector('.w-14.h-14');
+            const title = card.querySelector('h3');
+            if (!title) return;
+            
+            // Create wrapper
+            const wrapper = document.createElement('div');
+            wrapper.className = 'accordion-content overflow-hidden opacity-0 w-full flex flex-col justify-between';
+            wrapper.style.maxHeight = '0px';
+            wrapper.style.transition = 'max-height 0.4s ease-in-out, opacity 0.4s ease-in-out';
+            
+            // Extract everything else
+            const children = Array.from(card.childNodes);
+            children.forEach(child => {
+                if (child !== icon && child !== title && !icon.contains(child) && !title.contains(child)) {
+                    wrapper.appendChild(child);
+                }
+            });
+            
+            // Clear card and re-assemble
+            card.innerHTML = '';
+            card.className = 'bg-stone-900 border border-gold-500/10 hover:border-gold-500/30 rounded-sm p-6 flex flex-col justify-start gap-1.5 shadow-xl transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-gold-500/5 group h-full';
+            
+            if (icon) card.appendChild(icon);
+            card.appendChild(title);
+            
+            // Create toggle button
+            const btn = document.createElement('button');
+            btn.className = 'view-details-btn mt-2 w-full py-2 bg-stone-950 border border-gold-500/10 hover:border-gold-500/30 text-gold-400 text-[10px] font-bold uppercase tracking-widest rounded-sm transition duration-300 flex items-center justify-center gap-1.5 cursor-pointer';
+            btn.innerHTML = `<span>View Details</span> <i class="fa-solid fa-chevron-down text-[8px] transition-transform duration-300"></i>`;
+            
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const isOpen = wrapper.style.maxHeight && wrapper.style.maxHeight !== '0px';
+                if (isOpen) {
+                    wrapper.style.maxHeight = '0px';
+                    wrapper.style.opacity = '0';
+                    btn.querySelector('i').style.transform = 'rotate(0deg)';
+                    btn.querySelector('span').textContent = 'View Details';
+                } else {
+                    wrapper.style.maxHeight = wrapper.scrollHeight + 'px';
+                    wrapper.style.opacity = '1';
+                    btn.querySelector('i').style.transform = 'rotate(180deg)';
+                    btn.querySelector('span').textContent = 'Hide Details';
+                }
+            });
+            
+            card.appendChild(btn);
+            card.appendChild(wrapper);
+        });
+    };
+
+    const initWhyChooseAccordions = () => {
+        const cards = document.querySelectorAll('#sec-why-choose .grid > div');
+        cards.forEach((card) => {
+            if (card.querySelector('.accordion-content')) return;
+            
+            const detailsDiv = card.querySelector('div:nth-child(2)');
+            if (!detailsDiv) return;
+            
+            const title = detailsDiv.querySelector('h3');
+            const desc = detailsDiv.querySelector('p');
+            if (!title || !desc) return;
+            
+            // Create wrapper
+            const wrapper = document.createElement('div');
+            wrapper.className = 'accordion-content overflow-hidden opacity-0 w-full';
+            wrapper.style.maxHeight = '0px';
+            wrapper.style.transition = 'max-height 0.4s ease-in-out, opacity 0.4s ease-in-out';
+            
+            // Move description into wrapper
+            wrapper.appendChild(desc);
+            
+            // Create toggle button
+            const btn = document.createElement('button');
+            btn.className = 'view-details-btn mt-2 py-1 px-3 bg-stone-950 border border-gold-500/10 hover:border-gold-500/30 text-gold-400 text-[9px] font-bold uppercase tracking-widest rounded-sm transition duration-300 flex items-center gap-1 cursor-pointer';
+            btn.innerHTML = `<span>View Details</span> <i class="fa-solid fa-chevron-down text-[7px] transition-transform duration-300"></i>`;
+            
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const isOpen = wrapper.style.maxHeight && wrapper.style.maxHeight !== '0px';
+                if (isOpen) {
+                    wrapper.style.maxHeight = '0px';
+                    wrapper.style.opacity = '0';
+                    btn.querySelector('i').style.transform = 'rotate(0deg)';
+                    btn.querySelector('span').textContent = 'View Details';
+                } else {
+                    wrapper.style.maxHeight = wrapper.scrollHeight + 'px';
+                    wrapper.style.opacity = '1';
+                    btn.querySelector('i').style.transform = 'rotate(180deg)';
+                    btn.querySelector('span').textContent = 'Hide Details';
+                }
+            });
+            
+            detailsDiv.appendChild(btn);
+            detailsDiv.appendChild(wrapper);
+        });
+    };
+
+    // Gallery and Video Lightbox Logic
+    window.openLightbox = (imgUrl, title, desc) => {
+        const lightbox = document.getElementById('gallery-lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxTitle = document.getElementById('lightbox-title');
+        const lightboxDesc = document.getElementById('lightbox-desc');
+        
+        if (lightbox && lightboxImg) {
+            lightboxImg.src = imgUrl;
+            if (lightboxTitle) lightboxTitle.textContent = title || '';
+            if (lightboxDesc) lightboxDesc.textContent = desc || '';
+            
+            lightbox.classList.remove('hidden');
+            lightbox.style.display = 'flex';
+            
+            const startScrollY = window.scrollY;
+            const onScrollClose = () => {
+                const diff = Math.abs(window.scrollY - startScrollY);
+                if (diff > 15) {
+                    window.closeLightbox();
+                    window.removeEventListener('scroll', onScrollClose);
+                }
+            };
+            window.addEventListener('scroll', onScrollClose);
+        }
+    };
+    
+    window.closeLightbox = () => {
+        const lightbox = document.getElementById('gallery-lightbox');
+        if (lightbox) {
+            lightbox.classList.add('hidden');
+            lightbox.style.display = 'none';
+        }
+    };
+
+    window.openVideoLightbox = (videoId, title) => {
+        const lightbox = document.getElementById('video-lightbox');
+        const container = document.getElementById('video-lightbox-container');
+        const titleEl = document.getElementById('video-lightbox-title');
+        
+        if (lightbox && container) {
+            container.innerHTML = `
+                <iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" class="w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            `;
+            if (titleEl) titleEl.textContent = title || '';
+            
+            lightbox.classList.remove('hidden');
+            lightbox.style.display = 'flex';
+            
+            const startScrollY = window.scrollY;
+            const onScrollCloseVideo = () => {
+                const diff = Math.abs(window.scrollY - startScrollY);
+                if (diff > 15) {
+                    window.closeVideoLightbox();
+                    window.removeEventListener('scroll', onScrollCloseVideo);
+                }
+            };
+            window.addEventListener('scroll', onScrollCloseVideo);
+        }
+    };
+    
+    window.closeVideoLightbox = () => {
+        const lightbox = document.getElementById('video-lightbox');
+        const container = document.getElementById('video-lightbox-container');
+        if (lightbox && container) {
+            container.innerHTML = ''; // Stop video playback
+            lightbox.classList.add('hidden');
+            lightbox.style.display = 'none';
+        }
+    };
+
+    if (!isAdminPage) {
+        initOfferingsAccordions();
+        initWhyChooseAccordions();
     }
     
     initApp();
