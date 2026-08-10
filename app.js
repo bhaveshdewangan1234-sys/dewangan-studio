@@ -1912,20 +1912,43 @@ document.addEventListener('DOMContentLoaded', () => {
             status: 'Pending'
         };
 
+        // Construct WhatsApp redirection URL with formatted details
+        const waDateStr = eventDate ? new Date(eventDate).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }) : 'N/A';
+        const waMsgText = `*New Booking Enquiry - Dewangan Photo & Videography*\n\n` +
+                          `👤 *Name:* ${name}\n` +
+                          `📞 *Mobile:* ${mobile}\n` +
+                          `📧 *Email:* ${email || 'N/A'}\n` +
+                          `🎬 *Event:* ${eventType}\n` +
+                          `📅 *Date:* ${waDateStr}\n` +
+                          `📍 *Location:* ${eventLocation || 'N/A'}\n` +
+                          `💬 *Message:* ${message || 'None'}\n\n` +
+                          `_Sent via website booking form._`;
+        const waUrl = `https://wa.me/919301614549?text=${encodeURIComponent(waMsgText)}`;
+
         if (appState.dbType === 'demo') {
             enquiryData.id = 'enq_' + Date.now();
             appState.enquiries.push(enquiryData);
             localStorage.setItem('demo_enquiries', JSON.stringify(appState.enquiries));
             
-            showToast("Your enquiry has been sent successfully!");
+            showToast("Saved! Opening WhatsApp to send details...");
             publicEnquiryForm.reset();
             renderEnquiriesList();
             renderDashboard();
+            
+            // Redirect after toast
+            setTimeout(() => {
+                window.open(waUrl, '_blank');
+            }, 1200);
         } else {
             fbStore.collection('enquiries').add(enquiryData)
                 .then(() => {
-                    showToast("Your enquiry has been sent successfully!");
+                    showToast("Saved! Opening WhatsApp to send details...");
                     publicEnquiryForm.reset();
+                    
+                    // Redirect after toast
+                    setTimeout(() => {
+                        window.open(waUrl, '_blank');
+                    }, 1200);
                 })
                 .catch(err => {
                     showToast("Failed to send enquiry: " + err.message, "error");
@@ -3595,6 +3618,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // =========================================================================
     
     const renderEnquiriesList = () => {
+        if (!enquiriesListTbody) return;
         enquiriesListTbody.innerHTML = '';
 
         const pendingEnqs = appState.enquiries.filter(e => e.status === 'Pending');
