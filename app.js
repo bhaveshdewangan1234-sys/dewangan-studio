@@ -751,7 +751,18 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetSec = document.getElementById(`sec-${secId}`);
             if (targetSec) {
                 setTimeout(() => {
-                    targetSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    if (secId === 'contact') {
+                        const form = document.getElementById('public-enquiry-form');
+                        if (form) {
+                            form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            const nameInput = document.getElementById('enq-name');
+                            if (nameInput) nameInput.focus();
+                        } else {
+                            targetSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    } else {
+                        targetSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
                 }, 50);
             }
         } else {
@@ -3470,7 +3481,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         appState.blog.forEach(article => {
             const card = document.createElement('article');
-            card.className = "bg-stone-900 border border-gold-500/10 rounded-sm overflow-hidden hover:border-gold-500/30 transition duration-300 flex flex-col group";
+            card.className = "bg-stone-900 border border-gold-500/10 rounded-sm overflow-hidden hover:border-gold-500/30 transition duration-300 flex flex-col group w-full md:w-auto min-w-full md:min-w-0 snap-center shrink-0";
             card.innerHTML = `
                 <div class="relative overflow-hidden h-48">
                     <img src="${article.cover}" alt="${article.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy">
@@ -3521,7 +3532,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <h3 class="font-serif text-lg font-bold text-white mt-6">${srv.name}</h3>
                 <p class="text-stone-400 text-xs mt-3 leading-relaxed font-light">Custom luxury shoot styled with premium layout sets and high-fidelity captures.</p>
                 <div class="text-gold-400 text-sm font-bold tracking-widest mt-6 font-sans">Starting from ₹${srv.basePrice.toLocaleString('en-IN')}</div>
-                <a href="#contact" class="mt-6 px-5 py-2.5 bg-stone-950 hover:bg-stone-800 border border-gold-500/20 text-gold-400 text-[10px] font-bold uppercase tracking-widest rounded-sm transition duration-300" onclick="document.getElementById('sec-contact').scrollIntoView({behavior:'smooth'})">Enquire Shoot</a>
+                <a href="#contact" class="mt-6 px-5 py-2.5 bg-stone-950 hover:bg-stone-800 border border-gold-500/20 text-gold-400 text-[10px] font-bold uppercase tracking-widest rounded-sm transition duration-300" onclick="document.getElementById('public-enquiry-form').scrollIntoView({behavior:'smooth', block:'center'}); const inp = document.getElementById('enq-name'); if(inp) inp.focus(); return false;">Enquire Shoot</a>
             `;
             publicServicesGrid.appendChild(card);
         });
