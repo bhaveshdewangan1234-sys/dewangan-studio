@@ -5445,7 +5445,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Clear card and re-assemble
             card.innerHTML = '';
-            card.className = 'bg-stone-900 border border-gold-500/10 hover:border-gold-500/30 rounded-sm p-6 flex flex-col justify-start gap-1.5 shadow-xl transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-gold-500/5 group h-full';
+            card.className = 'bg-stone-900 border border-gold-500/10 hover:border-gold-500/30 rounded-sm p-6 flex flex-col justify-start gap-1.5 shadow-xl transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-gold-500/5 group h-full w-full md:w-auto min-w-full md:min-w-0 snap-center shrink-0';
             
             if (icon) card.appendChild(icon);
             card.appendChild(title);
