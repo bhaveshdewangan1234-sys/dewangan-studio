@@ -3351,3 +3351,38 @@ header.border-b.border-gold-500\/10 #pub-brand-logo-text .text-brand-sub {
     background-color: #e2e8f0 !important;
     color: #0f172a !important;
 }
+
+/* Responsive adjustments for 2-column mobile packages grid */
+@media (max-width: 768px) {
+    #sec-packages .grid > div {
+        padding: 16px !important;
+    }
+    #sec-packages h3 {
+        font-size: 13px !important;
+        line-height: 1.3 !important;
+        margin-bottom: 4px !important;
+    }
+    #sec-packages .w-14.h-14 {
+        width: 36px !important;
+        height: 36px !important;
+        margin-bottom: 12px !important;
+    }
+    #sec-packages .w-14.h-14 i {
+        font-size: 16px !important;
+    }
+    #sec-packages p {
+        font-size: 10px !important;
+        line-height: 1.4 !important;
+        margin-bottom: 12px !important;
+    }
+    #sec-packages .view-details-btn {
+        margin-top: 8px !important;
+        padding: 6px 8px !important;
+        font-size: 8px !important;
+    }
+    
+    #sec-why-choose h3 {
+        font-size: 13px !important;
+        line-height: 1.3 !important;
+    }
+}
