@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
             invoiceTerms: "1. 50% advance payment required at the time of booking.\n2. Remaining balance must be paid immediately on shoot completion.\n3. Raw images will be shared within 48 hours; edited photos will take 15-30 days.\n4. Delivery timelines are subject to change based on modifications.",
             upiId: "9301614549@ybl",
             payeeName: "Dewangan Photo & Videography",
-            adminPassword: "admin123",
+            adminPassword: "DPV@9301614549Kumar",
             logoUrl: "",
             alternateEmail: "bhaveshdewangan1234@gmail.com",
             alternatePhone: "9301614549",
