@@ -3442,3 +3442,36 @@ header.border-b.border-gold-500\/10 #pub-brand-logo-text .text-brand-sub {
         pointer-events: none;
     }
 }
+
+/* Mobile Swipe Indicator Arrows */
+.mobile-swipe-arrow {
+    display: none !important;
+}
+
+@media (max-width: 768px) {
+    .mobile-swipe-arrow {
+        display: flex !important;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background-color: rgba(0, 0, 0, 0.8) !important;
+        border: 1px solid rgba(212, 175, 55, 0.4) !important;
+        color: #d4af37 !important;
+        align-items: center;
+        justify-content: center;
+        z-index: 50 !important;
+        pointer-events: none;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+    
+    .mobile-swipe-arrow.arrow-left {
+        left: 8px !important;
+    }
+    
+    .mobile-swipe-arrow.arrow-right {
+        right: 8px !important;
+    }
+}
