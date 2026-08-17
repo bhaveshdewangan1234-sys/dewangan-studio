@@ -5542,7 +5542,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     const initOfferingsAccordions = () => {
-        const cards = document.querySelectorAll('#sec-packages .grid > div');
+        const cards = document.querySelectorAll('#pub-packages-container > div');
         cards.forEach((card) => {
             if (card.querySelector('.accordion-content')) return;
             
