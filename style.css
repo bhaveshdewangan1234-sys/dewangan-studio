@@ -3389,6 +3389,24 @@ header.border-b.border-gold-500\/10 #pub-brand-logo-text .text-brand-sub {
     #sec-testimonials {
         padding-bottom: 0px !important;
     }
+
+    /* Compress excessive blank spaces on mobile */
+    .public-section {
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+    }
+    #sec-why-choose {
+        padding-top: 2.5rem !important;
+        padding-bottom: 2rem !important;
+    }
+    #sec-testimonials {
+        padding-top: 2.5rem !important;
+        padding-bottom: 2rem !important;
+    }
+    #sec-blog {
+        padding-top: 2.5rem !important;
+        padding-bottom: 2rem !important;
+    }
 }
 
 /* Universal Video Player Aspect Ratio Helpers */
