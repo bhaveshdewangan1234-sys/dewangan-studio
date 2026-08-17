@@ -3390,3 +3390,14 @@ header.border-b.border-gold-500\/10 #pub-brand-logo-text .text-brand-sub {
         padding-bottom: 0px !important;
     }
 }
+
+/* Universal Video Player Aspect Ratio Helpers */
+.aspect-video {
+    aspect-ratio: 16 / 9 !important;
+}
+.aspect-vertical {
+    aspect-ratio: 9 / 16 !important;
+}
+.aspect-square {
+    aspect-ratio: 1 / 1 !important;
+}

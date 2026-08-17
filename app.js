@@ -2895,6 +2895,39 @@ document.addEventListener('DOMContentLoaded', () => {
     const mediaEnabledCheckbox = document.getElementById('media-enabled');
     const mediaIdHidden = document.getElementById('media-id-hidden');
     const mediaModalTitle = document.getElementById('media-modal-title');
+    const mediaThumbnailInput = document.getElementById('media-thumbnail');
+    const mediaDescriptionInput = document.getElementById('media-description');
+    const mediaOrientationSelect = document.getElementById('media-orientation');
+
+    // Helper: Detect video platform automatically from URL
+    const detectVideoSource = (url) => {
+        if (!url) return '';
+        const lower = url.toLowerCase();
+        if (lower.includes('youtube.com') || lower.includes('youtu.be')) {
+            return 'youtube';
+        } else if (lower.includes('drive.google.com')) {
+            return 'googledrive';
+        } else if (lower.includes('instagram.com')) {
+            return 'instagram';
+        }
+        return '';
+    };
+
+    // Helper: Extract Google Drive File ID
+    const getGoogleDriveFileId = (url) => {
+        if (!url) return '';
+        const regExp = /\/file\/d\/([a-zA-Z0-9_-]+)/;
+        const match = url.match(regExp);
+        if (match) return match[1];
+        const idParam = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+        if (idParam) return idParam[1];
+        return '';
+    };
+
+    const getGoogleDriveEmbedUrl = (url) => {
+        const fileId = getGoogleDriveFileId(url);
+        return fileId ? `https://drive.google.com/file/d/${fileId}/preview` : '';
+    };
 
     // Helper: Parse YouTube direct links into embed urls
     const getYouTubeEmbedUrl = (url) => {
@@ -2929,6 +2962,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (mediaModalTitle) mediaModalTitle.textContent = "Add Video / Reel Link";
             if (adminMediaForm) adminMediaForm.reset();
             if (mediaIdHidden) mediaIdHidden.value = '';
+            if (mediaThumbnailInput) mediaThumbnailInput.value = '';
+            if (mediaDescriptionInput) mediaDescriptionInput.value = '';
+            if (mediaOrientationSelect) mediaOrientationSelect.value = 'auto';
             if (adminMediaModal) adminMediaModal.classList.remove('hidden');
         });
     }
@@ -2944,11 +2980,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (adminMediaForm) adminMediaForm.addEventListener('submit', (e) => {
             e.preventDefault();
 
-            const platform = mediaPlatformSelect.value;
             const title = mediaTitleInput.value.trim();
             const rawUrl = mediaUrlInput.value.trim();
             const enabled = mediaEnabledCheckbox.checked;
             const id = mediaIdHidden.value;
+
+            // Auto-detect type
+            const platform = detectVideoSource(rawUrl);
+            if (!platform) {
+                showToast("Invalid URL. Only YouTube, Google Drive, or Instagram links are supported.", "error");
+                return;
+            }
 
             // Generate embeds
             let embedUrl = '';
@@ -2956,6 +2998,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 embedUrl = getYouTubeEmbedUrl(rawUrl);
                 if (!embedUrl) {
                     showToast("Invalid YouTube URL. Please copy a correct YouTube video link.", "error");
+                    return;
+                }
+            } else if (platform === 'googledrive') {
+                embedUrl = getGoogleDriveEmbedUrl(rawUrl);
+                if (!embedUrl) {
+                    showToast("Invalid Google Drive URL. Make sure it contains a file ID.", "error");
                     return;
                 }
             } else {
@@ -2966,12 +3014,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
+            const thumbnailUrl = mediaThumbnailInput.value.trim();
+            const description = mediaDescriptionInput.value.trim();
+            const orientation = mediaOrientationSelect.value;
+
             const mediaData = {
                 id: id || 'med_' + Date.now(),
                 type: platform,
                 title: title,
                 url: rawUrl,
                 embedUrl: embedUrl,
+                thumbnailUrl: thumbnailUrl,
+                description: description,
+                orientation: orientation,
                 enabled: enabled,
                 createdAt: id ? (appState.mediaItems.find(m => m.id === id)?.createdAt || formatToday()) : formatToday()
             };
@@ -2989,7 +3044,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 refreshAllUI();
             } else {
                 // Cloud DB sync
-                fbStore.collection('media_items').doc(mediaData.id).set(mediaData)
+                fbStore.collection('mediaItems').doc(mediaData.id).set(mediaData)
                     .then(() => {
                         showToast("Media link synced to cloud!");
                         closeMediaModal();
@@ -3021,10 +3076,23 @@ document.addEventListener('DOMContentLoaded', () => {
             const statusClass = item.enabled ? 'converted' : 'cancelled';
             const statusLabel = item.enabled ? 'Published' : 'Hidden';
 
+            let badgeBg = 'rgba(236, 72, 153, 0.1)';
+            let badgeColor = '#ec4899';
+            let badgeBorder = 'rgba(236, 72, 153, 0.2)';
+            if (item.type === 'youtube') {
+                badgeBg = 'rgba(239, 68, 68, 0.1)';
+                badgeColor = '#ef4444';
+                badgeBorder = 'rgba(239, 68, 68, 0.2)';
+            } else if (item.type === 'googledrive') {
+                badgeBg = 'rgba(16, 185, 129, 0.1)';
+                badgeColor = '#10b981';
+                badgeBorder = 'rgba(16, 185, 129, 0.2)';
+            }
+
             tr.innerHTML = `
                 <td>
-                    <span class="status-pill ${item.type === 'youtube' ? 'youtube' : 'instagram'}" style="background:${item.type === 'youtube' ? 'rgba(239, 68, 68, 0.1)' : 'rgba(236, 72, 153, 0.1)'}; color:${item.type === 'youtube' ? '#ef4444' : '#ec4899'}; border:1px solid ${item.type === 'youtube' ? 'rgba(239, 68, 68, 0.2)' : 'rgba(236, 72, 153, 0.2)'}; text-transform:uppercase; font-size:10px; font-weight:700; padding:3px 8px; border-radius:3px;">
-                        ${item.type}
+                    <span class="status-pill" style="background:${badgeBg}; color:${badgeColor}; border:1px solid ${badgeBorder}; text-transform:uppercase; font-size:10px; font-weight:700; padding:3px 8px; border-radius:3px;">
+                        ${item.type === 'googledrive' ? 'Google Drive' : item.type}
                     </span>
                 </td>
                 <td><strong>${item.title}</strong></td>
@@ -3054,6 +3122,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (mediaPlatformSelect) mediaPlatformSelect.value = item.type;
         if (mediaTitleInput) mediaTitleInput.value = item.title;
         if (mediaUrlInput) mediaUrlInput.value = item.url;
+        if (mediaThumbnailInput) mediaThumbnailInput.value = item.thumbnailUrl || '';
+        if (mediaDescriptionInput) mediaDescriptionInput.value = item.description || '';
+        if (mediaOrientationSelect) mediaOrientationSelect.value = item.orientation || 'auto';
         if (mediaEnabledCheckbox) mediaEnabledCheckbox.checked = item.enabled;
 
         if (adminMediaModal) adminMediaModal.classList.remove('hidden');
@@ -3069,7 +3140,7 @@ document.addEventListener('DOMContentLoaded', () => {
             showToast("Media link deleted.");
             refreshAllUI();
         } else {
-            fbStore.collection('media_items').doc(id).delete()
+            fbStore.collection('mediaItems').doc(id).delete()
                 .then(() => {
                     showToast("Media link deleted from Cloud.");
                     refreshAllUI();
@@ -3128,24 +3199,50 @@ document.addEventListener('DOMContentLoaded', () => {
         let igCount = 0;
 
         activeItems.forEach(item => {
-            if (item.type === 'youtube') {
+            if (item.type === 'youtube' || item.type === 'googledrive') {
                 ytCount++;
                 if (ytGrid) {
-                    const videoId = getYouTubeVideoId(item.url);
                     const card = document.createElement('div');
                     card.className = "bg-stone-950 border border-gold-500/10 rounded-sm overflow-hidden flex flex-col h-full shadow-lg transition duration-300 hover:border-gold-500/30 group";
+                    
+                    let thumbnailSrc = '';
+                    if (item.type === 'youtube') {
+                        const videoId = getYouTubeVideoId(item.url);
+                        thumbnailSrc = item.thumbnailUrl || `https://img.youtube.com/vi/${videoId}/sddefault.jpg`;
+                    } else {
+                        thumbnailSrc = item.thumbnailUrl || 'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=800&q=80';
+                    }
+
+                    // Determine aspect ratio class name and width/height guidelines for card preview
+                    let cardAspect = 'pb-[56.25%]'; // default 16:9
+                    if (item.orientation === 'vertical' || (item.orientation === 'auto' && item.url.includes('/shorts/'))) {
+                        cardAspect = 'pb-[177.77%]'; // 9:16 vertical
+                    } else if (item.orientation === 'square') {
+                        cardAspect = 'pb-[100%]'; // 1:1 square
+                    }
+
+                    const descHtml = item.description ? `<p class="text-stone-400 text-xs font-light mt-2 line-clamp-2 leading-relaxed">${item.description}</p>` : '';
+                    const badgeText = item.type === 'youtube' ? 'YouTube' : 'Google Drive';
+                    const badgeIcon = item.type === 'youtube' ? 'fa-brands fa-youtube' : 'fa-solid fa-hard-drive';
+                    const badgeColor = item.type === 'youtube' ? 'text-red-500' : 'text-green-500';
+
                     card.innerHTML = `
-                        <div class="relative pb-[56.25%] h-0 overflow-hidden bg-black cursor-pointer group" onclick="window.openVideoLightbox('${videoId}', \`${item.title.replace(/`/g, '\\`').replace(/\$/g, '\\$')}\`)">
-                            <img src="https://img.youtube.com/vi/${videoId}/sddefault.jpg" class="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100" alt="${item.title}" loading="lazy">
+                        <div class="relative ${cardAspect} h-0 overflow-hidden bg-black cursor-pointer group" onclick="window.openVideoLightbox('${item.id}')">
+                            <img src="${thumbnailSrc}" class="absolute top-0 left-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100" alt="${item.title}" loading="lazy">
                             <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
                                 <div class="w-14 h-14 rounded-full bg-red-600/90 text-white flex items-center justify-center shadow-lg transition-transform duration-300 group-hover:scale-110 group-hover:bg-red-600">
                                     <i class="fa-solid fa-play text-xl ml-0.5"></i>
                                 </div>
                             </div>
                         </div>
-                        <div class="p-5 flex-grow">
-                            <h4 class="font-serif text-sm font-bold text-white mb-2 line-clamp-2">${item.title}</h4>
-                            <span class="text-[9px] uppercase tracking-widest text-red-500 font-bold flex items-center gap-1"><i class="fa-brands fa-youtube"></i> Streaming YouTube</span>
+                        <div class="p-5 flex-grow flex flex-col justify-between">
+                            <div>
+                                <h4 class="font-serif text-sm font-bold text-white mb-1 line-clamp-2">${item.title}</h4>
+                                ${descHtml}
+                            </div>
+                            <span class="text-[9px] uppercase tracking-widest ${badgeColor} font-bold flex items-center gap-1 mt-4">
+                                <i class="${badgeIcon}"></i> Streaming ${badgeText}
+                            </span>
                         </div>
                     `;
                     ytGrid.appendChild(card);
@@ -3177,7 +3274,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Safe fallback descriptions
         if (ytCount === 0 && ytGrid) {
-            ytGrid.innerHTML = `<p class="text-stone-500 text-center py-10 col-span-2 text-xs">No YouTube showcase videos uploaded yet.</p>`;
+            ytGrid.innerHTML = `<p class="text-stone-500 text-center py-10 col-span-2 text-xs">No YouTube or Google Drive showcase videos uploaded yet.</p>`;
         }
         if (igCount === 0 && igGrid) {
             igGrid.innerHTML = `<p class="text-stone-500 text-center py-10 col-span-3 text-xs">No Instagram reels or posts linked yet.</p>`;
@@ -5562,15 +5659,60 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    window.openVideoLightbox = (videoId, title) => {
+    window.openVideoLightbox = (itemId, titleFallback) => {
         const lightbox = document.getElementById('video-lightbox');
         const container = document.getElementById('video-lightbox-container');
         const titleEl = document.getElementById('video-lightbox-title');
+        const wrapper = document.getElementById('video-lightbox-wrapper');
         
         if (lightbox && container) {
-            container.innerHTML = `
-                <iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" class="w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            `;
+            let item = appState.mediaItems.find(m => m.id === itemId);
+            let embedUrl = '';
+            let title = '';
+            let orientation = 'auto';
+            let type = 'youtube';
+            
+            if (item) {
+                embedUrl = item.embedUrl;
+                title = item.title;
+                orientation = item.orientation || 'auto';
+                type = item.type;
+                if (type === 'youtube' && !embedUrl) {
+                    embedUrl = getYouTubeEmbedUrl(item.url);
+                } else if (type === 'googledrive' && !embedUrl) {
+                    embedUrl = getGoogleDriveEmbedUrl(item.url);
+                }
+            } else {
+                // Fallback to legacy behavior where itemId is the YouTube videoId
+                embedUrl = `https://www.youtube.com/embed/${itemId}`;
+                title = titleFallback || '';
+                orientation = 'auto';
+                type = 'youtube';
+            }
+
+            // Determine aspect ratio class name and width/height guidelines
+            let aspectClass = 'w-full max-w-3xl aspect-video';
+            if (orientation === 'vertical' || (orientation === 'auto' && embedUrl.includes('/shorts/'))) {
+                aspectClass = 'h-[80vh] max-h-[80vh] aspect-vertical max-w-[90vw]';
+            } else if (orientation === 'square') {
+                aspectClass = 'w-full max-w-xl aspect-square';
+            }
+
+            if (wrapper) {
+                // Apply dynamic class set
+                wrapper.className = `relative rounded-sm border border-gold-500/15 overflow-hidden shadow-2xl bg-black ${aspectClass}`;
+            }
+
+            if (type === 'youtube') {
+                container.innerHTML = `
+                    <iframe src="${embedUrl}?autoplay=1&rel=0" class="w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                `;
+            } else if (type === 'googledrive') {
+                container.innerHTML = `
+                    <iframe src="${embedUrl}" class="w-full h-full border-0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                `;
+            }
+
             if (titleEl) titleEl.textContent = title || '';
             
             lightbox.classList.remove('hidden');

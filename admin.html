@@ -44,7 +44,7 @@
     </script>
     
     <!-- Custom Style Sheet -->
-    <link rel="stylesheet" href="style.css?v=1.0.7">
+    <link rel="stylesheet" href="style.css?v=1.0.9">
     
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -1336,12 +1336,13 @@
                 <h3 id="media-modal-title">Add Video / Reel Link</h3>
                 <button class="modal-close-btn" id="close-media-modal-btn"><i class="fa-solid fa-xmark"></i></button>
             </header>
-            <form id="admin-media-form">
+             <form id="admin-media-form">
                 <input type="hidden" id="media-id-hidden">
-                <div class="input-group">
+                <div class="input-group" style="display: none;">
                     <label for="media-platform">Platform / Type <span class="text-red">*</span></label>
-                    <select id="media-platform" required style="width: 100%; border: 1px solid #ccc; border-radius: 4px; padding: 10px; font-size: 14px; background:#fff; font-weight:600;">
+                    <select id="media-platform" style="width: 100%; border: 1px solid #ccc; border-radius: 4px; padding: 10px; font-size: 14px; background:#fff; font-weight:600;">
                         <option value="youtube">YouTube Video</option>
+                        <option value="googledrive">Google Drive Video</option>
                         <option value="instagram">Instagram Post / Reel</option>
                     </select>
                 </div>
@@ -1351,8 +1352,26 @@
                 </div>
                 <div class="input-group">
                     <label for="media-url">Shareable Link / URL <span class="text-red">*</span></label>
-                    <input type="url" id="media-url" required placeholder="e.g. https://www.youtube.com/watch?v=... or https://www.instagram.com/reel/..." style="width: 100%; border: 1px solid #ccc; border-radius: 4px; padding: 10px; font-size: 14px;">
-                    <p class="text-stone-400" style="font-size:10px; margin-top:5px; line-height: 1.4; color: #777;">Paste standard YouTube video/shorts URLs or Instagram post/reel URLs directly. The system automatically converts them to high-speed embed frames.</p>
+                    <input type="url" id="media-url" required placeholder="e.g. https://www.youtube.com/watch?v=... or https://drive.google.com/..." style="width: 100%; border: 1px solid #ccc; border-radius: 4px; padding: 10px; font-size: 14px;">
+                    <p class="text-stone-400" style="font-size:10px; margin-top:5px; line-height: 1.4; color: #777;">Paste standard YouTube video/shorts links, Instagram reels, or Google Drive share/preview links. The system automatically detects and configures the correct streaming player.</p>
+                </div>
+                <div class="input-group">
+                    <label for="media-thumbnail">Custom Thumbnail URL (Optional)</label>
+                    <input type="url" id="media-thumbnail" placeholder="e.g. https://domain.com/my-thumbnail.jpg" style="width: 100%; border: 1px solid #ccc; border-radius: 4px; padding: 10px; font-size: 14px;">
+                    <p class="text-stone-400" style="font-size:10px; margin-top:5px; line-height: 1.4; color: #777;">Optional. For YouTube, standard thumbnails load automatically. Highly recommended for Google Drive links.</p>
+                </div>
+                <div class="input-group">
+                    <label for="media-description">Description / Excerpt (Optional)</label>
+                    <textarea id="media-description" placeholder="Brief description of this showcase video..." rows="2" style="width: 100%; border: 1px solid #ccc; border-radius: 4px; padding: 10px; font-size: 14px; resize: vertical;"></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="media-orientation">Video Orientation / Aspect Ratio</label>
+                    <select id="media-orientation" style="width: 100%; border: 1px solid #ccc; border-radius: 4px; padding: 10px; font-size: 14px; background:#fff; font-weight:600;">
+                        <option value="auto">Auto-Detect (Shorts/Reels -> Vertical, standard -> Horizontal)</option>
+                        <option value="horizontal">Horizontal (16:9)</option>
+                        <option value="vertical">Vertical (9:16)</option>
+                        <option value="square">Square (1:1)</option>
+                    </select>
                 </div>
                 <div class="input-group-row" style="margin-top:15px; display:flex; align-items:center; gap:8px;">
                     <input type="checkbox" id="media-enabled" checked style="width:16px; height:16px; accent-color:var(--gold-color);">
@@ -1661,6 +1680,6 @@
             return false;
         };
     </script>
-    <script src="app.js?v=1.0.8"></script>
+    <script src="app.js?v=1.0.9"></script>
 </body>
 </html>
