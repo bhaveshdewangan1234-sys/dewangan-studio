@@ -2969,6 +2969,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Auto-detect platform/type on URL input
+    if (mediaUrlInput && mediaPlatformSelect) {
+        mediaUrlInput.addEventListener('input', () => {
+            const detected = detectVideoSource(mediaUrlInput.value.trim());
+            if (detected) {
+                mediaPlatformSelect.value = detected;
+            }
+        });
+    }
+
     const closeMediaModal = () => {
         if (adminMediaModal) adminMediaModal.classList.add('hidden');
     };
@@ -2985,8 +2995,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const enabled = mediaEnabledCheckbox.checked;
             const id = mediaIdHidden.value;
 
-            // Auto-detect type
-            const platform = detectVideoSource(rawUrl);
+            // Auto-detect type or fallback to selected value
+            let platform = detectVideoSource(rawUrl);
+            if (!platform && mediaPlatformSelect) {
+                platform = mediaPlatformSelect.value;
+            }
             if (!platform) {
                 showToast("Invalid URL. Only YouTube, Google Drive, or Instagram links are supported.", "error");
                 return;

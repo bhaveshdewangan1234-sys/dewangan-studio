@@ -57,7 +57,7 @@
     </script>
     
     <!-- Custom Style Sheet -->
-    <link rel="stylesheet" href="style.css?v=1.0.9">
+    <link rel="stylesheet" href="style.css?v=1.1.0">
     
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -578,8 +578,23 @@
                         <p class="text-stone-400 text-xs mt-4 font-light">Explore our premium cinematic wedding stories, couple reels, and highlights streaming directly from YouTube.</p>
                     </div>
 
+                    <!-- Media Tabs -->
+                    <div class="flex justify-center gap-6 mb-10 border-b border-gold-500/10 pb-4">
+                        <button id="pub-media-tab-youtube" onclick="window.switchPublicMediaTab('youtube')" class="font-serif text-xs font-bold uppercase tracking-wider pb-2 border-b-2 border-gold-400 text-white hover:text-white transition duration-300">
+                            Cinema Films & Highlights
+                        </button>
+                        <button id="pub-media-tab-instagram" onclick="window.switchPublicMediaTab('instagram')" class="font-serif text-xs font-bold uppercase tracking-wider pb-2 border-b-2 border-transparent text-stone-400 hover:text-white transition duration-300">
+                            Social Reels
+                        </button>
+                    </div>
+
                     <!-- YouTube Grid -->
                     <div id="pub-media-youtube-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Loaded dynamically via JS -->
+                    </div>
+
+                    <!-- Instagram Grid -->
+                    <div id="pub-media-instagram-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 hidden">
                         <!-- Loaded dynamically via JS -->
                     </div>
                 </div>
@@ -1322,7 +1337,7 @@
         <h4 id="video-lightbox-title" class="font-serif text-sm text-white font-bold mt-4 text-center"></h4>
     </div>
 
-    <script src="app.js?v=1.0.9"></script>
+    <script src="app.js?v=1.1.0"></script>
     <script>
         // Inline functions for quick FAQ/Menu actions
         function toggleFaq(btn) {
