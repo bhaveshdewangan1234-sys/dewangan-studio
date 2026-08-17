@@ -3401,3 +3401,23 @@ header.border-b.border-gold-500\/10 #pub-brand-logo-text .text-brand-sub {
 .aspect-square {
     aspect-ratio: 1 / 1 !important;
 }
+
+/* About Description Clamp on Mobile */
+@media (max-width: 1024px) {
+    #pub-about-desc-container.collapsed {
+        max-height: 140px;
+        overflow: hidden;
+        position: relative;
+        transition: max-height 0.3s ease-out;
+    }
+    #pub-about-desc-container.collapsed::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 60px;
+        background: linear-gradient(transparent, #1c1917);
+        pointer-events: none;
+    }
+}

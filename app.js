@@ -893,6 +893,17 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
+        // About Us "Read More" Toggle
+        const aboutDescContainer = document.getElementById('pub-about-desc-container');
+        const aboutReadMoreBtn = document.getElementById('about-read-more-btn');
+        if (aboutReadMoreBtn && aboutDescContainer) {
+            aboutReadMoreBtn.addEventListener('click', () => {
+                const isCollapsed = aboutDescContainer.classList.toggle('collapsed');
+                aboutReadMoreBtn.querySelector('span').textContent = isCollapsed ? 'Read More' : 'Read Less';
+                aboutReadMoreBtn.querySelector('i').className = isCollapsed ? 'fa-solid fa-chevron-down ml-1 text-[10px]' : 'fa-solid fa-chevron-up ml-1 text-[10px]';
+            });
+        }
+
         // Initial public media grid rendering
         renderPublicMedia();
     };
