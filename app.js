@@ -3641,7 +3641,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         activeServices.forEach(srv => {
             const card = document.createElement('div');
-            card.className = "bg-stone-900/60 border border-gold-500/10 p-8 rounded-sm hover:border-gold-500/30 hover:-translate-y-1 transition duration-300 relative group flex flex-col items-center text-center shadow-lg";
+            card.className = "bg-stone-900/60 border border-gold-500/10 p-8 rounded-sm hover:border-gold-500/30 hover:-translate-y-1 transition duration-300 relative group flex flex-col items-center text-center shadow-lg w-full md:w-auto min-w-full md:min-w-0 snap-center shrink-0";
             
             // Map icon or custom icon
             const cleanIcon = srv.icon ? (srv.icon.startsWith('fa-') ? srv.icon : 'fa-' + srv.icon) : 'fa-camera';
@@ -5765,8 +5765,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     if (!isAdminPage) {
-        initOfferingsAccordions();
-        initWhyChooseAccordions();
+        // Show package and why choose us details fully visible on horizontal swipe card layouts without collapsible buttons
+        // initOfferingsAccordions();
+        // initWhyChooseAccordions();
     }
     
     initApp();
