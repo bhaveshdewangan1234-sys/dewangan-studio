@@ -57,7 +57,7 @@
     </script>
     
     <!-- Custom Style Sheet -->
-    <link rel="stylesheet" href="style.css?v=1.1.6">
+    <link rel="stylesheet" href="style.css?v=1.1.7">
     
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -592,13 +592,31 @@
                     </div>
 
                     <!-- YouTube Grid -->
-                    <div id="pub-media-youtube-grid" class="flex md:grid md:grid-cols-2 gap-6 md:gap-8 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory flex-nowrap md:flex-wrap no-scrollbar pb-6 md:pb-0" style="scrollbar-width: none; -ms-overflow-style: none;">
-                        <!-- Loaded dynamically via JS -->
+                    <div class="relative">
+                        <div id="pub-media-youtube-grid" class="flex md:grid md:grid-cols-2 gap-6 md:gap-8 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory flex-nowrap md:flex-wrap no-scrollbar pb-6 md:pb-0" style="scrollbar-width: none; -ms-overflow-style: none;">
+                            <!-- Loaded dynamically via JS -->
+                        </div>
+                        <!-- Mobile Swipe Indicator Arrows -->
+                        <div class="absolute left-1 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/75 border border-gold-500/30 flex md:hidden items-center justify-center text-xs text-gold-450 pointer-events-none shadow-lg animate-pulse z-20">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </div>
+                        <div class="absolute right-1 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/75 border border-gold-500/30 flex md:hidden items-center justify-center text-xs text-gold-450 pointer-events-none shadow-lg animate-pulse z-20">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </div>
                     </div>
 
                     <!-- Instagram Grid -->
-                    <div id="pub-media-instagram-grid" class="flex sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-6 overflow-x-auto sm:overflow-x-visible snap-x snap-mandatory flex-nowrap sm:flex-wrap no-scrollbar pb-6 sm:pb-0 hidden" style="scrollbar-width: none; -ms-overflow-style: none;">
-                        <!-- Loaded dynamically via JS -->
+                    <div class="relative mt-2">
+                        <div id="pub-media-instagram-grid" class="flex sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-6 overflow-x-auto sm:overflow-x-visible snap-x snap-mandatory flex-nowrap sm:flex-wrap no-scrollbar pb-6 sm:pb-0 hidden" style="scrollbar-width: none; -ms-overflow-style: none;">
+                            <!-- Loaded dynamically via JS -->
+                        </div>
+                        <!-- Mobile Swipe Indicator Arrows -->
+                        <div class="absolute left-1 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/75 border border-gold-500/30 flex sm:hidden items-center justify-center text-xs text-gold-450 pointer-events-none shadow-lg animate-pulse z-20">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </div>
+                        <div class="absolute right-1 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/75 border border-gold-500/30 flex sm:hidden items-center justify-center text-xs text-gold-450 pointer-events-none shadow-lg animate-pulse z-20">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </div>
                     </div>
                 </div>
                     <!-- 6.5 PACKAGES SECTION -->
@@ -618,7 +636,8 @@
                     </div>
 
                     <!-- Package Cards Grid -->
-                    <div id="pub-packages-container" class="flex md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory flex-nowrap md:flex-wrap no-scrollbar pb-6 md:pb-0" style="scrollbar-width: none; -ms-overflow-style: none;">
+                    <div class="relative">
+                        <div id="pub-packages-container" class="flex md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory flex-nowrap md:flex-wrap no-scrollbar pb-6 md:pb-0" style="scrollbar-width: none; -ms-overflow-style: none;">
                         
                         <!-- 1. Wedding Photography & Videography -->
                         <div class="bg-stone-900 border border-gold-500/10 hover:border-gold-500/30 rounded-sm p-6 flex flex-col justify-between shadow-xl transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-gold-500/5 group h-full w-full md:w-auto min-w-full md:min-w-0 snap-center shrink-0">
@@ -942,6 +961,15 @@
 
                     </div>
                     
+                    <!-- Mobile Swipe Indicator Arrows -->
+                    <div class="absolute left-1 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/75 border border-gold-500/30 flex md:hidden items-center justify-center text-xs text-gold-450 pointer-events-none shadow-lg animate-pulse z-20">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </div>
+                    <div class="absolute right-1 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/75 border border-gold-500/30 flex md:hidden items-center justify-center text-xs text-gold-450 pointer-events-none shadow-lg animate-pulse z-20">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                </div>
+                    
 
 
                 </div>
@@ -964,7 +992,8 @@
                     </div>
 
                     <!-- Features Grid -->
-                    <div class="flex lg:grid lg:grid-cols-3 gap-6 lg:gap-8 overflow-x-auto lg:overflow-x-visible snap-x snap-mandatory flex-nowrap lg:flex-wrap no-scrollbar pb-6 lg:pb-0" style="scrollbar-width: none; -ms-overflow-style: none;">
+                    <div class="relative">
+                        <div class="flex lg:grid lg:grid-cols-3 gap-6 lg:gap-8 overflow-x-auto lg:overflow-x-visible snap-x snap-mandatory flex-nowrap lg:flex-wrap no-scrollbar pb-6 lg:pb-0" style="scrollbar-width: none; -ms-overflow-style: none;">
                         
                         <!-- 1. Professional Team -->
                         <div class="bg-stone-900/50 border border-gold-500/5 hover:border-gold-500/20 rounded-sm p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-gold-500/2 group flex flex-col sm:flex-row gap-3 sm:gap-4 w-full lg:w-auto min-w-full lg:min-w-0 snap-center shrink-0">
@@ -1033,6 +1062,14 @@
                         </div>
 
                     </div>
+                    <!-- Mobile Swipe Indicator Arrows -->
+                    <div class="absolute left-1 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/75 border border-gold-500/30 flex lg:hidden items-center justify-center text-xs text-gold-450 pointer-events-none shadow-lg animate-pulse z-20">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </div>
+                    <div class="absolute right-1 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/75 border border-gold-500/30 flex lg:hidden items-center justify-center text-xs text-gold-450 pointer-events-none shadow-lg animate-pulse z-20">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                </div>
                 </div>
             </section>
 
@@ -1045,7 +1082,8 @@
                         <p class="text-stone-400 text-xs mt-4 font-light">Hear what our premium clients from Durg, Bhilai, Raipur and beyond say about our dedication, timing, and luxury album packaging.</p>
                     </div>
 
-                    <div class="flex md:grid md:grid-cols-3 gap-6 md:gap-8 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory flex-nowrap md:flex-wrap no-scrollbar pb-6 md:pb-0" style="scrollbar-width: none; -ms-overflow-style: none;">
+                    <div class="relative">
+                        <div class="flex md:grid md:grid-cols-3 gap-6 md:gap-8 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory flex-nowrap md:flex-wrap no-scrollbar pb-6 md:pb-0" style="scrollbar-width: none; -ms-overflow-style: none;">
                         <div class="bg-stone-900 border border-gold-500/10 p-8 rounded-sm relative w-full min-w-full md:w-auto md:min-w-0 snap-center shrink-0">
                             <i class="fa-solid fa-quote-left text-gold-500/20 text-5xl absolute top-6 right-8"></i>
                             <div class="flex items-center gap-1 text-gold-400 text-xs mb-4">
@@ -1082,6 +1120,14 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Mobile Swipe Indicator Arrows -->
+                    <div class="absolute left-1 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/75 border border-gold-500/30 flex md:hidden items-center justify-center text-xs text-gold-455 pointer-events-none shadow-lg animate-pulse z-20">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </div>
+                    <div class="absolute right-1 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/75 border border-gold-500/30 flex md:hidden items-center justify-center text-xs text-gold-455 pointer-events-none shadow-lg animate-pulse z-20">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                </div>
                 </div>
             </section>
 
@@ -1094,9 +1140,18 @@
                         <p class="text-stone-400 text-xs mt-4 font-light">Read our photography tips, wedding planning guides, and behind-the-scenes stories from the studio.</p>
                     </div>
 
-                    <div id="public-blog-grid" class="flex md:grid md:grid-cols-3 gap-6 md:gap-8 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory flex-nowrap md:flex-wrap no-scrollbar pb-6 md:pb-0" style="scrollbar-width: none; -ms-overflow-style: none;">
+                    <div class="relative">
+                        <div id="public-blog-grid" class="flex md:grid md:grid-cols-3 gap-6 md:gap-8 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory flex-nowrap md:flex-wrap no-scrollbar pb-6 md:pb-0" style="scrollbar-width: none; -ms-overflow-style: none;">
                         <!-- Loaded dynamically via JS -->
                     </div>
+                    <!-- Mobile Swipe Indicator Arrows -->
+                    <div class="absolute left-1 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/75 border border-gold-500/30 flex md:hidden items-center justify-center text-xs text-gold-455 pointer-events-none shadow-lg animate-pulse z-20">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </div>
+                    <div class="absolute right-1 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/75 border border-gold-500/30 flex md:hidden items-center justify-center text-xs text-gold-455 pointer-events-none shadow-lg animate-pulse z-20">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                </div>
                 </div>
             </section>
 
@@ -1340,7 +1395,7 @@
         <h4 id="video-lightbox-title" class="font-serif text-sm text-white font-bold mt-4 text-center"></h4>
     </div>
 
-    <script src="app.js?v=1.1.6"></script>
+    <script src="app.js?v=1.1.7"></script>
     <script>
         // Inline functions for quick FAQ/Menu actions
         function toggleFaq(btn) {
