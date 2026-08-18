@@ -697,7 +697,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let savedFirebaseConfig = localStorage.getItem('firebase_config');
         if (!savedFirebaseConfig) {
             const defaultProductionConfig = {
-                apiKey: "AIzaSyDkkQaoYWvG6-A_SusOK18Djo0ijkmUYbM",
+                apiKey: "AIzaSyDkkQaoYWvG6-A_Sus0K18Djo0ijkmUYbM",
                 authDomain: "dewangan-studio.firebaseapp.com",
                 projectId: "dewangan-studio",
                 storageBucket: "dewangan-studio.firebasestorage.app",
