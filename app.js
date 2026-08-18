@@ -1871,6 +1871,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Reset Firebase Config link on login page
+    const resetDbConfigLink = document.getElementById('reset-db-config-link');
+    if (resetDbConfigLink) {
+        resetDbConfigLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (confirm("Are you sure you want to reset your Firebase configuration?")) {
+                localStorage.removeItem('firebase_config');
+                location.reload();
+            }
+        });
+    }
+
     // Disconnect Firebase Cloud
     if (disconnectFbBtn) disconnectFbBtn.addEventListener('click', () => {
         const confirmDisc = confirm("Are you sure you want to disconnect Cloud Sync? The application will switch back to local offline mode.");
