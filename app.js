@@ -761,6 +761,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (landingSectionIds.includes(sId)) {
                     sec.classList.remove('hidden');
                     sec.classList.add('active');
+                    // Reset hidden-mobile on mobile if it is not the active target section
+                    if ((sId === 'why-choose' || sId === 'testimonials') && secId !== sId) {
+                        sec.classList.add('hidden-mobile');
+                    } else if ((sId === 'why-choose' || sId === 'testimonials') && secId === sId) {
+                        sec.classList.remove('hidden-mobile');
+                    }
                 } else {
                     sec.classList.add('hidden');
                     sec.classList.remove('active');

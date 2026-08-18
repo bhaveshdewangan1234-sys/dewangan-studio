@@ -57,7 +57,7 @@
     </script>
     
     <!-- Custom Style Sheet -->
-    <link rel="stylesheet" href="style.css?v=1.2.9">
+    <link rel="stylesheet" href="style.css?v=1.3.0">
     
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -616,10 +616,11 @@
                             <i class="fa-solid fa-chevron-right"></i>
                         </div>
                     </div>
-                                 </section>
+                </div>
+            </section>
 
             <!-- 6.6 WHY CHOOSE US SECTION -->
-            <section id="sec-why-choose" class="public-section active py-24 bg-stone-900 border-t border-gold-500/5">
+            <section id="sec-why-choose" class="public-section active hidden-mobile py-24 bg-stone-900 border-t border-gold-500/5">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     
                     <div class="text-center max-w-3xl mx-auto mb-16">
@@ -717,7 +718,7 @@
             </section>
 
             <!-- 7. TESTIMONIALS SECTION -->
-            <section id="sec-testimonials" class="public-section active pt-20 pb-10 md:py-24 bg-black">
+            <section id="sec-testimonials" class="public-section active hidden-mobile pt-20 pb-10 md:py-24 bg-black">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="text-center max-w-2xl mx-auto mb-16">
                         <span class="text-xs uppercase tracking-widest text-gold-400 font-bold block mb-2">REVIEWS</span>
@@ -936,6 +937,8 @@
                     <div class="flex flex-wrap items-center justify-center gap-y-2 space-x-6 text-stone-400 text-xs font-medium uppercase tracking-wider">
                         <a href="#home" class="hover:text-gold-400 transition" onclick="window.showPublicSection('home'); return false;">Home</a>
                         <a href="#about" class="hover:text-gold-400 transition" onclick="window.showPublicSection('about'); return false;">About</a>
+                        <a href="#why-choose" class="hover:text-gold-400 transition" onclick="window.showPublicSection('why-choose'); return false;">Why Choose Us</a>
+                        <a href="#testimonials" class="hover:text-gold-400 transition" onclick="window.showPublicSection('testimonials'); return false;">Reviews</a>
                         <a href="#gallery" class="hover:text-gold-400 transition" onclick="window.showPublicSection('gallery'); return false;">Gallery</a>
                         <a href="#cinema" class="hover:text-gold-400 transition" onclick="window.showPublicSection('cinema'); return false;">Cinema</a>
                         <a href="#contact" class="hover:text-gold-400 transition" onclick="window.showPublicSection('contact'); return false;">Contact</a>
@@ -1037,7 +1040,7 @@
         <h4 id="video-lightbox-title" class="font-serif text-sm text-white font-bold mt-4 text-center"></h4>
     </div>
 
-    <script src="app.js?v=1.2.9"></script>
+    <script src="app.js?v=1.3.0"></script>
     <script>
         // Inline functions for quick FAQ/Menu actions
         function toggleFaq(btn) {

@@ -3493,4 +3493,9 @@ header.border-b.border-gold-500\/10 #pub-brand-logo-text .text-brand-sub {
         margin-bottom: 1.25rem !important;
         line-height: 1.4 !important;
     }
+    
+    /* Utility class to hide sections on mobile by default */
+    .hidden-mobile {
+        display: none !important;
+    }
 }
