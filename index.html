@@ -57,7 +57,7 @@
     </script>
     
     <!-- Custom Style Sheet -->
-    <link rel="stylesheet" href="style.css?v=1.3.8">
+    <link rel="stylesheet" href="style.css?v=1.3.9">
     
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -154,7 +154,7 @@
                     </div>
                     
                     <!-- Default SVG Fallback logo if no image uploaded -->
-                    <svg id="pub-brand-logo-svg" viewBox="0 0 290 48" class="h-9 sm:h-11 md:h-14 w-auto max-w-[140px] sm:max-w-[200px] md:max-w-[290px] block select-none">
+                    <svg id="pub-brand-logo-svg" viewBox="0 0 290 48" class="h-9 sm:h-11 md:h-14 w-auto max-w-[140px] sm:max-w-[200px] md:max-w-[290px] hidden select-none">
                         <defs>
                             <linearGradient id="gold-grad" x1="0%" y1="0%" x2="100%" y2="100%">
                                 <stop offset="0%" stop-color="#D4AF37" /> <!-- Metallic Gold -->
@@ -183,25 +183,35 @@
                     <script>
                         (function() {
                             try {
+                                const img = document.getElementById('pub-brand-logo');
+                                const text = document.getElementById('pub-brand-logo-text');
+                                const svg = document.getElementById('pub-brand-logo-svg');
+                                
+                                let showCustom = false;
+                                let logoUrl = "";
+                                
                                 const localSettings = localStorage.getItem('studio_settings');
                                 if (localSettings) {
                                     const settings = JSON.parse(localSettings);
                                     if (settings && settings.logoUrl && settings.logoUrl.trim() !== "") {
-                                        const img = document.getElementById('pub-brand-logo');
-                                        const text = document.getElementById('pub-brand-logo-text');
-                                        const svg = document.getElementById('pub-brand-logo-svg');
-                                        if (img && svg) {
-                                            img.src = settings.logoUrl;
-                                            img.classList.remove('hidden');
-                                            img.classList.add('block');
-                                            if (text) {
-                                                text.classList.remove('hidden');
-                                                text.style.display = 'flex';
-                                            }
-                                            svg.classList.remove('block');
-                                            svg.classList.add('hidden');
-                                        }
+                                        showCustom = true;
+                                        logoUrl = settings.logoUrl;
                                     }
+                                }
+                                
+                                if (showCustom && img && svg) {
+                                    img.src = logoUrl;
+                                    img.classList.remove('hidden');
+                                    img.classList.add('block');
+                                    if (text) {
+                                        text.classList.remove('hidden');
+                                        text.style.display = 'flex';
+                                    }
+                                    svg.classList.remove('block');
+                                    svg.classList.add('hidden');
+                                } else if (svg) {
+                                    svg.classList.remove('hidden');
+                                    svg.classList.add('block');
                                 }
                             } catch (e) {
                                 console.error(e);
@@ -936,7 +946,7 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
                 <div class="flex items-center">
                     <img id="pub-footer-logo" src="" alt="Studio Logo" class="h-12 w-auto hidden object-contain">
-                    <svg id="pub-footer-logo-svg" viewBox="0 0 290 48" class="h-12 w-auto max-w-[200px] sm:max-w-[290px] block select-none">
+                    <svg id="pub-footer-logo-svg" viewBox="0 0 290 48" class="h-12 w-auto max-w-[200px] sm:max-w-[290px] hidden select-none">
                         <defs>
                             <linearGradient id="gold-grad-footer" x1="0%" y1="0%" x2="100%" y2="100%">
                                 <stop offset="0%" stop-color="#D4AF37" />
@@ -960,6 +970,39 @@
                         <text x="76" y="21" font-family="'Montserrat', 'Outfit', sans-serif" font-weight="800" font-size="13" fill="#FFFFFF" letter-spacing="3.5">DEWANGAN</text>
                         <text x="76" y="35" font-family="'Montserrat', 'Outfit', sans-serif" font-weight="600" font-size="8.2" fill="url(#gold-grad-footer)" letter-spacing="2">PHOTO & VIDEOGRAPHY</text>
                     </svg>
+                    <script>
+                        (function() {
+                            try {
+                                const img = document.getElementById('pub-footer-logo');
+                                const svg = document.getElementById('pub-footer-logo-svg');
+                                
+                                let showCustom = false;
+                                let logoUrl = "";
+                                
+                                const localSettings = localStorage.getItem('studio_settings');
+                                if (localSettings) {
+                                    const settings = JSON.parse(localSettings);
+                                    if (settings && settings.logoUrl && settings.logoUrl.trim() !== "") {
+                                        showCustom = true;
+                                        logoUrl = settings.logoUrl;
+                                    }
+                                }
+                                
+                                if (showCustom && img && svg) {
+                                    img.src = logoUrl;
+                                    img.classList.remove('hidden');
+                                    img.classList.add('block');
+                                    svg.classList.remove('block');
+                                    svg.classList.add('hidden');
+                                } else if (svg) {
+                                    svg.classList.remove('hidden');
+                                    svg.classList.add('block');
+                                }
+                            } catch (e) {
+                                console.error(e);
+                            }
+                        })();
+                    </script>
                 </div>
                 <div class="flex flex-col items-center gap-3">
                     <div class="flex flex-wrap items-center justify-center gap-y-2 space-x-6 text-stone-400 text-xs font-medium uppercase tracking-wider">
@@ -1068,7 +1111,7 @@
         <h4 id="video-lightbox-title" class="font-serif text-sm text-white font-bold mt-4 text-center"></h4>
     </div>
 
-    <script src="app.js?v=1.3.8"></script>
+    <script src="app.js?v=1.3.9"></script>
     <script>
         // Inline functions for quick FAQ/Menu actions
         function toggleFaq(btn) {
