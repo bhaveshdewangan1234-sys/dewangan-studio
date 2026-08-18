@@ -57,7 +57,7 @@
     </script>
     
     <!-- Custom Style Sheet -->
-    <link rel="stylesheet" href="style.css?v=1.3.6">
+    <link rel="stylesheet" href="style.css?v=1.3.7">
     
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -180,6 +180,34 @@
                         <text x="76" y="21" font-family="'Montserrat', 'Outfit', sans-serif" font-weight="800" font-size="13" fill="#FFFFFF" letter-spacing="3.5">DEWANGAN</text>
                         <text x="76" y="35" font-family="'Montserrat', 'Outfit', sans-serif" font-weight="600" font-size="8.2" fill="url(#gold-grad)" letter-spacing="2">PHOTO & VIDEOGRAPHY</text>
                     </svg>
+                    <script>
+                        (function() {
+                            try {
+                                const localSettings = localStorage.getItem('studio_settings');
+                                if (localSettings) {
+                                    const settings = JSON.parse(localSettings);
+                                    if (settings && settings.logoUrl && settings.logoUrl.trim() !== "") {
+                                        const img = document.getElementById('pub-brand-logo');
+                                        const text = document.getElementById('pub-brand-logo-text');
+                                        const svg = document.getElementById('pub-brand-logo-svg');
+                                        if (img && svg) {
+                                            img.src = settings.logoUrl;
+                                            img.classList.remove('hidden');
+                                            img.classList.add('block');
+                                            if (text) {
+                                                text.classList.remove('hidden');
+                                                text.style.display = 'flex';
+                                            }
+                                            svg.classList.remove('block');
+                                            svg.classList.add('hidden');
+                                        }
+                                    }
+                                }
+                            } catch (e) {
+                                console.error(e);
+                            }
+                        })();
+                    </script>
                 </div>
                 <!-- Desktop Navigation links -->
                 <nav class="hidden md:flex items-center space-x-6">
@@ -931,7 +959,29 @@
                         <text x="76" y="21" font-family="'Montserrat', 'Outfit', sans-serif" font-weight="800" font-size="13" fill="#FFFFFF" letter-spacing="3.5">DEWANGAN</text>
                         <text x="76" y="35" font-family="'Montserrat', 'Outfit', sans-serif" font-weight="600" font-size="8.2" fill="url(#gold-grad-footer)" letter-spacing="2">PHOTO & VIDEOGRAPHY</text>
                     </svg>
-                    </svg>
+                    <script>
+                        (function() {
+                            try {
+                                const localSettings = localStorage.getItem('studio_settings');
+                                if (localSettings) {
+                                    const settings = JSON.parse(localSettings);
+                                    if (settings && settings.logoUrl && settings.logoUrl.trim() !== "") {
+                                        const img = document.getElementById('pub-footer-logo');
+                                        const svg = document.getElementById('pub-footer-logo-svg');
+                                        if (img && svg) {
+                                            img.src = settings.logoUrl;
+                                            img.classList.remove('hidden');
+                                            img.classList.add('block');
+                                            svg.classList.remove('block');
+                                            svg.classList.add('hidden');
+                                        }
+                                    }
+                                }
+                            } catch (e) {
+                                console.error(e);
+                            }
+                        })();
+                    </script>
                 </div>
                 <div class="flex flex-col items-center gap-3">
                     <div class="flex flex-wrap items-center justify-center gap-y-2 space-x-6 text-stone-400 text-xs font-medium uppercase tracking-wider">
@@ -1040,7 +1090,7 @@
         <h4 id="video-lightbox-title" class="font-serif text-sm text-white font-bold mt-4 text-center"></h4>
     </div>
 
-    <script src="app.js?v=1.3.6"></script>
+    <script src="app.js?v=1.3.7"></script>
     <script>
         // Inline functions for quick FAQ/Menu actions
         function toggleFaq(btn) {

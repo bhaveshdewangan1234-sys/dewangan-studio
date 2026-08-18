@@ -1554,8 +1554,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const pubFooterLogo = document.getElementById('pub-footer-logo');
         const pubFooterLogoSvg = document.getElementById('pub-footer-logo-svg');
         
-        // Force the beautiful fallback SVG camera logo to always show on the public website (no dynamic replacement)
-        const hasCustomLogo = false;
+        const hasCustomLogo = appState.settings.logoUrl && appState.settings.logoUrl.trim() !== "";
         
         if (pubBrandLogo && pubBrandLogoSvg) {
             if (hasCustomLogo) {
