@@ -5809,7 +5809,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
             } else if (type === 'googledrive') {
                 container.innerHTML = `
-                    <iframe src="${embedUrl}" class="w-full h-full border-0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <div class="w-full h-full overflow-hidden relative">
+                        <iframe src="${embedUrl}" class="absolute w-full border-0" style="top: -60px; left: 0; height: calc(100% + 60px);" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    </div>
                 `;
             }
 
