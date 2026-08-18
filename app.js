@@ -697,7 +697,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let savedFirebaseConfig = localStorage.getItem('firebase_config');
         if (!savedFirebaseConfig) {
             const defaultProductionConfig = {
-                apiKey: "AIzaSyDkkQaoYWvG6-A_Sus0K18Djo0ijkmUYbM",
+                apiKey: "AIzaSyDkkQaoYwvG6-A_Sus0K18Djo0ijkmUYbM",
                 authDomain: "dewangan-studio.firebaseapp.com",
                 projectId: "dewangan-studio",
                 storageBucket: "dewangan-studio.firebasestorage.app",
@@ -3445,7 +3445,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const categoryLabel = catObj ? catObj.title : img.category;
             
             card.innerHTML = `
-                <img src="${img.url}" alt="${img.title}" class="w-full h-40 sm:h-56 md:h-72 object-cover group-hover:scale-110 transition duration-700 opacity-80 group-hover:opacity-100" loading="lazy">
+                <img src="${img.url}" alt="${img.title}" class="w-full h-40 sm:h-56 md:h-72 object-contain bg-stone-950 group-hover:scale-105 transition duration-700 opacity-90 group-hover:opacity-100" loading="lazy">
                 <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end p-4 md:p-6 z-10">
                     <span class="text-gold-400 text-[9px] uppercase tracking-widest font-bold">${categoryLabel}</span>
                     <h4 class="font-serif text-sm md:text-lg text-white font-bold mt-1">${img.title}</h4>
