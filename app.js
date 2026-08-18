@@ -1854,13 +1854,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 configJson = rawJson.substring(startIndex, endIndex);
             }
             
-            const cleanJsonStr = configJson
-                .replace(/([a-zA-Z0-9]+):/g, '"$1":')
-                .replace(/'/g, '"')
-                .replace(/,\s*}/g, '}')
-                .replace(/,\s*]/g, ']');
-
-            const configObj = JSON.parse(cleanJsonStr);
+            // Safe evaluation of JS object literal using Function constructor
+            const configObj = new Function(`return ${configJson};`)();
             
             if (!configObj.apiKey || !configObj.projectId || !configObj.appId) {
                 throw new Error("Missing required Firebase fields.");
