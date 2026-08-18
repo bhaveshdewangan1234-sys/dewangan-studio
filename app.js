@@ -693,8 +693,22 @@ document.addEventListener('DOMContentLoaded', () => {
         document.documentElement.setAttribute('data-theme', savedTheme);
         if (themeToggle) themeToggle.checked = savedTheme === 'dark';
 
-        // Check Firebase config in local storage
-        const savedFirebaseConfig = localStorage.getItem('firebase_config');
+        // Check Firebase config in local storage, fallback to default production config
+        let savedFirebaseConfig = localStorage.getItem('firebase_config');
+        if (!savedFirebaseConfig) {
+            const defaultProductionConfig = {
+                apiKey: "AIzaSyDkkQaoYWvG6-A_SusOK18Djo0ijkmUYbM",
+                authDomain: "dewangan-studio.firebaseapp.com",
+                projectId: "dewangan-studio",
+                storageBucket: "dewangan-studio.firebasestorage.app",
+                messagingSenderId: "781582561768",
+                appId: "1:781582561768:web:dd19b67df216dc927eb45d",
+                measurementId: "G-NVPLRH8C0E"
+            };
+            savedFirebaseConfig = JSON.stringify(defaultProductionConfig);
+            localStorage.setItem('firebase_config', savedFirebaseConfig);
+        }
+
         if (savedFirebaseConfig) {
             try {
                 appState.firebaseConfig = JSON.parse(savedFirebaseConfig);
