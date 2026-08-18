@@ -3474,4 +3474,23 @@ header.border-b.border-gold-500\/10 #pub-brand-logo-text .text-brand-sub {
     .mobile-swipe-arrow.arrow-right {
         right: 8px !important;
     }
+
+    /* Hero Banner Mobile Optimization to prevent image cropping */
+    #sec-home {
+        min-height: 45vh !important;
+        height: 45vh !important;
+    }
+    #hero-slider .slide img {
+        object-fit: contain !important;
+        background-color: #0c0a09 !important; /* bg-stone-950 */
+    }
+    #sec-home .relative.max-w-4xl {
+        margin-top: 0 !important;
+        padding-top: 1.5rem !important;
+    }
+    #hero-slider-title {
+        font-size: 1.35rem !important;
+        margin-bottom: 1.25rem !important;
+        line-height: 1.4 !important;
+    }
 }
