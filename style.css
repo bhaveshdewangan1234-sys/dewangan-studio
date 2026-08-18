@@ -3475,14 +3475,13 @@ header.border-b.border-gold-500\/10 #pub-brand-logo-text .text-brand-sub {
         right: 8px !important;
     }
 
-    /* Hero Banner Mobile Optimization to prevent image cropping */
+    /* Hero Banner Mobile Optimization to prevent image cropping and remove black bars */
     #sec-home {
-        min-height: 45vh !important;
-        height: 45vh !important;
+        min-height: 50vh !important;
+        height: 50vh !important;
     }
     #hero-slider .slide img {
-        object-fit: contain !important;
-        background-color: #0c0a09 !important; /* bg-stone-950 */
+        object-fit: cover !important;
     }
     #sec-home .relative.max-w-4xl {
         margin-top: 0 !important;
@@ -3492,6 +3491,12 @@ header.border-b.border-gold-500\/10 #pub-brand-logo-text .text-brand-sub {
         font-size: 1.35rem !important;
         margin-bottom: 1.25rem !important;
         line-height: 1.4 !important;
+    }
+    
+    /* Reduce large empty gaps (padding) on mobile sections */
+    .public-section {
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
     }
     
     /* Utility class to hide sections on mobile by default */
