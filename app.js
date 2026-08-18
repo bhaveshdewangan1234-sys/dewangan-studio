@@ -725,6 +725,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Setup Public Portfolio Website links
         initPublicSite();
+
+        // Listen for screen resize or layout changes to recalculate mobile arrow visibility
+        window.addEventListener('resize', window.updateSwipeArrowsVisibility);
+        window.addEventListener('orientationchange', window.updateSwipeArrowsVisibility);
+        // Initial run
+        setTimeout(window.updateSwipeArrowsVisibility, 500);
     };
 
     // Global function to show a specific public website section
@@ -2910,6 +2916,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const mediaDescriptionInput = document.getElementById('media-description');
     const mediaOrientationSelect = document.getElementById('media-orientation');
 
+    // Helper to dynamically show/hide mobile swipe arrows based on content overflow
+    window.updateSwipeArrowsVisibility = () => {
+        document.querySelectorAll('.relative').forEach(rel => {
+            const swiper = rel.querySelector('div[class*="overflow-x-auto"]');
+            const arrows = rel.querySelectorAll('.mobile-swipe-arrow');
+            if (swiper && arrows.length > 0) {
+                // Check if the container is actually overflowing (scrollable) on mobile
+                const hasOverflow = swiper.scrollWidth > swiper.clientWidth;
+                arrows.forEach(arrow => {
+                    if (hasOverflow && window.innerWidth <= 768) {
+                        arrow.style.setProperty('display', 'flex', 'important');
+                    } else {
+                        arrow.style.setProperty('display', 'none', 'important');
+                    }
+                });
+            }
+        });
+    };
+
     // Helper: Detect video platform automatically from URL
     const detectVideoSource = (url) => {
         if (!url) return '';
@@ -3303,6 +3328,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (igCount === 0 && igGrid) {
             igGrid.innerHTML = `<p class="text-stone-500 text-center py-10 col-span-3 text-xs">No Instagram reels or posts linked yet.</p>`;
         }
+
+        if (window.updateSwipeArrowsVisibility) window.updateSwipeArrowsVisibility();
     };
 
     window.switchPublicMediaTab = (platform) => {
@@ -3619,6 +3646,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             publicBlogGrid.appendChild(card);
         });
+        if (window.updateSwipeArrowsVisibility) window.updateSwipeArrowsVisibility();
     };
 
     // Public Blog view modal details
@@ -3657,6 +3685,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             publicServicesGrid.appendChild(card);
         });
+        if (window.updateSwipeArrowsVisibility) window.updateSwipeArrowsVisibility();
     };
 
     // =========================================================================
