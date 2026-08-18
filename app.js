@@ -1848,7 +1848,27 @@ document.addEventListener('DOMContentLoaded', () => {
         
         try {
             let configJson = rawJson;
-            if (rawJson.includes('const') || rawJson.includes('firebaseConfig')) {
+            if (rawJson.includes('firebaseConfig')) {
+                const configIndex = rawJson.indexOf('firebaseConfig');
+                const startIndex = rawJson.indexOf('{', configIndex);
+                if (startIndex !== -1) {
+                    let braceCount = 0;
+                    let endIndex = -1;
+                    for (let i = startIndex; i < rawJson.length; i++) {
+                        if (rawJson[i] === '{') braceCount++;
+                        else if (rawJson[i] === '}') {
+                            braceCount--;
+                            if (braceCount === 0) {
+                                endIndex = i + 1;
+                                break;
+                            }
+                        }
+                    }
+                    if (endIndex !== -1) {
+                        configJson = rawJson.substring(startIndex, endIndex);
+                    }
+                }
+            } else if (rawJson.includes('const') || rawJson.includes('let') || rawJson.includes('var') || rawJson.includes('{')) {
                 const startIndex = rawJson.indexOf('{');
                 const endIndex = rawJson.lastIndexOf('}') + 1;
                 configJson = rawJson.substring(startIndex, endIndex);
