@@ -5808,23 +5808,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     <iframe src="${embedUrl}?autoplay=1&rel=0" class="w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 `;
             } else if (type === 'googledrive') {
+                const fileId = getGoogleDriveFileId(item ? item.url : embedUrl);
+                const streamUrl = `https://docs.google.com/uc?export=download&id=${fileId}`;
                 container.innerHTML = `
-                    <div class="w-full h-full overflow-hidden relative flex items-center justify-center" style="background:#000;">
-                        <!-- Loader text shown while video buffers in the background -->
-                        <div class="absolute text-gold-500/40 text-xs tracking-widest uppercase animate-pulse" id="googledrive-loader">Loading Video...</div>
-                        <iframe src="${embedUrl}?autoplay=1" class="absolute w-full border-0" style="top: -56px; left: 0; height: calc(100% + 112px); opacity: 0; transition: opacity 0.8s ease-in-out;" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                        <!-- Click shield overlay over the Google pop-out button area on top right -->
-                        <div class="absolute" style="top: 0; right: 0; width: 150px; height: 60px; background: transparent; z-index: 10;"></div>
-                    </div>
+                    <video class="w-full h-full object-contain" controls autoplay playsinline style="background:#000;">
+                        <source src="${streamUrl}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                 `;
-                
-                // Smoothly fade in the video after 3.5 seconds (once buffering is done and controls have auto-hidden)
-                setTimeout(() => {
-                    const loader = document.getElementById('googledrive-loader');
-                    const iframe = container.querySelector('iframe');
-                    if (loader) loader.style.display = 'none';
-                    if (iframe) iframe.style.opacity = '1';
-                }, 3500);
             }
 
             if (titleEl) titleEl.textContent = title || '';
