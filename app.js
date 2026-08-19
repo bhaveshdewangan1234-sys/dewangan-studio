@@ -5808,13 +5808,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     <iframe src="${embedUrl}?autoplay=1&rel=0" class="w-full h-full border-0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 `;
             } else if (type === 'googledrive') {
-                const fileId = getGoogleDriveFileId(item ? item.url : embedUrl);
-                const streamUrl = `https://docs.google.com/uc?export=download&id=${fileId}`;
                 container.innerHTML = `
-                    <video class="w-full h-full object-contain" controls autoplay playsinline style="background:#000;">
-                        <source src="${streamUrl}" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
+                    <div class="w-full h-full overflow-hidden relative" style="background:#000;">
+                        <iframe src="${embedUrl}" class="absolute w-full border-0" style="top: -56px; left: 0; height: calc(100% + 112px);" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                        <!-- Click shield overlay over the Google pop-out button area on top right -->
+                        <div class="absolute" style="top: 0; right: 0; width: 150px; height: 60px; background: transparent; z-index: 10;"></div>
+                    </div>
                 `;
             }
 
