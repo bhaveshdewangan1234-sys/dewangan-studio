@@ -5810,7 +5810,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (type === 'googledrive') {
                 container.innerHTML = `
                     <div class="w-full h-full overflow-hidden relative" style="background:#000;">
-                        <iframe src="${embedUrl}" class="absolute w-full border-0" style="top: -56px; left: 0; height: calc(100% + 112px);" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                        <iframe src="${embedUrl}?autoplay=1" class="absolute w-full border-0" style="top: -56px; left: 0; height: calc(100% + 112px);" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                         <!-- Click shield overlay over the Google pop-out button area on top right -->
                         <div class="absolute" style="top: 0; right: 0; width: 150px; height: 60px; background: transparent; z-index: 10;"></div>
                     </div>
