@@ -3009,7 +3009,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const getGoogleDriveEmbedUrl = (url) => {
         const fileId = getGoogleDriveFileId(url);
-        return fileId ? `https://drive.google.com/file/d/${fileId}/preview?rm=minimal&chrome=false` : '';
+        return fileId ? `https://drive.google.com/file/d/${fileId}/preview` : '';
     };
 
     // Helper: Parse YouTube direct links into embed urls
@@ -5809,7 +5809,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
             } else if (type === 'googledrive') {
                 container.innerHTML = `
-                    <iframe src="${embedUrl}" class="w-full h-full border-0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <div class="w-full h-full overflow-hidden relative" style="background:#000;">
+                        <iframe src="${embedUrl}" class="absolute w-full border-0" style="top: -46px; left: 0; height: calc(100% + 46px);" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                        <!-- Click shield overlay over the Google pop-out button on top right -->
+                        <div class="absolute" style="top: 0; right: 0; width: 120px; height: 50px; background: transparent; z-index: 10;"></div>
+                    </div>
                 `;
             }
 
