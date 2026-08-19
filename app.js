@@ -3009,7 +3009,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const getGoogleDriveEmbedUrl = (url) => {
         const fileId = getGoogleDriveFileId(url);
-        return fileId ? `https://drive.google.com/file/d/${fileId}/preview` : '';
+        return fileId ? `https://drive.google.com/file/d/${fileId}/preview?rm=minimal&chrome=false` : '';
     };
 
     // Helper: Parse YouTube direct links into embed urls
