@@ -252,9 +252,9 @@
                 <!-- Brand logo -->
                 <div class="flex items-center space-x-3 cursor-pointer animate-fade-in" onclick="window.showPublicSection('home')">
                     <!-- Dynamic Logo Image -->
-                    <img id="pub-brand-logo" src="" alt="Studio Logo" class="h-12 md:h-14 hidden object-contain">
+                    <img id="pub-brand-logo" src="assets/logo.png" alt="Studio Logo" class="h-12 md:h-14 block object-contain">
                     <!-- Dynamic Logo Text next to custom logo -->
-                    <div id="pub-brand-logo-text" class="hidden flex-col justify-center select-none" style="display: none; flex-direction: column; justify-content: center; line-height: 1.1;">
+                    <div id="pub-brand-logo-text" class="flex flex-col justify-center select-none" style="display: flex; flex-direction: column; justify-content: center; line-height: 1.1;">
                         <span class="text-brand-name font-sans font-black text-[13px] sm:text-[14px] tracking-[0.24em] uppercase" style="margin: 0; padding: 0;">DEWANGAN</span>
                         <span class="text-brand-sub font-sans font-bold text-[8px] sm:text-[9px] tracking-[0.16em] uppercase" style="margin: 1px 0 0 0; padding: 0;">PHOTO & VIDEOGRAPHY</span>
                     </div>
@@ -293,31 +293,31 @@
                                 const text = document.getElementById('pub-brand-logo-text');
                                 const svg = document.getElementById('pub-brand-logo-svg');
                                 
-                                let showCustom = false;
-                                let logoUrl = "";
-                                
+                                let logoUrl = "assets/logo.png";
                                 const localSettings = localStorage.getItem('studio_settings');
                                 if (localSettings) {
                                     const settings = JSON.parse(localSettings);
                                     if (settings && settings.logoUrl && settings.logoUrl.trim() !== "") {
-                                        showCustom = true;
                                         logoUrl = settings.logoUrl;
+                                    }
+                                    if (settings && settings.studioName) {
+                                        const nameEl = document.querySelector('#pub-brand-logo-text .text-brand-name');
+                                        if (nameEl) nameEl.textContent = settings.studioName;
                                     }
                                 }
                                 
-                                if (showCustom && img && svg) {
+                                if (img) {
                                     img.src = logoUrl;
                                     img.classList.remove('hidden');
                                     img.classList.add('block');
-                                    if (text) {
-                                        text.classList.remove('hidden');
-                                        text.style.display = 'flex';
-                                    }
+                                }
+                                if (text) {
+                                    text.classList.remove('hidden');
+                                    text.style.display = 'flex';
+                                }
+                                if (svg) {
                                     svg.classList.remove('block');
                                     svg.classList.add('hidden');
-                                } else if (svg) {
-                                    svg.classList.remove('hidden');
-                                    svg.classList.add('block');
                                 }
                             } catch (e) {
                                 console.error(e);
@@ -1051,7 +1051,7 @@
         <footer class="bg-stone-950 border-t border-gold-500/10 py-12">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
                 <div class="flex items-center">
-                    <img id="pub-footer-logo" src="" alt="Studio Logo" class="h-12 w-auto hidden object-contain">
+                    <img id="pub-footer-logo" src="assets/logo.png" alt="Studio Logo" class="h-12 w-auto block object-contain">
                     <svg id="pub-footer-logo-svg" viewBox="0 0 290 48" class="h-12 w-auto max-w-[200px] sm:max-w-[290px] hidden select-none">
                         <defs>
                             <linearGradient id="gold-grad-footer" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -1082,27 +1082,23 @@
                                 const img = document.getElementById('pub-footer-logo');
                                 const svg = document.getElementById('pub-footer-logo-svg');
                                 
-                                let showCustom = false;
-                                let logoUrl = "";
-                                
+                                let logoUrl = "assets/logo.png";
                                 const localSettings = localStorage.getItem('studio_settings');
                                 if (localSettings) {
                                     const settings = JSON.parse(localSettings);
                                     if (settings && settings.logoUrl && settings.logoUrl.trim() !== "") {
-                                        showCustom = true;
                                         logoUrl = settings.logoUrl;
                                     }
                                 }
                                 
-                                if (showCustom && img && svg) {
+                                if (img) {
                                     img.src = logoUrl;
                                     img.classList.remove('hidden');
                                     img.classList.add('block');
+                                }
+                                if (svg) {
                                     svg.classList.remove('block');
                                     svg.classList.add('hidden');
-                                } else if (svg) {
-                                    svg.classList.remove('hidden');
-                                    svg.classList.add('block');
                                 }
                             } catch (e) {
                                 console.error(e);
