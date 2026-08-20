@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
@@ -128,7 +128,7 @@
                 <div class="input-group">
                     <label for="login-password"><i class="fa-solid fa-lock"></i> Password</label>
                     <div class="password-wrapper">
-                        <input type="password" id="login-password" required placeholder="••••••••">
+                        <input type="password" id="login-password" required placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢">
                         <button type="button" id="toggle-login-pass" class="pass-toggle-btn">
                             <i class="fa-regular fa-eye"></i>
                         </button>
@@ -668,19 +668,19 @@
                         <div class="stat-card">
                             <div class="stat-info">
                                 <span class="stat-label">Total Invoiced (Grand Total)</span>
-                                <h2 class="stat-value" id="rep-total-invoiced">₹0.00</h2>
+                                <h2 class="stat-value" id="rep-total-invoiced">â‚¹0.00</h2>
                             </div>
                         </div>
                         <div class="stat-card">
                             <div class="stat-info">
                                 <span class="stat-label">Total Income Received (Paid)</span>
-                                <h2 class="stat-value text-green" id="rep-total-received">₹0.00</h2>
+                                <h2 class="stat-value text-green" id="rep-total-received">â‚¹0.00</h2>
                             </div>
                         </div>
                         <div class="stat-card">
                             <div class="stat-info">
                                 <span class="stat-label">Outstanding Balance (Unpaid)</span>
-                                <h2 class="stat-value text-red" id="rep-total-balance">₹0.00</h2>
+                                <h2 class="stat-value text-red" id="rep-total-balance">â‚¹0.00</h2>
                             </div>
                         </div>
                         <div class="stat-card">
@@ -1097,7 +1097,7 @@
 
                             <div class="input-group">
                                 <label for="doc-event-details">Function / Shoot Details (Schedules & Timings)</label>
-                                <textarea id="doc-event-details" rows="3" placeholder="यहाँ इवेंट का विवरण लिखें (जैसे: बारात 4 बजे रस्में शुरू होंगी...)"></textarea>
+                                <textarea id="doc-event-details" rows="3" placeholder="à¤¯à¤¹à¤¾à¤ à¤‡à¤µà¥‡à¤‚à¤Ÿ à¤•à¤¾ à¤µà¤¿à¤µà¤°à¤£ à¤²à¤¿à¤–à¥‡à¤‚ (à¤œà¥ˆà¤¸à¥‡: à¤¬à¤¾à¤°à¤¾à¤¤ 4 à¤¬à¤œà¥‡ à¤°à¤¸à¥à¤®à¥‡à¤‚ à¤¶à¥à¤°à¥‚ à¤¹à¥‹à¤‚à¤—à¥€...)"></textarea>
                             </div>
 
                             <div class="form-row">
@@ -1156,9 +1156,9 @@
                                     <thead>
                                         <tr>
                                             <th>Service photoshoot details</th>
-                                            <th width="100">Rate (₹)</th>
+                                            <th width="100">Rate (â‚¹)</th>
                                             <th width="80">Qty</th>
-                                            <th width="120">Total (₹)</th>
+                                            <th width="120">Total (â‚¹)</th>
                                             <th width="40"></th>
                                         </tr>
                                     </thead>
@@ -1173,27 +1173,27 @@
                         <div class="wizard-totals-box">
                             <div class="total-line">
                                 <span>Subtotal</span>
-                                <span id="wiz-subtotal">₹0.00</span>
+                                <span id="wiz-subtotal">â‚¹0.00</span>
                             </div>
                             <div class="total-line">
                                 <span class="align-center">Extra Charges <input type="number" id="wiz-extra-charges" min="0" value="0"></span>
-                                <span id="wiz-extra-charges-val">+₹0.00</span>
+                                <span id="wiz-extra-charges-val">+â‚¹0.00</span>
                             </div>
                             <div class="total-line">
                                 <span class="align-center">Discount (%) <input type="number" id="wiz-discount-input" min="0" max="100" value="0"></span>
-                                <span id="wiz-discount-val">-₹0.00</span>
+                                <span id="wiz-discount-val">-â‚¹0.00</span>
                             </div>
                             <div class="total-line">
                                 <span class="align-center">Tax (GST %) <input type="number" id="wiz-tax-input" min="0" max="28" value="0"></span>
-                                <span id="wiz-tax-val">+₹0.00</span>
+                                <span id="wiz-tax-val">+â‚¹0.00</span>
                             </div>
                             <div class="total-line grand-total">
                                 <span>Grand Total</span>
-                                <span id="wiz-grand-total">₹0.00</span>
+                                <span id="wiz-grand-total">â‚¹0.00</span>
                             </div>
                             <div class="total-line hidden" id="doc-partial-paid-group">
-                                <span class="align-center">Advance Paid (₹) <input type="number" id="wiz-paid-amount-input" min="0" value="0"></span>
-                                <span>Balance: <span id="wiz-balance-val">₹0.00</span></span>
+                                <span class="align-center">Advance Paid (â‚¹) <input type="number" id="wiz-paid-amount-input" min="0" value="0"></span>
+                                <span>Balance: <span id="wiz-balance-val">â‚¹0.00</span></span>
                             </div>
                         </div>
                     </div>
@@ -1221,7 +1221,7 @@
                     <input type="text" id="srv-name" required placeholder="e.g. Cinematic Video Editing">
                 </div>
                 <div class="input-group">
-                    <label for="srv-price">Base Price (₹) <span class="text-red">*</span></label>
+                    <label for="srv-price">Base Price (â‚¹) <span class="text-red">*</span></label>
                     <input type="number" id="srv-price" required placeholder="5000">
                 </div>
                 <div class="input-group">
@@ -1470,13 +1470,13 @@
 
                     <div class="a4-metadata-grid">
                         <div class="meta-col">
-                            <h4>BILL TO (ग्राहक का विवरण)</h4>
+                            <h4>BILL TO (à¤—à¥à¤°à¤¾à¤¹à¤• à¤•à¤¾ à¤µà¤¿à¤µà¤°à¤£)</h4>
                             <h3 id="a4-client-name">John Doe</h3>
                             <p id="a4-client-phone">Phone: -</p>
                             <p id="a4-client-address">Address: -</p>
                         </div>
                         <div class="meta-col text-right">
-                            <h4>SHOOT DETAILS (कार्यक्रम का विवरण)</h4>
+                            <h4>SHOOT DETAILS (à¤•à¤¾à¤°à¥à¤¯à¤•à¥à¤°à¤® à¤•à¤¾ à¤µà¤¿à¤µà¤°à¤£)</h4>
                             <p><strong>Shoot Date:</strong> <span id="a4-shoot-date">-</span></p>
                             <p><strong>Venue:</strong> <span id="a4-shoot-venue">-</span></p>
                             <p><strong>Photographs Selection:</strong> <span id="a4-selection-status">-</span></p>
@@ -1488,7 +1488,7 @@
                         <table class="a4-items-table">
                             <thead>
                                 <tr>
-                                    <th>Photoshoot / Service Description (विवरण)</th>
+                                    <th>Photoshoot / Service Description (à¤µà¤¿à¤µà¤°à¤£)</th>
                                     <th width="120" class="text-right">Price Rate</th>
                                     <th width="60" class="text-center">Qty</th>
                                     <th width="140" class="text-right">Total Amount</th>
@@ -1519,31 +1519,31 @@
                             <table class="a4-totals-table">
                                 <tr>
                                     <td>Subtotal:</td>
-                                    <td id="a4-subtotal-val">₹0.00</td>
+                                    <td id="a4-subtotal-val">â‚¹0.00</td>
                                 </tr>
                                 <tr id="a4-extra-charges-row">
                                     <td>Extra Charges:</td>
-                                    <td id="a4-extra-charges-val">+₹0.00</td>
+                                    <td id="a4-extra-charges-val">+â‚¹0.00</td>
                                 </tr>
                                 <tr id="a4-discount-row">
                                     <td>Discount (<span id="a4-discount-percent">0</span>%):</td>
-                                    <td id="a4-discount-val">-₹0.00</td>
+                                    <td id="a4-discount-val">-â‚¹0.00</td>
                                 </tr>
                                 <tr id="a4-tax-row">
                                     <td>Tax/GST (<span id="a4-tax-percent">0</span>%):</td>
-                                    <td id="a4-tax-val">+₹0.00</td>
+                                    <td id="a4-tax-val">+â‚¹0.00</td>
                                 </tr>
                                 <tr class="a4-grand-total-row">
                                     <td>Grand Total:</td>
-                                    <td id="a4-grand-total-val">₹0.00</td>
+                                    <td id="a4-grand-total-val">â‚¹0.00</td>
                                 </tr>
                                 <tr id="a4-paid-amount-row">
                                     <td>Advance Paid:</td>
-                                    <td id="a4-paid-val">₹0.00</td>
+                                    <td id="a4-paid-val">â‚¹0.00</td>
                                 </tr>
                                 <tr id="a4-balance-row" class="a4-balance-due-row">
                                     <td>Remaining Balance:</td>
-                                    <td id="a4-balance-val">₹0.00</td>
+                                    <td id="a4-balance-val">â‚¹0.00</td>
                                 </tr>
                             </table>
                         </div>
@@ -1551,7 +1551,7 @@
 
                     <div class="a4-footer-terms-block mt-30">
                         <div class="a4-terms-section">
-                            <h4>TERMS & CONDITIONS (नियम एवं शर्तें)</h4>
+                            <h4>TERMS & CONDITIONS (à¤¨à¤¿à¤¯à¤® à¤à¤µà¤‚ à¤¶à¤°à¥à¤¤à¥‡à¤‚)</h4>
                             <p id="a4-terms-val">1. 50% advance payment required. Remaining on shoot completion.</p>
                         </div>
                         <div class="a4-signatures-wrapper">
@@ -1589,43 +1589,43 @@
             </header>
             <form id="sign-form">
                 <div class="scrollable-terms-container">
-                    <h4>नियम एवं शर्तें (Terms & Conditions)</h4>
+                    <h4>à¤¨à¤¿à¤¯à¤® à¤à¤µà¤‚ à¤¶à¤°à¥à¤¤à¥‡à¤‚ (Terms & Conditions)</h4>
                     <div class="terms-text-list-scroll">
                         <div class="terms-item-scroll">
-                            <h5>1. बुकिंग एवं भुगतान (Booking & Payments)</h5>
-                            <p>बुकिंग तभी कन्फर्म मानी जाएगी जब कुल पैकेज राशि का 50% अग्रिम (Advance) भुगतान प्राप्त हो जाएगा। कार्यक्रम की तिथि से 15–30 कार्य दिवस के फोटो चयन के साथ 30% भुगतान एवं शेष 20% डिलीवरी के समय देय होगा। भुगतान में देरी होने पर काम भी टल सकता है।</p>
+                            <h5>1. à¤¬à¥à¤•à¤¿à¤‚à¤— à¤à¤µà¤‚ à¤­à¥à¤—à¤¤à¤¾à¤¨ (Booking & Payments)</h5>
+                            <p>à¤¬à¥à¤•à¤¿à¤‚à¤— à¤¤à¤­à¥€ à¤•à¤¨à¥à¤«à¤°à¥à¤® à¤®à¤¾à¤¨à¥€ à¤œà¤¾à¤à¤—à¥€ à¤œà¤¬ à¤•à¥à¤² à¤ªà¥ˆà¤•à¥‡à¤œ à¤°à¤¾à¤¶à¤¿ à¤•à¤¾ 50% à¤…à¤—à¥à¤°à¤¿à¤® (Advance) à¤­à¥à¤—à¤¤à¤¾à¤¨ à¤ªà¥à¤°à¤¾à¤ªà¥à¤¤ à¤¹à¥‹ à¤œà¤¾à¤à¤—à¤¾à¥¤ à¤•à¤¾à¤°à¥à¤¯à¤•à¥à¤°à¤® à¤•à¥€ à¤¤à¤¿à¤¥à¤¿ à¤¸à¥‡ 15â€“30 à¤•à¤¾à¤°à¥à¤¯ à¤¦à¤¿à¤µà¤¸ à¤•à¥‡ à¤«à¥‹à¤Ÿà¥‹ à¤šà¤¯à¤¨ à¤•à¥‡ à¤¸à¤¾à¤¥ 30% à¤­à¥à¤—à¤¤à¤¾à¤¨ à¤à¤µà¤‚ à¤¶à¥‡à¤· 20% à¤¡à¤¿à¤²à¥€à¤µà¤°à¥€ à¤•à¥‡ à¤¸à¤®à¤¯ à¤¦à¥‡à¤¯ à¤¹à¥‹à¤—à¤¾à¥¤ à¤­à¥à¤—à¤¤à¤¾à¤¨ à¤®à¥‡à¤‚ à¤¦à¥‡à¤°à¥€ à¤¹à¥‹à¤¨à¥‡ à¤ªà¤° à¤•à¤¾à¤® à¤­à¥€ à¤Ÿà¤² à¤¸à¤•à¤¤à¤¾ à¤¹à¥ˆà¥¤</p>
                         </div>
                         <div class="terms-item-scroll">
-                            <h5>2. डिलीवरी समय (Delivery Timelines)</h5>
-                            <p>अंतिम डिलीवरी फोटो चयन की तिथि से 30–45 कार्य दिवस के भीतर की जाएगी। एल्बम डिज़ाइन संशोधनों अथवा विशेष एडिटिंग में समय बढ़ सकता है।</p>
+                            <h5>2. à¤¡à¤¿à¤²à¥€à¤µà¤°à¥€ à¤¸à¤®à¤¯ (Delivery Timelines)</h5>
+                            <p>à¤…à¤‚à¤¤à¤¿à¤® à¤¡à¤¿à¤²à¥€à¤µà¤°à¥€ à¤«à¥‹à¤Ÿà¥‹ à¤šà¤¯à¤¨ à¤•à¥€ à¤¤à¤¿à¤¥à¤¿ à¤¸à¥‡ 30â€“45 à¤•à¤¾à¤°à¥à¤¯ à¤¦à¤¿à¤µà¤¸ à¤•à¥‡ à¤­à¥€à¤¤à¤° à¤•à¥€ à¤œà¤¾à¤à¤—à¥€à¥¤ à¤à¤²à¥à¤¬à¤® à¤¡à¤¿à¤œà¤¼à¤¾à¤‡à¤¨ à¤¸à¤‚à¤¶à¥‹à¤§à¤¨à¥‹à¤‚ à¤…à¤¥à¤µà¤¾ à¤µà¤¿à¤¶à¥‡à¤· à¤à¤¡à¤¿à¤Ÿà¤¿à¤‚à¤— à¤®à¥‡à¤‚ à¤¸à¤®à¤¯ à¤¬à¤¢à¤¼ à¤¸à¤•à¤¤à¤¾ à¤¹à¥ˆà¥¤</p>
                         </div>
                         <div class="terms-item-scroll">
-                            <h5>3. डेटा बैकअप (Data Backup Retention)</h5>
-                            <p>अंतिम डिलीवरी के बाद डेटा सुरक्षित रखने की जिम्मेदारी ग्राहक की होगी। स्टूडियो डिलीवरी की तिथि से अधिकतम 90 दिनों तक ही डेटा सुरक्षित रखेगा।</p>
+                            <h5>3. à¤¡à¥‡à¤Ÿà¤¾ à¤¬à¥ˆà¤•à¤…à¤ª (Data Backup Retention)</h5>
+                            <p>à¤…à¤‚à¤¤à¤¿à¤® à¤¡à¤¿à¤²à¥€à¤µà¤°à¥€ à¤•à¥‡ à¤¬à¤¾à¤¦ à¤¡à¥‡à¤Ÿà¤¾ à¤¸à¥à¤°à¤•à¥à¤·à¤¿à¤¤ à¤°à¤–à¤¨à¥‡ à¤•à¥€ à¤œà¤¿à¤®à¥à¤®à¥‡à¤¦à¤¾à¤°à¥€ à¤—à¥à¤°à¤¾à¤¹à¤• à¤•à¥€ à¤¹à¥‹à¤—à¥€à¥¤ à¤¸à¥à¤Ÿà¥‚à¤¡à¤¿à¤¯à¥‹ à¤¡à¤¿à¤²à¥€à¤µà¤°à¥€ à¤•à¥€ à¤¤à¤¿à¤¥à¤¿ à¤¸à¥‡ à¤…à¤§à¤¿à¤•à¤¤à¤® 90 à¤¦à¤¿à¤¨à¥‹à¤‚ à¤¤à¤• à¤¹à¥€ à¤¡à¥‡à¤Ÿà¤¾ à¤¸à¥à¤°à¤•à¥à¤·à¤¿à¤¤ à¤°à¤–à¥‡à¤—à¤¾à¥¤</p>
                         </div>
                         <div class="terms-item-scroll">
-                            <h5>4. एल्बम एवं प्रिंटिंग (Album & Printing modifications)</h5>
-                            <p>एल्बम डिज़ाइन की अंतिम स्वीकृति के बाद किसी भी प्रकार का संशोधन अथवा अतिरिक्त प्रिंटिंग कार्य अतिरिक्त शुल्क पर किया जाएगा।</p>
+                            <h5>4. à¤à¤²à¥à¤¬à¤® à¤à¤µà¤‚ à¤ªà¥à¤°à¤¿à¤‚à¤Ÿà¤¿à¤‚à¤— (Album & Printing modifications)</h5>
+                            <p>à¤à¤²à¥à¤¬à¤® à¤¡à¤¿à¤œà¤¼à¤¾à¤‡à¤¨ à¤•à¥€ à¤…à¤‚à¤¤à¤¿à¤® à¤¸à¥à¤µà¥€à¤•à¥ƒà¤¤à¤¿ à¤•à¥‡ à¤¬à¤¾à¤¦ à¤•à¤¿à¤¸à¥€ à¤­à¥€ à¤ªà¥à¤°à¤•à¤¾à¤° à¤•à¤¾ à¤¸à¤‚à¤¶à¥‹à¤§à¤¨ à¤…à¤¥à¤µà¤¾ à¤…à¤¤à¤¿à¤°à¤¿à¤•à¥à¤¤ à¤ªà¥à¤°à¤¿à¤‚à¤Ÿà¤¿à¤‚à¤— à¤•à¤¾à¤°à¥à¤¯ à¤…à¤¤à¤¿à¤°à¤¿à¤•à¥à¤¤ à¤¶à¥à¤²à¥à¤• à¤ªà¤° à¤•à¤¿à¤¯à¤¾ à¤œà¤¾à¤à¤—à¤¾à¥¤</p>
                         </div>
                         <div class="terms-item-scroll">
-                            <h5>5. बुकिंग रद्द करना (Booking Cancellations)</h5>
-                            <p>बुकिंग रद्द होने की स्थिति में जमा की गई अग्रिम राशि Non-Refundable (वापसी योग्य नहीं) होगी।</p>
+                            <h5>5. à¤¬à¥à¤•à¤¿à¤‚à¤— à¤°à¤¦à¥à¤¦ à¤•à¤°à¤¨à¤¾ (Booking Cancellations)</h5>
+                            <p>à¤¬à¥à¤•à¤¿à¤‚à¤— à¤°à¤¦à¥à¤¦ à¤¹à¥‹à¤¨à¥‡ à¤•à¥€ à¤¸à¥à¤¥à¤¿à¤¤à¤¿ à¤®à¥‡à¤‚ à¤œà¤®à¤¾ à¤•à¥€ à¤—à¤ˆ à¤…à¤—à¥à¤°à¤¿à¤® à¤°à¤¾à¤¶à¤¿ Non-Refundable (à¤µà¤¾à¤ªà¤¸à¥€ à¤¯à¥‹à¤—à¥à¤¯ à¤¨à¤¹à¥€à¤‚) à¤¹à¥‹à¤—à¥€à¥¤</p>
                         </div>
                         <div class="terms-item-scroll">
-                            <h5>6. अतिरिक्त कार्य (Extra Shoots or Addons)</h5>
-                            <p>पैकेज में शामिल सेवाओं के अतिरिक्त फोटो, वीडियो, ड्रोन, रील, अतिरिक्त एल्बम पेज हेतु अलग से शुल्क देय होगा।</p>
+                            <h5>6. à¤…à¤¤à¤¿à¤°à¤¿à¤•à¥à¤¤ à¤•à¤¾à¤°à¥à¤¯ (Extra Shoots or Addons)</h5>
+                            <p>à¤ªà¥ˆà¤•à¥‡à¤œ à¤®à¥‡à¤‚ à¤¶à¤¾à¤®à¤¿à¤² à¤¸à¥‡à¤µà¤¾à¤“à¤‚ à¤•à¥‡ à¤…à¤¤à¤¿à¤°à¤¿à¤•à¥à¤¤ à¤«à¥‹à¤Ÿà¥‹, à¤µà¥€à¤¡à¤¿à¤¯à¥‹, à¤¡à¥à¤°à¥‹à¤¨, à¤°à¥€à¤², à¤…à¤¤à¤¿à¤°à¤¿à¤•à¥à¤¤ à¤à¤²à¥à¤¬à¤® à¤ªà¥‡à¤œ à¤¹à¥‡à¤¤à¥ à¤…à¤²à¤— à¤¸à¥‡ à¤¶à¥à¤²à¥à¤• à¤¦à¥‡à¤¯ à¤¹à¥‹à¤—à¤¾à¥¤</p>
                         </div>
                         <div class="terms-item-scroll">
-                            <h5>7. ग्राहक की जिम्मेदारी (Customer Responsibilities)</h5>
-                            <p>कार्यक्रम का सही समय, स्थान एवं आवश्यक जानकारी समय पर उपलब्ध कराना ग्राहक की जिम्मेदारी होगी। ग्राहक की देरी से उत्पन्न असुविधाओं के लिए स्टूडियो उत्तरदायी नहीं होगा।</p>
+                            <h5>7. à¤—à¥à¤°à¤¾à¤¹à¤• à¤•à¥€ à¤œà¤¿à¤®à¥à¤®à¥‡à¤¦à¤¾à¤°à¥€ (Customer Responsibilities)</h5>
+                            <p>à¤•à¤¾à¤°à¥à¤¯à¤•à¥à¤°à¤® à¤•à¤¾ à¤¸à¤¹à¥€ à¤¸à¤®à¤¯, à¤¸à¥à¤¥à¤¾à¤¨ à¤à¤µà¤‚ à¤†à¤µà¤¶à¥à¤¯à¤• à¤œà¤¾à¤¨à¤•à¤¾à¤°à¥€ à¤¸à¤®à¤¯ à¤ªà¤° à¤‰à¤ªà¤²à¤¬à¥à¤§ à¤•à¤°à¤¾à¤¨à¤¾ à¤—à¥à¤°à¤¾à¤¹à¤• à¤•à¥€ à¤œà¤¿à¤®à¥à¤®à¥‡à¤¦à¤¾à¤°à¥€ à¤¹à¥‹à¤—à¥€à¥¤ à¤—à¥à¤°à¤¾à¤¹à¤• à¤•à¥€ à¤¦à¥‡à¤°à¥€ à¤¸à¥‡ à¤‰à¤¤à¥à¤ªà¤¨à¥à¤¨ à¤…à¤¸à¥à¤µà¤¿à¤§à¤¾à¤“à¤‚ à¤•à¥‡ à¤²à¤¿à¤ à¤¸à¥à¤Ÿà¥‚à¤¡à¤¿à¤¯à¥‹ à¤‰à¤¤à¥à¤¤à¤°à¤¦à¤¾à¤¯à¥€ à¤¨à¤¹à¥€à¤‚ à¤¹à¥‹à¤—à¤¾à¥¤</p>
                         </div>
                         <div class="terms-item-scroll">
-                            <h5>8. कॉपीराइट (Copyright & Commercial Use)</h5>
-                            <p>सभी फोटो एवं वीडियो का कॉपीराइट Dewangan Photo & Videography के पास सुरक्षित रहेगा। व्यावसायिक उपयोग/विज्ञापन हेतु पूर्व लिखित अनुमति आवश्यक होगी।</p>
+                            <h5>8. à¤•à¥‰à¤ªà¥€à¤°à¤¾à¤‡à¤Ÿ (Copyright & Commercial Use)</h5>
+                            <p>à¤¸à¤­à¥€ à¤«à¥‹à¤Ÿà¥‹ à¤à¤µà¤‚ à¤µà¥€à¤¡à¤¿à¤¯à¥‹ à¤•à¤¾ à¤•à¥‰à¤ªà¥€à¤°à¤¾à¤‡à¤Ÿ Dewangan Photo & Videography à¤•à¥‡ à¤ªà¤¾à¤¸ à¤¸à¥à¤°à¤•à¥à¤·à¤¿à¤¤ à¤°à¤¹à¥‡à¤—à¤¾à¥¤ à¤µà¥à¤¯à¤¾à¤µà¤¸à¤¾à¤¯à¤¿à¤• à¤‰à¤ªà¤¯à¥‹à¤—/à¤µà¤¿à¤œà¥à¤žà¤¾à¤ªà¤¨ à¤¹à¥‡à¤¤à¥ à¤ªà¥‚à¤°à¥à¤µ à¤²à¤¿à¤–à¤¿à¤¤ à¤…à¤¨à¥à¤®à¤¤à¤¿ à¤†à¤µà¤¶à¥à¤¯à¤• à¤¹à¥‹à¤—à¥€à¥¤</p>
                         </div>
                         <div class="terms-item-scroll">
-                            <h5>9. स्वीकृति (Sign-off Acceptance)</h5>
-                            <p>कोटेशन स्वीकार करने अथवा बुकिंग की पुष्टि करने पर ग्राहक उपरोक्त सभी नियम एवं शर्तों से सहमत माना जाएगा।</p>
+                            <h5>9. à¤¸à¥à¤µà¥€à¤•à¥ƒà¤¤à¤¿ (Sign-off Acceptance)</h5>
+                            <p>à¤•à¥‹à¤Ÿà¥‡à¤¶à¤¨ à¤¸à¥à¤µà¥€à¤•à¤¾à¤° à¤•à¤°à¤¨à¥‡ à¤…à¤¥à¤µà¤¾ à¤¬à¥à¤•à¤¿à¤‚à¤— à¤•à¥€ à¤ªà¥à¤·à¥à¤Ÿà¤¿ à¤•à¤°à¤¨à¥‡ à¤ªà¤° à¤—à¥à¤°à¤¾à¤¹à¤• à¤‰à¤ªà¤°à¥‹à¤•à¥à¤¤ à¤¸à¤­à¥€ à¤¨à¤¿à¤¯à¤® à¤à¤µà¤‚ à¤¶à¤°à¥à¤¤à¥‹à¤‚ à¤¸à¥‡ à¤¸à¤¹à¤®à¤¤ à¤®à¤¾à¤¨à¤¾ à¤œà¤¾à¤à¤—à¤¾à¥¤</p>
                         </div>
                     </div>
                 </div>
@@ -1634,12 +1634,12 @@
                     <label class="checkbox-container">
                         <input type="checkbox" id="tc-agree-checkbox" required>
                         <span class="checkmark"></span>
-                        I have read and agree to the Terms & Conditions. (मैंने नियम व शर्तें पढ़ ली हैं और मैं इनसे सहमत हूँ।)
+                        I have read and agree to the Terms & Conditions. (à¤®à¥ˆà¤‚à¤¨à¥‡ à¤¨à¤¿à¤¯à¤® à¤µ à¤¶à¤°à¥à¤¤à¥‡à¤‚ à¤ªà¥ à¤²à¥€ à¤¹à¥ˆà¤‚ à¤”à¤° à¤®à¥ˆà¤‚ à¤‡à¤¨à¤¸à¥‡ à¤¸à¤¹à¤®à¤¤ à¤¹à¥‚à¤à¥¤)
                     </label>
                 </div>
                 
                 <div class="signature-drawing-section mt-15">
-                    <label class="sig-canvas-label">Customer Digital Signature (ग्राहक के डिजिटल हस्ताक्षर)</label>
+                    <label class="sig-canvas-label">Customer Digital Signature (à¤—à¥à¤°à¤¾à¤¹à¤• à¤•à¥‡ à¤¡à¤¿à¤œà¤¿à¤Ÿà¤² à¤¹à¤¸à¥à¤¤à¤¾à¤•à¥à¤·à¤°)</label>
                     <div class="canvas-wrapper-draw">
                         <canvas id="signature-canvas" width="434" height="150"></canvas>
                     </div>

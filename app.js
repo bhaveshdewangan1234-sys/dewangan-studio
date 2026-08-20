@@ -888,50 +888,66 @@ document.addEventListener('DOMContentLoaded', () => {
             if (twitterDesc) twitterDesc.setAttribute('content', seoData[secId].desc);
         }
 
-        const landingSectionIds = ['home', 'about', 'gallery', 'cinema', 'packages', 'why-choose', 'testimonials', 'contact'];
+        const landingSectionIds = ['home', 'about', 'gallery', 'cinema', 'packages', 'why-choose', 'testimonials', 'contact', 'blog'];
         const isLandingTarget = landingSectionIds.includes(secId);
 
         const publicSections = document.querySelectorAll('.public-section');
-        
-        if (isLandingTarget) {
-            // Restore visibility for all main landing page sections
-            publicSections.forEach(sec => {
-                const sId = sec.id.replace('sec-', '');
-                if (landingSectionIds.includes(sId)) {
-                    sec.classList.remove('hidden');
-                    sec.classList.add('active');
-                    // Reset hidden-mobile on mobile if it is not the active target section
-                    if ((sId === 'why-choose' || sId === 'testimonials') && secId !== sId) {
-                        sec.classList.add('hidden-mobile');
-                    } else if ((sId === 'why-choose' || sId === 'testimonials') && secId === sId) {
-                        sec.classList.remove('hidden-mobile');
+        const path = window.location.pathname.toLowerCase();
+        const isHomepage = path === '/' || path.endsWith('index.html') || path === '' || path.includes('/index');
+
+        if (isHomepage) {
+            if (isLandingTarget) {
+                // Restore visibility for all main landing page sections (original single-page scroll layout)
+                publicSections.forEach(sec => {
+                    const sId = sec.id.replace('sec-', '');
+                    if (landingSectionIds.includes(sId)) {
+                        sec.classList.remove('hidden');
+                        sec.classList.add('active');
+                        // Reset hidden-mobile on mobile if it is not the active target section
+                        if ((sId === 'why-choose' || sId === 'testimonials') && secId !== sId) {
+                            sec.classList.add('hidden-mobile');
+                        } else if ((sId === 'why-choose' || sId === 'testimonials') && secId === sId) {
+                            sec.classList.remove('hidden-mobile');
+                        }
+                    } else {
+                        sec.classList.add('hidden');
+                        sec.classList.remove('active');
                     }
-                } else {
-                    sec.classList.add('hidden');
-                    sec.classList.remove('active');
-                }
-            });
-            
-            // Perform smooth scroll to target section container
-            const targetSec = document.getElementById(`sec-${secId}`);
-            if (targetSec) {
-                setTimeout(() => {
-                    if (secId === 'contact') {
-                        const form = document.getElementById('public-enquiry-form');
-                        if (form) {
-                            form.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                            const nameInput = document.getElementById('enq-name');
-                            if (nameInput) nameInput.focus();
+                });
+                
+                // Perform smooth scroll to target section container
+                const targetSec = document.getElementById(`sec-${secId}`);
+                if (targetSec) {
+                    setTimeout(() => {
+                        if (secId === 'contact') {
+                            const form = document.getElementById('public-enquiry-form');
+                            if (form) {
+                                form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                const nameInput = document.getElementById('enq-name');
+                                if (nameInput) nameInput.focus();
+                            } else {
+                                targetSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            }
                         } else {
                             targetSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
                         }
+                    }, 50);
+                }
+            } else {
+                // Target is a specific sub-detail page. Hide landing sections, show only target.
+                publicSections.forEach(sec => {
+                    if (sec.id === `sec-${secId}`) {
+                        sec.classList.remove('hidden');
+                        sec.classList.add('active');
                     } else {
-                        targetSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        sec.classList.add('hidden');
+                        sec.classList.remove('active');
                     }
-                }, 50);
+                });
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         } else {
-            // Target is a specific sub-detail page. Hide landing sections, show only target.
+            // On a standalone sub-page (like /about, /portfolio): show ONLY the target section!
             publicSections.forEach(sec => {
                 if (sec.id === `sec-${secId}`) {
                     sec.classList.remove('hidden');
@@ -941,7 +957,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     sec.classList.remove('active');
                 }
             });
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            window.scrollTo({ top: 0 });
         }
         
         // Active link highlighting indicator updates
@@ -1015,18 +1031,105 @@ document.addEventListener('DOMContentLoaded', () => {
             window.showHeroSlide(currentHeroSlideIndex + 1);
         }, 5000);
 
+        // Setup local link rewrites for previewing locally
+        if (window.location.protocol === 'file:') {
+            const allAnchors = document.querySelectorAll('a');
+            allAnchors.forEach(a => {
+                let href = a.getAttribute('href');
+                if (href) {
+                    if (href === '/') {
+                        a.setAttribute('href', 'index.html');
+                    } else if (href.startsWith('/') && !href.includes('.html')) {
+                        const baseSec = href.split('#')[0].substring(1);
+                        const hash = href.includes('#') ? href.substring(href.indexOf('#')) : '';
+                        if (baseSec === 'portfolio') {
+                            a.setAttribute('href', 'portfolio.html' + hash);
+                        } else if (baseSec === 'pre-wedding-photography') {
+                            a.setAttribute('href', 'pre-wedding-photography.html' + hash);
+                        } else if (baseSec === '') {
+                            a.setAttribute('href', 'index.html' + hash);
+                        } else {
+                            a.setAttribute('href', baseSec + '.html' + hash);
+                        }
+                    }
+                }
+            });
+        }
+
+        const currentPath = window.location.pathname.toLowerCase();
+
         publicLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 const secId = link.getAttribute('data-sec');
                 if (secId) {
-                    e.preventDefault();
-                    window.showPublicSection(secId);
-                    // Collapse mobile menu if open
-                    const mobMenu = document.getElementById('mobile-menu');
-                    if (mobMenu) mobMenu.classList.add('hidden');
+                    let targetPage = '/';
+                    if (secId === 'about') targetPage = '/about';
+                    else if (secId === 'gallery') targetPage = '/portfolio';
+                    else if (secId === 'wedding-photography') targetPage = '/wedding-photography';
+                    else if (secId === 'pre-wedding') targetPage = '/pre-wedding-photography';
+                    else if (secId === 'videography') targetPage = '/videography';
+                    else if (secId === 'contact') targetPage = '/contact';
+                    else if (secId === 'cinema') targetPage = '/#cinema';
+                    else if (secId === 'testimonials') targetPage = '/#testimonials';
+                    else if (secId === 'blog') targetPage = '/#blog';
+
+                    if (window.location.protocol === 'file:') {
+                        if (targetPage === '/') targetPage = 'index.html';
+                        else if (targetPage.startsWith('/')) {
+                            const baseSec = targetPage.split('#')[0].substring(1);
+                            const hash = targetPage.includes('#') ? targetPage.substring(targetPage.indexOf('#')) : '';
+                            if (baseSec === 'portfolio') {
+                                targetPage = 'portfolio.html' + hash;
+                            } else if (baseSec === 'pre-wedding-photography') {
+                                targetPage = 'pre-wedding-photography.html' + hash;
+                            } else {
+                                targetPage = baseSec + '.html' + hash;
+                            }
+                        }
+                    }
+
+                    const targetPathOnly = targetPage.split('#')[0];
+                    const currentPathOnly = window.location.protocol === 'file:' ? currentPath.substring(currentPath.lastIndexOf('/') + 1) : currentPath;
+                    const normTargetPath = targetPathOnly.startsWith('/') ? targetPathOnly.substring(1) : targetPathOnly;
+                    const normCurrentPath = currentPathOnly.startsWith('/') ? currentPathOnly.substring(1) : currentPathOnly;
+
+                    if (normTargetPath === normCurrentPath || (normTargetPath === '' && (normCurrentPath === 'index.html' || normCurrentPath === ''))) {
+                        e.preventDefault();
+                        window.showPublicSection(secId);
+                        const mobMenu = document.getElementById('mobile-menu');
+                        if (mobMenu) mobMenu.classList.add('hidden');
+                    }
                 }
             });
         });
+
+        // Trigger initial route view on startup
+        const initRoute = () => {
+            let startSec = 'home';
+            if (currentPath.includes('about')) startSec = 'about';
+            else if (currentPath.includes('portfolio')) startSec = 'gallery';
+            else if (currentPath.includes('wedding-photography')) startSec = 'wedding-photography';
+            else if (currentPath.includes('pre-wedding-photography') || currentPath.includes('pre-wedding')) startSec = 'pre-wedding';
+            else if (currentPath.includes('videography')) startSec = 'videography';
+            else if (currentPath.includes('contact')) startSec = 'contact';
+            
+            const hash = window.location.hash;
+            if (hash) {
+                const cleanHash = hash.replace('#', '');
+                if (cleanHash === 'gallery') startSec = 'gallery';
+                else if (cleanHash === 'wedding-photography') startSec = 'wedding-photography';
+                else if (cleanHash === 'pre-wedding') startSec = 'pre-wedding';
+                else if (cleanHash === 'videography') startSec = 'videography';
+                else if (cleanHash === 'about') startSec = 'about';
+                else if (cleanHash === 'contact') startSec = 'contact';
+                else if (cleanHash === 'cinema') startSec = 'cinema';
+                else if (cleanHash === 'testimonials') startSec = 'testimonials';
+                else if (cleanHash === 'blog') startSec = 'blog';
+            }
+            
+            window.showPublicSection(startSec);
+        };
+        initRoute();
 
         // Mobile Hamburger menu toggle
         const mobToggle = document.getElementById('mobile-nav-toggle');
