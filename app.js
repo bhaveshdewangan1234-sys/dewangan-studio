@@ -294,6 +294,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cancelLoginBtn = document.getElementById('cancel-login-btn');
 
     // Public Site Elements
+    let pendingGalleryFile = null;
     const publicLinks = document.querySelectorAll('.pub-link');
     const publicSections = document.querySelectorAll('.public-section');
     const adminLoginTrigger = document.getElementById('admin-login-trigger');
@@ -549,6 +550,42 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
+    // Helper to upload File, Blob, or Base64 string directly to Firebase Storage (returns download URL in cloud mode, or base64 in local mode)
+    const uploadToStorage = (data, folder, filename = 'image.jpg') => {
+        if (appState.dbType === 'cloud' && typeof firebase !== 'undefined' && firebase.storage) {
+            const storageRef = firebase.storage().ref();
+            const fileRef = storageRef.child(`${folder}/${Date.now()}_${filename}`);
+            
+            let uploadTask;
+            if (typeof data === 'string' && data.startsWith('data:')) {
+                const byteString = atob(data.split(',')[1]);
+                const mimeString = data.split(',')[0].split(':')[1].split(';')[0];
+                const ab = new ArrayBuffer(byteString.length);
+                const ia = new Uint8Array(ab);
+                for (let i = 0; i < byteString.length; i++) {
+                    ia[i] = byteString.charCodeAt(i);
+                }
+                const blob = new Blob([ab], {type: mimeString});
+                uploadTask = fileRef.put(blob);
+            } else {
+                uploadTask = fileRef.put(data);
+            }
+            
+            return uploadTask.then(snapshot => snapshot.ref.getDownloadURL());
+        } else {
+            return new Promise((resolve, reject) => {
+                if (typeof data === 'string') {
+                    resolve(data);
+                } else {
+                    const reader = new FileReader();
+                    reader.readAsDataURL(data);
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = err => reject(err);
+                }
+            });
+        }
+    };
+
     // Setup Drag-and-drop Portfolio Gallery Uploader
     const initGalleryUploader = () => {
         const dropzone = document.getElementById('gal-upload-dropzone');
@@ -612,23 +649,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 showToast("Please select an image file.", "error");
                 return;
             }
-            showToast("Processing image... please wait.");
-            compressImageFile(file)
-                .then(base64Url => {
-                    hiddenUrlInput.value = base64Url;
-                    previewImg.src = base64Url;
-                    content.classList.add('hidden');
-                    preview.classList.remove('hidden');
-                    showToast("Image loaded successfully!");
-                })
-                .catch(err => {
-                    console.error(err);
-                    showToast("Failed to process image.", "error");
-                });
+            showToast("Image selected! Preserving original quality.");
+            pendingGalleryFile = file;
+            hiddenUrlInput.value = 'pending_upload';
+            previewImg.src = URL.createObjectURL(file);
+            content.classList.add('hidden');
+            preview.classList.remove('hidden');
         };
 
         window.resetGalleryUploader = (existingUrl = '') => {
             fileInput.value = '';
+            pendingGalleryFile = null;
             if (existingUrl) {
                 hiddenUrlInput.value = existingUrl;
                 previewImg.src = existingUrl;
@@ -658,15 +689,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         showToast("Please select an image file.", "error");
                         return;
                     }
-                    showToast("Compressing and uploading image...");
-                    compressImageFile(file)
-                        .then(base64Url => {
-                            textInput.value = base64Url;
-                            showToast("Image loaded! Click 'Save Media Assets' to apply.");
+                    showToast("Uploading settings asset to cloud storage...");
+                    uploadToStorage(file, 'settings', file.name)
+                        .then(url => {
+                            textInput.value = url;
+                            showToast("Image uploaded successfully! Click 'Save Media Assets' to apply.");
                         })
                         .catch(err => {
                             console.error(err);
-                            showToast("Failed to load image.", "error");
+                            showToast("Failed to upload image: " + err.message, "error");
                         });
                 }
             });
@@ -2712,36 +2743,64 @@ document.addEventListener('DOMContentLoaded', () => {
         const url = document.getElementById('gal-url').value.trim();
         const desc = document.getElementById('gal-desc').value.trim() || 'Dewangan capture';
 
-        const galData = { title, category, url, desc };
+        const saveGalleryItem = (finalUrl, finalThumbUrl) => {
+            const galData = { title, category, url: finalUrl, thumbUrl: finalThumbUrl, desc };
 
-        if (appState.dbType === 'demo') {
-            if (id) {
-                const idx = appState.gallery.findIndex(g => g.id === id);
-                if (idx !== -1) {
-                    appState.gallery[idx] = { id, ...galData };
+            if (appState.dbType === 'demo') {
+                if (id) {
+                    const idx = appState.gallery.findIndex(g => g.id === id);
+                    if (idx !== -1) {
+                        appState.gallery[idx] = { id, ...galData };
+                        localStorage.setItem('demo_gallery', JSON.stringify(appState.gallery));
+                        showToast("Gallery Image updated successfully!");
+                    }
+                } else {
+                    const newId = 'gal_' + Date.now();
+                    appState.gallery.push({ id: newId, ...galData });
                     localStorage.setItem('demo_gallery', JSON.stringify(appState.gallery));
-                    showToast("Gallery Image updated successfully!");
+                    showToast("Gallery Image added successfully!");
                 }
-            } else {
-                const newId = 'gal_' + Date.now();
-                appState.gallery.push({ id: newId, ...galData });
-                localStorage.setItem('demo_gallery', JSON.stringify(appState.gallery));
-                showToast("Gallery Image added successfully!");
-            }
-            closeGalleryModal();
-            refreshAllUI();
-        } else {
-            let dbPromise;
-            if (id) {
-                dbPromise = fbStore.collection('gallery').doc(id).update(galData);
-            } else {
-                const newId = 'gal_' + Date.now();
-                dbPromise = fbStore.collection('gallery').doc(newId).set({ id: newId, ...galData });
-            }
-            dbPromise.then(() => {
-                showToast("Image synced to cloud!");
                 closeGalleryModal();
-            }).catch(err => showToast(err.message, "error"));
+                refreshAllUI();
+            } else {
+                let dbPromise;
+                if (id) {
+                    dbPromise = fbStore.collection('gallery').doc(id).update(galData);
+                } else {
+                    const newId = 'gal_' + Date.now();
+                    dbPromise = fbStore.collection('gallery').doc(newId).set({ id: newId, ...galData });
+                }
+                dbPromise.then(() => {
+                    showToast("Image synced to cloud!");
+                    closeGalleryModal();
+                }).catch(err => showToast(err.message, "error"));
+            }
+        };
+
+        if (pendingGalleryFile) {
+            showToast("Saving and uploading high-quality original & thumbnail...");
+            
+            // 1. Upload original photo (full quality)
+            const uploadOriginal = uploadToStorage(pendingGalleryFile, 'gallery', pendingGalleryFile.name);
+            
+            // 2. Generate and upload compressed responsive thumbnail (600x600, 80% quality)
+            const uploadThumbnail = compressImageFile(pendingGalleryFile, 600, 600, 0.8)
+                .then(base64 => uploadToStorage(base64, 'gallery_thumbs', 'thumb_' + pendingGalleryFile.name));
+                
+            Promise.all([uploadOriginal, uploadThumbnail])
+                .then(([originalUrl, thumbnailUrl]) => {
+                    pendingGalleryFile = null;
+                    saveGalleryItem(originalUrl, thumbnailUrl);
+                })
+                .catch(err => {
+                    console.error("Storage upload error:", err);
+                    showToast("Failed to upload image: " + err.message, "error");
+                });
+        } else {
+            // Keep existing thumbnail if we have one
+            const existingItem = appState.gallery.find(g => g.id === id);
+            const existingThumb = existingItem ? (existingItem.thumbUrl || '') : '';
+            saveGalleryItem(url === 'pending_upload' ? '' : url, existingThumb);
         }
     });
 
@@ -2881,18 +2940,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     showToast("Please select an image file.", "error");
                     return;
                 }
-                showToast("Compressing category image...");
-                compressImageFile(file, 400, 400)
-                    .then(base64Url => {
-                        hiddenUrlInput.value = base64Url;
-                        previewImg.src = base64Url;
+                showToast("Uploading category image to cloud storage...");
+                uploadToStorage(file, 'categories', file.name)
+                    .then(url => {
+                        hiddenUrlInput.value = url;
+                        previewImg.src = url;
                         content.classList.add('hidden');
                         preview.classList.remove('hidden');
-                        showToast("Image loaded successfully!");
+                        showToast("Image uploaded successfully!");
                     })
                     .catch(err => {
                         console.error(err);
-                        showToast("Failed to process image.", "error");
+                        showToast("Failed to upload image: " + err.message, "error");
                     });
             }
         });
@@ -3559,7 +3618,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const categoryLabel = catObj ? catObj.title : img.category;
             
             card.innerHTML = `
-                <img src="${img.url}" alt="${img.title}" width="400" height="300" class="w-full h-40 sm:h-56 md:h-72 object-contain bg-stone-950 group-hover:scale-105 transition duration-700 opacity-90 group-hover:opacity-100" loading="lazy">
+                <img src="${img.thumbUrl || img.url}" alt="${img.title}" width="400" height="300" class="w-full h-40 sm:h-56 md:h-72 object-contain bg-stone-950 group-hover:scale-105 transition duration-700 opacity-90 group-hover:opacity-100" loading="lazy">
                 <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end p-4 md:p-6 z-10">
                     <span class="text-gold-400 text-[9px] uppercase tracking-widest font-bold">${categoryLabel}</span>
                     <h4 class="font-serif text-sm md:text-lg text-white font-bold mt-1">${img.title}</h4>
@@ -5342,17 +5401,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 const filenameLabel = document.getElementById('store-logo-filename');
                 if (filenameLabel) filenameLabel.textContent = file.name;
                 
-                showToast("Compressing and uploading store logo...");
-                compressImageFile(file, 600, 600)
-                    .then(base64Url => {
-                        appState.settings.logoUrl = base64Url;
+                showToast("Uploading store logo to cloud storage...");
+                uploadToStorage(file, 'settings', file.name)
+                    .then(url => {
+                        appState.settings.logoUrl = url;
                         const preview = document.getElementById('set-store-logo-preview');
-                        if (preview) preview.src = base64Url;
-                        showToast("Store logo loaded! Click 'Save Settings' to apply.");
+                        if (preview) preview.src = url;
+                        showToast("Store logo uploaded! Click 'Save Settings' to apply.");
                     })
                     .catch(err => {
                         console.error(err);
-                        showToast("Failed to load store logo.", "error");
+                        showToast("Failed to upload store logo: " + err.message, "error");
                     });
             }
         });
@@ -5371,17 +5430,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 const filenameLabel = document.getElementById('store-favicon-filename');
                 if (filenameLabel) filenameLabel.textContent = file.name;
                 
-                showToast("Compressing and uploading store favicon...");
-                compressImageFile(file, 64, 64, 0.7, true)
-                    .then(base64Url => {
-                        appState.settings.faviconUrl = base64Url;
+                showToast("Uploading store favicon to cloud storage...");
+                uploadToStorage(file, 'settings', file.name)
+                    .then(url => {
+                        appState.settings.faviconUrl = url;
                         const preview = document.getElementById('set-store-favicon-preview');
-                        if (preview) preview.src = base64Url;
-                        showToast("Store favicon loaded! Click 'Save Settings' to apply.");
+                        if (preview) preview.src = url;
+                        showToast("Store favicon uploaded! Click 'Save Settings' to apply.");
                     })
                     .catch(err => {
                         console.error(err);
-                        showToast("Failed to load store favicon.", "error");
+                        showToast("Failed to upload store favicon: " + err.message, "error");
                     });
             }
         });
