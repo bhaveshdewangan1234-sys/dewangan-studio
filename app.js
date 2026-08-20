@@ -487,7 +487,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Client-side image compressor helper returning a Promise with compressed base64 jpeg
-    const compressImageFile = (file, maxWidth = 1200, maxHeight = 1200, quality = 0.7, isLogo = false) => {
+    // Optimized for professional photography: increased resolution to 2048px (2K) and quality to 0.88 to preserve fine details while remaining within Firestore's 1MB document limit.
+    const compressImageFile = (file, maxWidth = 2048, maxHeight = 2048, quality = 0.88, isLogo = false) => {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
             reader.readAsDataURL(file);
