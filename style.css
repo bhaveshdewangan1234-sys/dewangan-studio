@@ -3443,6 +3443,14 @@ header.border-b.border-gold-500\/10 #pub-brand-logo-text .text-brand-sub {
     }
 }
 
+#pub-about-desc-container,
+#pub-about-desc-container * {
+    background: transparent !important;
+    background-color: transparent !important;
+    color: #d6d3d1 !important;
+}
+
+
 /* Mobile Swipe Indicator Arrows */
 .mobile-swipe-arrow {
     display: none !important;

@@ -749,6 +749,113 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Global function to show a specific public website section
     window.showPublicSection = (secId) => {
+        const seoData = {
+            'home': {
+                title: 'Dewangan Photo & Videography - Best Wedding Photographer in Shivpuri, Durg & Bhilai',
+                desc: 'Dewangan Photo & Videography is a premium luxury photography studio based in Shivpuri, Jamul, Durg, Chhattisgarh. Specializing in royal wedding photography, pre-wedding shoots, candid cinematography, and custom albums.',
+                canonical: 'https://www.dewanganphotoandvideography.com/'
+            },
+            'about': {
+                title: 'About Us - Dewangan Photo & Videography | Top Photographers in Bhilai & Durg',
+                desc: 'Meet the team behind Dewangan Photo & Videography. Learn about our passion, experience, and commitment to capturing your beautiful stories in Jamul, Durg, Bhilai & Raipur.',
+                canonical: 'https://www.dewanganphotoandvideography.com/#about'
+            },
+            'gallery': {
+                title: 'Our Portfolio Gallery - Dewangan Photo & Videography',
+                desc: 'Explore our stunning portfolio of wedding stories, pre-wedding shoots, candid portraits, and drone captures across Bhilai, Durg, Jamul, and Chhattisgarh.',
+                canonical: 'https://www.dewanganphotoandvideography.com/#gallery'
+            },
+            'cinema': {
+                title: 'Cinematic Wedding Films & Highlights - Dewangan Photo & Videography',
+                desc: 'Watch our high-quality candid cinematic films, wedding highlights, and pre-wedding reels shot in Durg, Bhilai, Raipur and nearby regions.',
+                canonical: 'https://www.dewanganphotoandvideography.com/#cinema'
+            },
+            'testimonials': {
+                title: 'Client Reviews & Testimonials - Dewangan Photo & Videography',
+                desc: 'Read real reviews and heart-touching testimonials from couples and families who chose Dewangan Photo & Videography for their special events.',
+                canonical: 'https://www.dewanganphotoandvideography.com/#testimonials'
+            },
+            'blog': {
+                title: 'Photography Tips & Stories Blog - Dewangan Photo & Videography',
+                desc: 'Get helpful pre-wedding photoshoot tips, wedding planning guides, and professional advice from Bhilai\'s best photography studio.',
+                canonical: 'https://www.dewanganphotoandvideography.com/#blog'
+            },
+            'contact': {
+                title: 'Contact Best Photographers in Bhilai & Durg - Dewangan Photo & Videography',
+                desc: 'Book your wedding shoot, pre-wedding session, or custom album. Contact Dewangan Photo & Videography in Shivpuri, Jamul, Durg. Call +91 9301614549.',
+                canonical: 'https://www.dewanganphotoandvideography.com/#contact'
+            },
+            'wedding-photography': {
+                title: 'Royal Wedding Photography in Bhilai & Durg - Dewangan Photo & Videography',
+                desc: 'Premium wedding photography services in Jamul, Bhilai, Durg. Capture your raw emotions and golden moments with Chhattisgarh\'s best wedding photographers.',
+                canonical: 'https://www.dewanganphotoandvideography.com/#wedding-photography'
+            },
+            'pre-wedding': {
+                title: 'Romantic Pre-Wedding Shoot in Bhilai & Durg - Dewangan Photo & Videography',
+                desc: 'Planning a pre-wedding photoshoot? Explore our locations, creative concepts, and packages in Bhilai, Durg, Raipur and all over Chhattisgarh.',
+                canonical: 'https://www.dewanganphotoandvideography.com/#pre-wedding'
+            },
+            'engagement': {
+                title: 'Engagement Portrait & Ring Ceremony Photography in Bhilai',
+                desc: 'Professional engagement photography services in Bhilai, Durg and Raipur. Capturing beautiful candid rings exchanges and family portraits.',
+                canonical: 'https://www.dewanganphotoandvideography.com/#engagement'
+            },
+            'birthday-anniversary': {
+                title: 'Birthday Party & Wedding Anniversary Photography in Bhilai',
+                desc: 'Celebrate special milestones with custom photography. Hire the best photographers for birthdays and anniversaries in Bhilai, Durg and Jamul.',
+                canonical: 'https://www.dewanganphotoandvideography.com/#birthday-anniversary'
+            },
+            'maternity-shoot': {
+                title: 'Maternity Photoshoot & Pregnancy Photography in Bhilai & Durg',
+                desc: 'Cherish the joy of motherhood with a beautiful maternity photoshoot in Bhilai. Creative poses, stunning lighting, and personalized sessions.',
+                canonical: 'https://www.dewanganphotoandvideography.com/#maternity-shoot'
+            },
+            'baby-shoot': {
+                title: 'Baby Shower & Kids Photography in Bhilai, Durg & Raipur',
+                desc: 'Candid baby shower photography and newborn kids photoshoot. Capturing early innocence and playful expressions with utmost care.',
+                canonical: 'https://www.dewanganphotoandvideography.com/#baby-shoot'
+            },
+            'videography': {
+                title: 'Professional Wedding Videography & Cinematic Films in Durg',
+                desc: 'Cinematic wedding videography, candid teaser videos, and high-definition wedding highlights. We capture the sound and motion of your special days.',
+                canonical: 'https://www.dewanganphotoandvideography.com/#videography'
+            },
+            'drone-photography': {
+                title: 'Aerial Drone Photography & Videography in Chhattisgarh',
+                desc: 'Add a grand perspective to your wedding or event with cinematic drone sweeps. Serving Jamul, Bhilai, Durg, Raipur and surrounding areas.',
+                canonical: 'https://www.dewanganphotoandvideography.com/#drone-photography'
+            },
+            'album-design': {
+                title: 'Custom Wedding Album Design & Printing - Photo Studio in Jamul',
+                desc: 'Premium, flush-mount wedding albums designed and printed to last a lifetime. Custom layout designs, high-quality printing, and textured sheets.',
+                canonical: 'https://www.dewanganphotoandvideography.com/#album-design'
+            }
+        };
+
+        if (seoData[secId]) {
+            document.title = seoData[secId].title;
+            
+            const metaDesc = document.querySelector('meta[name="description"]');
+            if (metaDesc) metaDesc.setAttribute('content', seoData[secId].desc);
+            
+            const canonical = document.querySelector('link[rel="canonical"]');
+            if (canonical) canonical.setAttribute('href', seoData[secId].canonical);
+            
+            // Open Graph
+            const ogTitle = document.querySelector('meta[property="og:title"]');
+            if (ogTitle) ogTitle.setAttribute('content', seoData[secId].title);
+            const ogDesc = document.querySelector('meta[property="og:description"]');
+            if (ogDesc) ogDesc.setAttribute('content', seoData[secId].desc);
+            const ogUrl = document.querySelector('meta[property="og:url"]');
+            if (ogUrl) ogUrl.setAttribute('content', seoData[secId].canonical);
+            
+            // Twitter Cards
+            const twitterTitle = document.querySelector('meta[name="twitter:title"]');
+            if (twitterTitle) twitterTitle.setAttribute('content', seoData[secId].title);
+            const twitterDesc = document.querySelector('meta[name="twitter:description"]');
+            if (twitterDesc) twitterDesc.setAttribute('content', seoData[secId].desc);
+        }
+
         const landingSectionIds = ['home', 'about', 'gallery', 'cinema', 'packages', 'why-choose', 'testimonials', 'contact'];
         const isLandingTarget = landingSectionIds.includes(secId);
 
@@ -3451,7 +3558,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const categoryLabel = catObj ? catObj.title : img.category;
             
             card.innerHTML = `
-                <img src="${img.url}" alt="${img.title}" class="w-full h-40 sm:h-56 md:h-72 object-contain bg-stone-950 group-hover:scale-105 transition duration-700 opacity-90 group-hover:opacity-100" loading="lazy">
+                <img src="${img.url}" alt="${img.title}" width="400" height="300" class="w-full h-40 sm:h-56 md:h-72 object-contain bg-stone-950 group-hover:scale-105 transition duration-700 opacity-90 group-hover:opacity-100" loading="lazy">
                 <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end p-4 md:p-6 z-10">
                     <span class="text-gold-400 text-[9px] uppercase tracking-widest font-bold">${categoryLabel}</span>
                     <h4 class="font-serif text-sm md:text-lg text-white font-bold mt-1">${img.title}</h4>
