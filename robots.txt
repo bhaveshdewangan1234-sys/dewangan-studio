@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin.html
 Disallow: /admin
 
-Sitemap: https://www.dewanganphotoandvideography.com/sitemap.xml
+Sitemap: https://dewanganphotoandvideography.in/sitemap.xml

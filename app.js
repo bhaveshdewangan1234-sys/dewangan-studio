@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
             studioName: "Dewangan Photo & Videography",
             studioPhone: "9301614549",
             studioEmail: "bhaveshdewangan1234@gmail.com",
-            studioWebsite: "www.dewanganphotoandvideography.com",
+            studioWebsite: "dewanganphotoandvideography.in",
             studioAddress: "Ward No. 16, beside IPS School, Shivpuri, Jamul, Bhilai, Chhattisgarh 490024",
             invoiceTerms: "1. 50% advance payment required at the time of booking.\n2. Remaining balance must be paid immediately on shoot completion.\n3. Raw images will be shared within 48 hours; edited photos will take 15-30 days.\n4. Delivery timelines are subject to change based on modifications.",
             upiId: "9301614549@ybl",
@@ -785,82 +785,82 @@ document.addEventListener('DOMContentLoaded', () => {
             'home': {
                 title: 'Dewangan Photo & Videography - Best Wedding Photographer in Shivpuri, Durg & Bhilai',
                 desc: 'Dewangan Photo & Videography is a premium luxury photography studio based in Shivpuri, Jamul, Durg, Chhattisgarh. Specializing in royal wedding photography, pre-wedding shoots, candid cinematography, and custom albums.',
-                canonical: 'https://www.dewanganphotoandvideography.com/'
+                canonical: 'https://dewanganphotoandvideography.in/'
             },
             'about': {
                 title: 'About Us - Dewangan Photo & Videography | Top Photographers in Bhilai & Durg',
                 desc: 'Meet the team behind Dewangan Photo & Videography. Learn about our passion, experience, and commitment to capturing your beautiful stories in Jamul, Durg, Bhilai & Raipur.',
-                canonical: 'https://www.dewanganphotoandvideography.com/#about'
+                canonical: 'https://dewanganphotoandvideography.in/#about'
             },
             'gallery': {
                 title: 'Our Portfolio Gallery - Dewangan Photo & Videography',
                 desc: 'Explore our stunning portfolio of wedding stories, pre-wedding shoots, candid portraits, and drone captures across Bhilai, Durg, Jamul, and Chhattisgarh.',
-                canonical: 'https://www.dewanganphotoandvideography.com/#gallery'
+                canonical: 'https://dewanganphotoandvideography.in/#gallery'
             },
             'cinema': {
                 title: 'Cinematic Wedding Films & Highlights - Dewangan Photo & Videography',
                 desc: 'Watch our high-quality candid cinematic films, wedding highlights, and pre-wedding reels shot in Durg, Bhilai, Raipur and nearby regions.',
-                canonical: 'https://www.dewanganphotoandvideography.com/#cinema'
+                canonical: 'https://dewanganphotoandvideography.in/#cinema'
             },
             'testimonials': {
                 title: 'Client Reviews & Testimonials - Dewangan Photo & Videography',
                 desc: 'Read real reviews and heart-touching testimonials from couples and families who chose Dewangan Photo & Videography for their special events.',
-                canonical: 'https://www.dewanganphotoandvideography.com/#testimonials'
+                canonical: 'https://dewanganphotoandvideography.in/#testimonials'
             },
             'blog': {
                 title: 'Photography Tips & Stories Blog - Dewangan Photo & Videography',
                 desc: 'Get helpful pre-wedding photoshoot tips, wedding planning guides, and professional advice from Bhilai\'s best photography studio.',
-                canonical: 'https://www.dewanganphotoandvideography.com/#blog'
+                canonical: 'https://dewanganphotoandvideography.in/#blog'
             },
             'contact': {
                 title: 'Contact Best Photographers in Bhilai & Durg - Dewangan Photo & Videography',
                 desc: 'Book your wedding shoot, pre-wedding session, or custom album. Contact Dewangan Photo & Videography in Shivpuri, Jamul, Durg. Call +91 9301614549.',
-                canonical: 'https://www.dewanganphotoandvideography.com/#contact'
+                canonical: 'https://dewanganphotoandvideography.in/#contact'
             },
             'wedding-photography': {
                 title: 'Royal Wedding Photography in Bhilai & Durg - Dewangan Photo & Videography',
                 desc: 'Premium wedding photography services in Jamul, Bhilai, Durg. Capture your raw emotions and golden moments with Chhattisgarh\'s best wedding photographers.',
-                canonical: 'https://www.dewanganphotoandvideography.com/#wedding-photography'
+                canonical: 'https://dewanganphotoandvideography.in/#wedding-photography'
             },
             'pre-wedding': {
                 title: 'Romantic Pre-Wedding Shoot in Bhilai & Durg - Dewangan Photo & Videography',
                 desc: 'Planning a pre-wedding photoshoot? Explore our locations, creative concepts, and packages in Bhilai, Durg, Raipur and all over Chhattisgarh.',
-                canonical: 'https://www.dewanganphotoandvideography.com/#pre-wedding'
+                canonical: 'https://dewanganphotoandvideography.in/#pre-wedding'
             },
             'engagement': {
                 title: 'Engagement Portrait & Ring Ceremony Photography in Bhilai',
                 desc: 'Professional engagement photography services in Bhilai, Durg and Raipur. Capturing beautiful candid rings exchanges and family portraits.',
-                canonical: 'https://www.dewanganphotoandvideography.com/#engagement'
+                canonical: 'https://dewanganphotoandvideography.in/#engagement'
             },
             'birthday-anniversary': {
                 title: 'Birthday Party & Wedding Anniversary Photography in Bhilai',
                 desc: 'Celebrate special milestones with custom photography. Hire the best photographers for birthdays and anniversaries in Bhilai, Durg and Jamul.',
-                canonical: 'https://www.dewanganphotoandvideography.com/#birthday-anniversary'
+                canonical: 'https://dewanganphotoandvideography.in/#birthday-anniversary'
             },
             'maternity-shoot': {
                 title: 'Maternity Photoshoot & Pregnancy Photography in Bhilai & Durg',
                 desc: 'Cherish the joy of motherhood with a beautiful maternity photoshoot in Bhilai. Creative poses, stunning lighting, and personalized sessions.',
-                canonical: 'https://www.dewanganphotoandvideography.com/#maternity-shoot'
+                canonical: 'https://dewanganphotoandvideography.in/#maternity-shoot'
             },
             'baby-shoot': {
                 title: 'Baby Shower & Kids Photography in Bhilai, Durg & Raipur',
                 desc: 'Candid baby shower photography and newborn kids photoshoot. Capturing early innocence and playful expressions with utmost care.',
-                canonical: 'https://www.dewanganphotoandvideography.com/#baby-shoot'
+                canonical: 'https://dewanganphotoandvideography.in/#baby-shoot'
             },
             'videography': {
                 title: 'Professional Wedding Videography & Cinematic Films in Durg',
                 desc: 'Cinematic wedding videography, candid teaser videos, and high-definition wedding highlights. We capture the sound and motion of your special days.',
-                canonical: 'https://www.dewanganphotoandvideography.com/#videography'
+                canonical: 'https://dewanganphotoandvideography.in/#videography'
             },
             'drone-photography': {
                 title: 'Aerial Drone Photography & Videography in Chhattisgarh',
                 desc: 'Add a grand perspective to your wedding or event with cinematic drone sweeps. Serving Jamul, Bhilai, Durg, Raipur and surrounding areas.',
-                canonical: 'https://www.dewanganphotoandvideography.com/#drone-photography'
+                canonical: 'https://dewanganphotoandvideography.in/#drone-photography'
             },
             'album-design': {
                 title: 'Custom Wedding Album Design & Printing - Photo Studio in Jamul',
                 desc: 'Premium, flush-mount wedding albums designed and printed to last a lifetime. Custom layout designs, high-quality printing, and textured sheets.',
-                canonical: 'https://www.dewanganphotoandvideography.com/#album-design'
+                canonical: 'https://dewanganphotoandvideography.in/#album-design'
             }
         };
 
@@ -1155,8 +1155,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 appState.settings.studioEmail = 'bhaveshdewangan1234@gmail.com';
                 migrated = true;
             }
-            if (appState.settings.studioWebsite === 'www.dewanganstudio.com') {
-                appState.settings.studioWebsite = 'www.dewanganphotoandvideography.com';
+            if (appState.settings.studioWebsite === 'www.dewanganstudio.com' || appState.settings.studioWebsite === 'www.dewanganphotoandvideography.com') {
+                appState.settings.studioWebsite = 'dewanganphotoandvideography.in';
                 migrated = true;
             }
             if (!appState.settings.slide1Url) {
