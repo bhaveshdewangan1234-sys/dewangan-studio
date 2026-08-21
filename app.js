@@ -1796,6 +1796,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const pubFooterLogo = document.getElementById('pub-footer-logo');
         const pubFooterLogoSvg = document.getElementById('pub-footer-logo-svg');
         
+        // Clean up old logo reference if it points to the old .com domains
+        if (appState.settings.logoUrl && (appState.settings.logoUrl.includes('dewanganphotoandvideography.com') || appState.settings.logoUrl.includes('dewanganstudio.com'))) {
+            appState.settings.logoUrl = 'assets/logo.png';
+        }
         const hasCustomLogo = appState.settings.logoUrl && appState.settings.logoUrl.trim() !== "";
         
         if (pubBrandLogo && pubBrandLogoSvg) {

@@ -64,7 +64,7 @@
     </script>
     
     <!-- Custom Style Sheet -->
-    <link rel="stylesheet" href="style.css?v=1.5.1">
+    <link rel="stylesheet" href="style.css?v=2.0.0">
     
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -298,9 +298,7 @@
                                 const localSettings = localStorage.getItem('studio_settings');
                                 if (localSettings) {
                                     const settings = JSON.parse(localSettings);
-                                    if (settings && settings.logoUrl && settings.logoUrl.trim() !== "") {
-                                        logoUrl = settings.logoUrl;
-                                    }
+                                    if (settings && settings.logoUrl && settings.logoUrl.trim() !== "" && !settings.logoUrl.includes("dewanganphotoandvideography.com") && !settings.logoUrl.includes("dewanganstudio.com")) { logoUrl = settings.logoUrl; }
                                     if (settings && settings.studioName) {
                                         const nameEl = document.querySelector('#pub-brand-logo-text .text-brand-name');
                                         if (nameEl) nameEl.textContent = settings.studioName;
@@ -1087,9 +1085,7 @@
                                 const localSettings = localStorage.getItem('studio_settings');
                                 if (localSettings) {
                                     const settings = JSON.parse(localSettings);
-                                    if (settings && settings.logoUrl && settings.logoUrl.trim() !== "") {
-                                        logoUrl = settings.logoUrl;
-                                    }
+                                    if (settings && settings.logoUrl && settings.logoUrl.trim() !== "" && !settings.logoUrl.includes("dewanganphotoandvideography.com") && !settings.logoUrl.includes("dewanganstudio.com")) { logoUrl = settings.logoUrl; }
                                 }
                                 
                                 if (img) {
@@ -1214,7 +1210,7 @@
         <h4 id="video-lightbox-title" class="font-serif text-sm text-white font-bold mt-4 text-center"></h4>
     </div>
 
-    <script src="app.js?v=1.5.0"></script>
+    <script src="app.js?v=2.0.0"></script>
     <script>
         // Inline functions for quick FAQ/Menu actions
         function toggleFaq(btn) {
