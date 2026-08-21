@@ -727,9 +727,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Check Firebase config in local storage, fallback to default production config
         let savedFirebaseConfig = localStorage.getItem('firebase_config');
+        
+        // Purge old cached configs that contain the lowercase 'w' API key typo
+        if (savedFirebaseConfig && savedFirebaseConfig.includes('AIzaSyDkkQaoYwvG6-A_Sus0K18Djo0ijkmUYbM')) {
+            localStorage.removeItem('firebase_config');
+            savedFirebaseConfig = null;
+        }
+
         if (!savedFirebaseConfig) {
             const defaultProductionConfig = {
-                apiKey: "AIzaSyDkkQaoYwvG6-A_Sus0K18Djo0ijkmUYbM",
+                apiKey: "AIzaSyDkkQaoYWvG6-A_Sus0K18Djo0ijkmUYbM",
                 authDomain: "dewangan-studio.firebaseapp.com",
                 projectId: "dewangan-studio",
                 storageBucket: "dewangan-studio.firebasestorage.app",
