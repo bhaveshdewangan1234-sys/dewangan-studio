@@ -1896,8 +1896,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const setStoreCurrency = document.getElementById('set-store-currency');
         if (setStoreCurrency) setStoreCurrency.value = appState.settings.currency || 'INR';
 
-        updateImgSrc('set-store-logo-preview', appState.settings.logoUrl);
-        updateImgSrc('set-store-favicon-preview', appState.settings.faviconUrl);
+        updateImgSrc('set-store-logo-preview', appState.settings.logoUrl || 'assets/logo.png');
+        updateImgSrc('set-store-favicon-preview', appState.settings.faviconUrl || 'assets/logo.png');
 
         // Update favicon dynamically
         const updateFavicon = (url) => {
