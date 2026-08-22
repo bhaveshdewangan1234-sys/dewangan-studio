@@ -1907,7 +1907,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 link.rel = 'icon';
                 document.head.appendChild(link);
             }
-            link.href = url || 'favicon.ico';
+            link.href = url || 'assets/logo.png';
         };
         updateFavicon(appState.settings.faviconUrl);
 
