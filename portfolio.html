@@ -257,7 +257,7 @@
                     <!-- Dynamic Logo Text next to custom logo -->
                     <div id="pub-brand-logo-text" class="flex flex-col justify-center select-none" style="display: flex; flex-direction: column; justify-content: center; line-height: 1.1;">
                         <span class="text-brand-name font-sans font-black text-[13px] sm:text-[14px] tracking-[0.24em] uppercase" style="margin: 0; padding: 0;">DEWANGAN</span>
-                        <span class="text-brand-sub font-sans font-bold text-[8px] sm:text-[9px] tracking-[0.16em] uppercase" style="margin: 1px 0 0 0; padding: 0;">PHOTO & VIDEOGRAPHY</span>
+                        <span class="text-brand-sub font-sans font-bold text-gold-400 text-[8px] sm:text-[9px] tracking-[0.16em] uppercase" style="margin: 1px 0 0 0; padding: 0;">PHOTO & VIDEOGRAPHY</span>
                     </div>
                     
                     <!-- Default SVG Fallback logo if no image uploaded -->
@@ -299,10 +299,7 @@
                                 if (localSettings) {
                                     const settings = JSON.parse(localSettings);
                                     if (settings && settings.logoUrl && settings.logoUrl.trim() !== "" && !settings.logoUrl.includes("dewanganphotoandvideography.com") && !settings.logoUrl.includes("dewanganstudio.com")) { logoUrl = settings.logoUrl; }
-                                    if (settings && settings.studioName) {
-                                        const nameEl = document.querySelector('#pub-brand-logo-text .text-brand-name');
-                                        if (nameEl) nameEl.textContent = settings.studioName;
-                                    }
+                                    
                                 }
                                 
                                 if (img) {
