@@ -1207,6 +1207,30 @@
         <h4 id="video-lightbox-title" class="font-serif text-sm text-white font-bold mt-4 text-center"></h4>
     </div>
 
+        <!-- Local Cache Media Loader to prevent FOUC (Flash of Old Content) -->
+    <script>
+        (function() {
+            try {
+                const localSettings = localStorage.getItem('studio_settings');
+                if (localSettings) {
+                    const settings = JSON.parse(localSettings);
+                    const setSrc = (id, url) => {
+                        const el = document.getElementById(id);
+                        if (el && url && url.trim() !== "") el.src = url;
+                    };
+                    setSrc('pub-slide-1', settings.slide1Url);
+                    setSrc('pub-slide-2', settings.slide2Url);
+                    setSrc('pub-slide-3', settings.slide3Url);
+                    setSrc('pub-about-image', settings.aboutPhotoUrl);
+                    setSrc('pub-wedding-cover', settings.weddingCoverUrl);
+                    setSrc('pub-prewedding-cover', settings.preweddingCoverUrl);
+                    setSrc('pub-birthday-cover', settings.birthdayCoverUrl);
+                }
+            } catch(e) {
+                console.error("Local cache load failed:", e);
+            }
+        })();
+    </script>
     <script src="app.js?v=2.0.0"></script>
     <script>
         // Inline functions for quick FAQ/Menu actions
