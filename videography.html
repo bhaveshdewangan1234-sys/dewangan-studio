@@ -1,6 +1,13 @@
 ﻿<!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: 'unsafe-inline' 'unsafe-eval' data: blob:;">
+    <!-- Prevent Clickjacking Framebuster -->
+    <script>
+        if (self !== top) {
+            top.location = self.location;
+        }
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Professional Wedding Videography & Cinematic Films in Durg</title>

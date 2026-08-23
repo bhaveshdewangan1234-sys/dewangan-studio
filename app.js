@@ -1,10 +1,20 @@
-/**
+﻿/**
  * Dewangan Photo & Videography - Studio Suite
  * Core State, Database Sync, Auth, Public Website Forms, Reports, and Signature Pad Script
  */
 
 document.addEventListener('DOMContentLoaded', () => {
     try {
+        // Global HTML Escaper to prevent Cross-Site Scripting (XSS) vulnerabilities
+        const escapeHtml = (unsafe) => {
+            if (unsafe === null || unsafe === undefined) return '';
+            return String(unsafe)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        };
 
     window.onerror = function(message, source, lineno, colno, error) {
         if (message === 'Script error.' || !source || (lineno === 0 && colno === 0)) {
@@ -522,6 +532,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     
                     if (isPng && isLogo) {
                         try {
+        // Global HTML Escaper to prevent Cross-Site Scripting (XSS) vulnerabilities
+        const escapeHtml = (unsafe) => {
+            if (unsafe === null || unsafe === undefined) return '';
+            return String(unsafe)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        };
                             const imgData = ctx.getImageData(0, 0, width, height);
                             const data = imgData.data;
                             for (let i = 0; i < data.length; i += 4) {
@@ -667,6 +687,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         const handleSelectedFile = (file) => {
+            if (file.size > 20 * 1024 * 1024) {
+                showToast("File size exceeds the 20MB security limit.", "error");
+                return;
+            }
             if (!file.type.startsWith('image/')) {
                 showToast("Please select an image file.", "error");
                 return;
@@ -772,6 +796,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (savedFirebaseConfig) {
             try {
+        // Global HTML Escaper to prevent Cross-Site Scripting (XSS) vulnerabilities
+        const escapeHtml = (unsafe) => {
+            if (unsafe === null || unsafe === undefined) return '';
+            return String(unsafe)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        };
                 appState.firebaseConfig = JSON.parse(savedFirebaseConfig);
                 appState.dbType = 'cloud';
                 connectFirebase(appState.firebaseConfig);
@@ -1208,6 +1242,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // Connect Firebase SDK
     const connectFirebase = (config) => {
         try {
+        // Global HTML Escaper to prevent Cross-Site Scripting (XSS) vulnerabilities
+        const escapeHtml = (unsafe) => {
+            if (unsafe === null || unsafe === undefined) return '';
+            return String(unsafe)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        };
             if (firebase.apps.length === 0) {
                 fbApp = firebase.initializeApp(config);
             } else {
@@ -2147,6 +2191,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const rawJson = firebaseConfigInput.value.trim();
         
         try {
+        // Global HTML Escaper to prevent Cross-Site Scripting (XSS) vulnerabilities
+        const escapeHtml = (unsafe) => {
+            if (unsafe === null || unsafe === undefined) return '';
+            return String(unsafe)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        };
             let configJson = rawJson;
             if (rawJson.includes('firebaseConfig')) {
                 const configIndex = rawJson.indexOf('firebaseConfig');
@@ -2226,6 +2280,16 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         try {
+        // Global HTML Escaper to prevent Cross-Site Scripting (XSS) vulnerabilities
+        const escapeHtml = (unsafe) => {
+            if (unsafe === null || unsafe === undefined) return '';
+            return String(unsafe)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        };
             const configObj = JSON.parse(rawJson);
             localStorage.setItem('firebase_config', JSON.stringify(configObj));
             showToast("Config updated! Reloading...");
@@ -4160,12 +4224,12 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             tr.innerHTML = `
-                <td><strong>${enq.name}</strong></td>
-                <td>${enq.mobile}</td>
+                <td><strong>${escapeHtml(enq.name)}</strong></td>
+                <td>${escapeHtml(enq.mobile)}</td>
                 <td>${eventDateStr}</td>
-                <td><span class="status-pill converted">${enq.eventType}</span></td>
-                <td>${enq.eventLocation || '<span class="text-muted">N/A</span>'}</td>
-                <td style="max-width:200px; font-size:12px; color:var(--text-muted); text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">${enq.message || ''}</td>
+                <td><span class="status-pill converted">${escapeHtml(enq.eventType)}</span></td>
+                <td>${enq.eventLocation ? escapeHtml(enq.eventLocation) : '<span class="text-muted">N/A</span>'}</td>
+                <td style="max-width:200px; font-size:12px; color:var(--text-muted); text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">${escapeHtml(enq.message)}</td>
                 <td>
                     <div class="table-actions">
                         ${enq.status === 'Pending' ? `<button class="table-action-btn convert" title="Convert to Active Booking" data-id="${enq.id}"><i class="fa-solid fa-calendar-plus"></i></button>` : `<span class="status-pill completed">Converted</span>`}
@@ -5723,6 +5787,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const saveSettingsDatabase = () => {
         if (appState.dbType === 'demo') {
             try {
+        // Global HTML Escaper to prevent Cross-Site Scripting (XSS) vulnerabilities
+        const escapeHtml = (unsafe) => {
+            if (unsafe === null || unsafe === undefined) return '';
+            return String(unsafe)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        };
                 localStorage.setItem('studio_settings', JSON.stringify(appState.settings));
                 showToast("Settings saved locally!");
                 applyStudioSettingsUI();
@@ -5782,6 +5856,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const reader = new FileReader();
         reader.onload = (event) => {
             try {
+        // Global HTML Escaper to prevent Cross-Site Scripting (XSS) vulnerabilities
+        const escapeHtml = (unsafe) => {
+            if (unsafe === null || unsafe === undefined) return '';
+            return String(unsafe)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        };
                 const parsed = JSON.parse(event.target.result);
                 
                 if (!parsed.customers || !parsed.invoices || !parsed.quotations || !parsed.settings) {
