@@ -550,30 +550,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // Helper to upload File, Blob, or Base64 string directly to Firebase Storage (returns download URL in cloud mode, or base64 in local mode)
+    // Helper to upload File, Blob, or Base64 string directly to ImgBB (returns CDN URL in cloud mode, or base64 in local mode)
     const uploadToStorage = (data, folder, filename = 'image.jpg') => {
-        if (appState.dbType === 'cloud' && typeof firebase !== 'undefined' && firebase.storage) {
-            const storageRef = firebase.storage().ref();
-            const fileRef = storageRef.child(`${folder}/${Date.now()}_${filename}`);
-            
-            let uploadTask;
-            if (typeof data === 'string' && data.startsWith('data:')) {
-                const byteString = atob(data.split(',')[1]);
-                const mimeString = data.split(',')[0].split(':')[1].split(';')[0];
-                const ab = new ArrayBuffer(byteString.length);
-                const ia = new Uint8Array(ab);
-                for (let i = 0; i < byteString.length; i++) {
-                    ia[i] = byteString.charCodeAt(i);
-                }
-                const blob = new Blob([ab], {type: mimeString});
-                uploadTask = fileRef.put(blob);
-            } else {
-                uploadTask = fileRef.put(data);
-            }
-            
-            return uploadTask.then(snapshot => snapshot.ref.getDownloadURL());
-        } else {
-            return new Promise((resolve, reject) => {
+        const apiKey = "bbea5a968110bc1719612964ca054653";
+        const uploadUrl = `https://api.imgbb.com/1/upload?key=${apiKey}`;
+
+        return new Promise((resolve, reject) => {
+            // If we are in local demo offline mode, bypass ImgBB and save locally as base64
+            if (appState.dbType === 'demo') {
                 if (typeof data === 'string') {
                     resolve(data);
                 } else {
@@ -582,8 +566,46 @@ document.addEventListener('DOMContentLoaded', () => {
                     reader.onload = () => resolve(reader.result);
                     reader.onerror = err => reject(err);
                 }
+                return;
+            }
+
+            const formData = new FormData();
+            if (typeof data === 'string' && data.startsWith('data:')) {
+                const base64Data = data.split(',')[1];
+                formData.append('image', base64Data);
+            } else {
+                formData.append('image', data);
+            }
+
+            fetch(uploadUrl, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('HTTP error ' + response.status);
+                }
+                return response.json();
+            })
+            .then(result => {
+                if (result && result.data && result.data.url) {
+                    resolve(result.data.url);
+                } else {
+                    reject(new Error(result.error ? result.error.message : 'Invalid ImgBB API response'));
+                }
+            })
+            .catch(err => {
+                console.error("ImgBB upload failed, falling back to local storage:", err);
+                if (typeof data === 'string') {
+                    resolve(data);
+                } else {
+                    const reader = new FileReader();
+                    reader.readAsDataURL(data);
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = fileError => reject(fileError);
+                }
             });
-        }
+        });
     };
 
     // Setup Drag-and-drop Portfolio Gallery Uploader
