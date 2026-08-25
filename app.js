@@ -1863,7 +1863,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const updateImgSrc = (id, url) => {
             const img = document.getElementById(id);
             if (img && url) {
-                img.src = url;
+                const tempAnchor = document.createElement('a');
+                tempAnchor.href = url;
+                const absoluteUrl = tempAnchor.href;
+
+                if (img.src !== absoluteUrl) {
+                    img.style.opacity = '0';
+                    img.style.transition = 'opacity 0.8s ease-in-out';
+                    img.onload = () => {
+                        img.style.opacity = '1';
+                    };
+                    img.src = url;
+                }
             }
         };
 
