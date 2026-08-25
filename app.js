@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Dewangan Photo & Videography - Studio Suite
  * Core State, Database Sync, Auth, Public Website Forms, Reports, and Signature Pad Script
  */
@@ -735,11 +735,21 @@ document.addEventListener('DOMContentLoaded', () => {
                         showToast("Please select an image file.", "error");
                         return;
                     }
-                    showToast("Uploading settings asset to cloud storage...");
-                    uploadToStorage(file, 'settings', file.name)
+                    showToast("Optimizing and uploading settings asset to cloud...");
+                    
+                    // Compress to 2048px (2K) for slides/covers, or 400px for logo
+                    const isLogo = fileInputId.includes('logo');
+                    const maxWidth = isLogo ? 400 : 2048;
+                    const maxHeight = isLogo ? 160 : 2048;
+                    const quality = isLogo ? 0.7 : 0.85;
+
+                    compressImageFile(file, maxWidth, maxHeight, quality, isLogo)
+                        .then(compressedBase64 => {
+                            return uploadToStorage(compressedBase64, 'settings', file.name);
+                        })
                         .then(url => {
                             textInput.value = url;
-                            showToast("Image uploaded successfully! Click 'Save Media Assets' to apply.");
+                            showToast("Image optimized and uploaded successfully! Click 'Save Media Assets' to apply.");
                         })
                         .catch(err => {
                             console.error(err);
