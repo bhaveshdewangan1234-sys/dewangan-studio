@@ -1214,7 +1214,7 @@
         <h4 id="video-lightbox-title" class="font-serif text-sm text-white font-bold mt-4 text-center"></h4>
     </div>
 
-            <!-- Local Cache Media Loader to prevent FOUC (Flash of Old Content) -->
+                <!-- Local Cache Media Loader to prevent FOUC (Flash of Old Content) -->
     <script>
         (function() {
             try {
@@ -1223,6 +1223,11 @@
                 const setSrc = (id, url, defaultUrl) => {
                     const el = document.getElementById(id);
                     if (el) {
+                        el.style.opacity = '0';
+                        el.style.transition = 'opacity 0.8s ease-in-out';
+                        el.onload = () => {
+                            el.style.opacity = '1';
+                        };
                         if (settings && url && url.trim() !== "") {
                             el.src = url;
                         } else {
