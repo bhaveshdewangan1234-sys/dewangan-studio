@@ -22,36 +22,36 @@
 /* BRAND COLOR THEME - PURE OBSIDIAN BLACK & BRUSHED LUXURY GOLD */
 [data-theme="dark"], [data-theme="light"] {
     /* Unified Dark Luxury Theme overrides light mode (Admin ONLY toggles light/dark) */
-    --bg-app: #09090b;
-    --bg-sidebar: #030303;
-    --bg-card: rgba(15, 15, 15, 0.65);
-    --bg-input: #121214;
-    --bg-hover: #1c1c1f;
+    --bg-app: #0a0a0c;
+    --bg-sidebar: #020202;
+    --bg-card: rgba(20, 20, 22, 0.75);
+    --bg-input: #111113;
+    --bg-hover: #1b1b1e;
     
-    --text-main: #f4f4f5;
-    --text-muted: #a1a1aa;
+    --text-main: #fbfbfb;
+    --text-muted: #c4c4cc;
     --text-dark: #09090b;
     
-    --border-color: rgba(184, 144, 71, 0.12);
-    --border-hover: rgba(184, 144, 71, 0.25);
+    --border-color: rgba(229, 184, 59, 0.18);
+    --border-hover: rgba(229, 184, 59, 0.35);
     
     --primary-color: #0c0a09;
     --primary-light: #1c1917;
-    --primary-glow: rgba(184, 144, 71, 0.1);
+    --primary-glow: rgba(229, 184, 59, 0.12);
     
     --gold-color: #ffd700;
     --gold-dark: #b89047;
     --gold-light: #fcd34d;
-    --gold-glow: rgba(184, 144, 71, 0.2);
+    --gold-glow: rgba(229, 184, 59, 0.25);
     
     --green-color: #10b981;
     --red-color: #ef4444;
     --orange-color: #f59e0b;
     --blue-color: #3b82f6;
     
-    --glass-bg: rgba(15, 15, 15, 0.6);
-    --glass-border: rgba(184, 144, 71, 0.15);
-    --glass-shadow: 0 10px 40px rgba(0, 0, 0, 0.65);
+    --glass-bg: rgba(20, 20, 22, 0.65);
+    --glass-border: rgba(229, 184, 59, 0.2);
+    --glass-shadow: 0 10px 40px rgba(0, 0, 0, 0.75);
 }
 
 /* Light mode overrides inside admin panel (if theme toggle selected) */

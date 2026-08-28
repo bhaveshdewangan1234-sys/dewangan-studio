@@ -1,9 +1,21 @@
-/**
+﻿/**
  * Dewangan Photo & Videography - Studio Suite
  * Core State, Database Sync, Auth, Public Website Forms, Reports, and Signature Pad Script
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Prevent Desktop Zooming via Keyboard (Ctrl +/-/0) and Mouse Wheel
+    document.addEventListener('keydown', function(e) {
+        if (e.ctrlKey && (e.key === '=' || e.key === '-' || e.key === '+' || e.key === '0' || e.keyCode === 187 || e.keyCode === 189 || e.keyCode === 107 || e.keyCode === 109 || e.keyCode === 48 || e.keyCode === 96)) {
+            e.preventDefault();
+        }
+    });
+    document.addEventListener('wheel', function(e) {
+        if (e.ctrlKey) {
+            e.preventDefault();
+        }
+    }, { passive: false });
+
     try {
         // Global HTML Escaper to prevent Cross-Site Scripting (XSS) vulnerabilities
         const escapeHtml = (unsafe) => {
