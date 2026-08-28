@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Dewangan Photo & Videography - Studio Suite
  * Core State, Database Sync, Auth, Public Website Forms, Reports, and Signature Pad Script
  */
@@ -3018,8 +3018,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (pendingGalleryFile) {
             showToast("Saving and uploading high-quality original & thumbnail...");
             
-            // 1. Upload original photo (full quality)
-            const uploadOriginal = uploadToStorage(pendingGalleryFile, 'gallery', pendingGalleryFile.name);
+            // 1. Upload original photo (full quality optimized to 2048px 2K, 88% quality)
+            const uploadOriginal = compressImageFile(pendingGalleryFile, 2048, 2048, 0.88)
+                .then(base64 => uploadToStorage(base64, 'gallery', pendingGalleryFile.name));
             
             // 2. Generate and upload compressed responsive thumbnail (600x600, 80% quality)
             const uploadThumbnail = compressImageFile(pendingGalleryFile, 600, 600, 0.8)
