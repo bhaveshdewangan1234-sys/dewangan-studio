@@ -380,17 +380,17 @@
                 <!-- Slider Container -->
                 <div class="absolute inset-0 z-0" id="hero-slider">
                     <!-- Slide 1 -->
-                    <div class="slide absolute inset-0 opacity-100 transition-opacity duration-1000 ease-in-out bg-stone-950">
+                    <div class="slide absolute inset-0 opacity-100 transition-opacity duration-1000 ease-in-out bg-stone-950 shimmer-loader">
                         <img id="pub-slide-1" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1920&q=80" alt="Dewangan Photo & Videography wedding event backdrop" width="1920" height="1080" loading="eager" class="w-full h-full object-contain">
                         <div class="absolute inset-0 bg-black/30 pointer-events-none"></div>
                     </div>
                     <!-- Slide 2 -->
-                    <div class="slide absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out bg-stone-950">
+                    <div class="slide absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out bg-stone-950 shimmer-loader">
                         <img id="pub-slide-2" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1920&q=80" alt="Romantic couple photoshoot during sunset" width="1920" height="1080" loading="eager" class="w-full h-full object-contain">
                         <div class="absolute inset-0 bg-black/30 pointer-events-none"></div>
                     </div>
                     <!-- Slide 3 -->
-                    <div class="slide absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out bg-stone-950">
+                    <div class="slide absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out bg-stone-950 shimmer-loader">
                         <img id="pub-slide-3" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=1920&q=80" alt="Elegant engagement ring exchange ceremony" width="1920" height="1080" loading="eager" class="w-full h-full object-contain">
                         <div class="absolute inset-0 bg-black/30 pointer-events-none"></div>
                     </div>
@@ -947,7 +947,7 @@
             </section>
 
             <!-- 10. CONTACT SECTION WITH GOOGLE MAPS (Page 17 of 17) -->
-            <section id="sec-contact" class="public-section active py-24 bg-stone-950">
+            <section id="sec-contact" class="public-section active py-24 bg-stone-950 shimmer-loader">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
                         
@@ -1227,6 +1227,10 @@
                         el.style.transition = 'opacity 0.8s ease-in-out';
                         el.onload = () => {
                             el.style.opacity = '1';
+                            const parent = el.parentElement;
+                            if (parent) {
+                                parent.classList.remove('shimmer-loader');
+                            }
                         };
                         if (settings && url && url.trim() !== "") {
                             el.src = url;

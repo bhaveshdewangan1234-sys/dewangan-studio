@@ -1,4 +1,4 @@
-/* ========================================================================= */
+﻿/* ========================================================================= */
 /* DEWANGAN PHOTO & VIDEOGRAPHY - LUXURY GLASSMORPHISM BLACK & GOLD THEME    */
 /* ========================================================================= */
 
@@ -3511,4 +3511,18 @@ header.border-b.border-gold-500\/10 #pub-brand-logo-text .text-brand-sub {
     .hidden-mobile {
         display: none !important;
     }
+}
+
+
+/* ========================================================================= */
+/* PREMIUM SHIMMER EFFECT FOR STYLISH LAZY LOADING CONTAINER LOOKS           */
+/* ========================================================================= */
+@keyframes premiumShimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+}
+.shimmer-loader {
+    background: linear-gradient(90deg, #09090b 25%, #1c150c 50%, #09090b 75%) !important;
+    background-size: 200% 100% !important;
+    animation: premiumShimmer 2s infinite linear !important;
 }

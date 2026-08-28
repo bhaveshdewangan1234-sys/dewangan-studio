@@ -1884,6 +1884,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     img.style.transition = 'opacity 0.8s ease-in-out';
                     img.onload = () => {
                         img.style.opacity = '1';
+                        const parent = img.parentElement;
+                        if (parent) {
+                            parent.classList.remove('shimmer-loader');
+                        }
                     };
                     img.src = url;
                 }
