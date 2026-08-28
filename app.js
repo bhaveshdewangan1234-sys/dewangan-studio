@@ -989,9 +989,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         sec.classList.remove('hidden');
                         sec.classList.add('active');
                         // Reset hidden-mobile on mobile if it is not the active target section
-                        if ((sId === 'why-choose' || sId === 'testimonials') && secId !== sId) {
+                        if ((sId === 'why-choose' || sId === 'testimonials' || sId === 'blog') && secId !== sId) {
                             sec.classList.add('hidden-mobile');
-                        } else if ((sId === 'why-choose' || sId === 'testimonials') && secId === sId) {
+                        } else if ((sId === 'why-choose' || sId === 'testimonials' || sId === 'blog') && secId === sId) {
                             sec.classList.remove('hidden-mobile');
                         }
                     } else {
