@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Dewangan Photo & Videography - Studio Suite
  * Core State, Database Sync, Auth, Public Website Forms, Reports, and Signature Pad Script
  */
@@ -80,19 +80,19 @@ document.addEventListener('DOMContentLoaded', () => {
             upiId: "9301614549@ybl",
             payeeName: "Dewangan Photo & Videography",
             adminPassword: "DPV@9301614549Kumar",
-            logoUrl: "",
+            logoUrl: "assets/logo.png",
             alternateEmail: "bhaveshdewangan1234@gmail.com",
             alternatePhone: "9301614549",
             currency: "INR",
-            faviconUrl: "",
-            slide1Url: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1920&q=80",
-            slide2Url: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1920&q=80",
-            slide3Url: "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=1920&q=80",
+            faviconUrl: "https://i.ibb.co/4gdkrb67/Untitled-1.jpg",
+            slide1Url: "https://i.ibb.co/RGg5zHWk/2f6bc71f349b.jpg",
+            slide2Url: "https://i.ibb.co/BKn7XHM5/663c324daf39.jpg",
+            slide3Url: "https://i.ibb.co/YB3yQ0YR/6225069d8b84.jpg",
             aboutTitle: "Dewangan Photo & Videography",
             aboutDescHtml: `<h3><strong>Best Photo &amp; Videography in Shivpuri</strong></h3><p>Best Photo &amp; Videography in Shivpuri, If you are looking for the <strong>best photo and videography in Shivpuri</strong>, you've come to the right place. Our team offers a wide range of professional photography and videography services, including wedding shoots, engagement sessions, maternity photoshoots, birthday parties, corporate events, and more. Every frame we capture tells a unique story &mdash; your story &mdash; filled with emotions, colors, and memories that last a lifetime. Our goal is to make you relive your special moments every time you look at your photographs or videos. We combine traditional and modern styles to deliver cinematic visuals that are vibrant, natural, and timeless. Whether it's an intimate celebration or a grand destination wedding, we ensure every detail is beautifully captured with precision and passion.</p>`,
             aboutImageUrl: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=800&q=80",
             weddingCoverUrl: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
-            preweddingCoverUrl: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=800&q=80",
+            preweddingCoverUrl: "https://i.ibb.co/pBbhNCgS/005.jpg",
             engagementCoverUrl: "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=800&q=80",
             birthdayCoverUrl: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80",
             maternityCoverUrl: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=800&q=80",
@@ -832,6 +832,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Load configurations
     const initApp = () => {
+        // Immediately hydrate settings from local storage if available to prevent any asset flash
+        try {
+            const cachedSettings = localStorage.getItem('studio_settings');
+            if (cachedSettings) {
+                const parsed = JSON.parse(cachedSettings);
+                if (parsed && typeof parsed === 'object') {
+                    appState.settings = Object.assign({}, appState.settings, parsed);
+                }
+            }
+            applyStudioSettingsUI();
+        } catch (e) {
+            console.warn("Cached settings hydration error:", e);
+        }
+
         // Theme init
         const savedTheme = localStorage.getItem('theme') || 'dark';
         document.documentElement.setAttribute('data-theme', savedTheme);
@@ -1639,7 +1653,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // 1. Sync Settings
         const unsubSettings = fbStore.collection('settings').doc('profile').onSnapshot(doc => {
             if (doc.exists) {
-                appState.settings = doc.data();
+                appState.settings = Object.assign({}, appState.settings, doc.data());
+                try {
+                    localStorage.setItem('studio_settings', JSON.stringify(appState.settings));
+                } catch(e) {}
                 applyStudioSettingsUI();
             } else {
                 loadLocalSettingsFallback();
@@ -1761,7 +1778,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // 1. Sync Settings
         const unsubSettings = fbStore.collection('settings').doc('profile').onSnapshot(doc => {
             if (doc.exists) {
-                appState.settings = doc.data();
+                appState.settings = Object.assign({}, appState.settings, doc.data());
+                try {
+                    localStorage.setItem('studio_settings', JSON.stringify(appState.settings));
+                } catch(e) {}
             } else {
                 fbStore.collection('settings').doc('profile').set(appState.settings);
             }
@@ -1977,18 +1997,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 tempAnchor.href = url;
                 const absoluteUrl = tempAnchor.href;
 
-                if (img.src !== absoluteUrl) {
-                    img.style.opacity = '0';
-                    img.style.transition = 'opacity 0.8s ease-in-out';
-                    img.onload = () => {
-                        img.style.opacity = '1';
-                        const parent = img.parentElement;
-                        if (parent) {
-                            parent.classList.remove('shimmer-loader');
-                        }
-                    };
-                    img.src = url;
+                // If already showing this exact URL, remove any loader and return immediately
+                if (img.src === absoluteUrl || img.getAttribute('src') === url) {
+                    const parent = img.parentElement;
+                    if (parent) parent.classList.remove('shimmer-loader');
+                    return;
                 }
+
+                img.style.opacity = '0';
+                img.style.transition = 'opacity 0.4s ease-in-out';
+                img.onload = () => {
+                    img.style.opacity = '1';
+                    const parent = img.parentElement;
+                    if (parent) {
+                        parent.classList.remove('shimmer-loader');
+                    }
+                };
+                img.src = url;
             }
         };
 
@@ -2012,7 +2037,9 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (pubBrandLogo && pubBrandLogoSvg) {
             if (hasCustomLogo) {
-                pubBrandLogo.src = appState.settings.logoUrl;
+                if (pubBrandLogo.src !== appState.settings.logoUrl && pubBrandLogo.getAttribute('src') !== appState.settings.logoUrl) {
+                    pubBrandLogo.src = appState.settings.logoUrl;
+                }
                 pubBrandLogo.classList.remove('hidden');
                 pubBrandLogo.classList.add('block');
                 
@@ -2039,7 +2066,9 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (pubFooterLogo && pubFooterLogoSvg) {
             if (hasCustomLogo) {
-                pubFooterLogo.src = appState.settings.logoUrl;
+                if (pubFooterLogo.src !== appState.settings.logoUrl && pubFooterLogo.getAttribute('src') !== appState.settings.logoUrl) {
+                    pubFooterLogo.src = appState.settings.logoUrl;
+                }
                 pubFooterLogo.classList.remove('hidden');
                 pubFooterLogo.classList.add('block');
                 pubFooterLogoSvg.classList.remove('block');
@@ -6219,25 +6248,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const saveSettingsDatabase = () => {
+        try {
+            localStorage.setItem('studio_settings', JSON.stringify(appState.settings));
+            applyStudioSettingsUI();
+        } catch (e) {
+            console.warn("Local storage cache save failed:", e);
+        }
+
         if (appState.dbType === 'demo') {
-            try {
-        // Global HTML Escaper to prevent Cross-Site Scripting (XSS) vulnerabilities
-        const escapeHtml = (unsafe) => {
-            if (unsafe === null || unsafe === undefined) return '';
-            return String(unsafe)
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-        };
-                localStorage.setItem('studio_settings', JSON.stringify(appState.settings));
-                showToast("Settings saved locally!");
-                applyStudioSettingsUI();
-            } catch (err) {
-                console.error("Save error:", err);
-                showToast("Save failed: " + err.message, "error");
-            }
+            showToast("Settings saved locally!");
         } else {
             fbStore.collection('settings').doc('profile').set(appState.settings)
                 .then(() => {

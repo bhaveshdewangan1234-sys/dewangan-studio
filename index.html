@@ -19,7 +19,34 @@
     <link rel="canonical" href="https://dewanganphotoandvideography.in/">
     <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon.png">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="apple-touch-icon" href="assets/favicon.png">
+        <link rel="apple-touch-icon" href="assets/favicon.png">
+    
+    <!-- Immediate High-Priority Asset Preload & Cache Resolver to eliminate FOUC -->
+    <script>
+        (function() {
+            try {
+                var s = localStorage.getItem('studio_settings');
+                if (s) window.__CACHED_SETTINGS__ = JSON.parse(s);
+            } catch(e) {}
+        })();
+    </script>
+    <link rel="preload" as="image" id="preload-brand-logo" href="assets/logo.png">
+    <link rel="preload" as="image" id="preload-hero-banner" href="https://i.ibb.co/RGg5zHWk/2f6bc71f349b.jpg">
+    <script>
+        (function() {
+            if (window.__CACHED_SETTINGS__) {
+                var st = window.__CACHED_SETTINGS__;
+                if (st.logoUrl && st.logoUrl.trim() !== '') {
+                    var l = document.getElementById('preload-brand-logo');
+                    if (l) l.href = st.logoUrl;
+                }
+                if (st.slide1Url && st.slide1Url.trim() !== '') {
+                    var h = document.getElementById('preload-hero-banner');
+                    if (h) h.href = st.slide1Url;
+                }
+            }
+        })();
+    </script>
     
     <!-- Open Graph / Facebook / WhatsApp Preview Meta Tags -->
     <meta property="og:type" content="website">
@@ -382,18 +409,18 @@
                 <!-- Slider Container -->
                 <div class="absolute inset-0 z-0" id="hero-slider">
                     <!-- Slide 1 -->
-                    <div class="slide absolute inset-0 opacity-100 transition-opacity duration-1000 ease-in-out bg-stone-950 shimmer-loader">
-                        <img id="pub-slide-1" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1920&q=80" alt="Dewangan Photo & Videography wedding event backdrop" width="1920" height="1080" loading="eager" class="w-full h-full object-contain">
+                    <div class="slide absolute inset-0 opacity-100 transition-opacity duration-1000 ease-in-out bg-stone-950">
+                        <img id="pub-slide-1" src="https://i.ibb.co/RGg5zHWk/2f6bc71f349b.jpg" data-src="https://i.ibb.co/RGg5zHWk/2f6bc71f349b.jpg" alt="Dewangan Photo & Videography wedding event backdrop" width="1920" height="1080" loading="eager" class="w-full h-full object-contain">
                         <div class="absolute inset-0 bg-black/30 pointer-events-none"></div>
                     </div>
                     <!-- Slide 2 -->
                     <div class="slide absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out bg-stone-950 shimmer-loader">
-                        <img id="pub-slide-2" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1920&q=80" alt="Romantic couple photoshoot during sunset" width="1920" height="1080" loading="eager" class="w-full h-full object-contain">
+                        <img id="pub-slide-2" src="https://i.ibb.co/BKn7XHM5/663c324daf39.jpg" data-src="https://i.ibb.co/BKn7XHM5/663c324daf39.jpg" alt="Romantic couple photoshoot during sunset" width="1920" height="1080" loading="eager" class="w-full h-full object-contain">
                         <div class="absolute inset-0 bg-black/30 pointer-events-none"></div>
                     </div>
                     <!-- Slide 3 -->
                     <div class="slide absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out bg-stone-950 shimmer-loader">
-                        <img id="pub-slide-3" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=1920&q=80" alt="Elegant engagement ring exchange ceremony" width="1920" height="1080" loading="eager" class="w-full h-full object-contain">
+                        <img id="pub-slide-3" src="https://i.ibb.co/YB3yQ0YR/6225069d8b84.jpg" data-src="https://i.ibb.co/YB3yQ0YR/6225069d8b84.jpg" alt="Elegant engagement ring exchange ceremony" width="1920" height="1080" loading="eager" class="w-full h-full object-contain">
                         <div class="absolute inset-0 bg-black/30 pointer-events-none"></div>
                     </div>
                 </div>
@@ -1190,8 +1217,14 @@
                 const setSrc = (id, url, defaultUrl) => {
                     const el = document.getElementById(id);
                     if (el) {
+                        const targetUrl = (settings && url && url.trim() !== "") ? url : defaultUrl;
+                        if (el.src === targetUrl || el.getAttribute('src') === targetUrl) {
+                            const parent = el.parentElement;
+                            if (parent) parent.classList.remove('shimmer-loader');
+                            return;
+                        }
                         el.style.opacity = '0';
-                        el.style.transition = 'opacity 0.8s ease-in-out';
+                        el.style.transition = 'opacity 0.4s ease-in-out';
                         el.onload = () => {
                             el.style.opacity = '1';
                             const parent = el.parentElement;
@@ -1199,19 +1232,15 @@
                                 parent.classList.remove('shimmer-loader');
                             }
                         };
-                        if (settings && url && url.trim() !== "") {
-                            el.src = url;
-                        } else {
-                            el.src = defaultUrl;
-                        }
+                        el.src = targetUrl;
                     }
                 };
-                setSrc('pub-slide-1', settings ? settings.slide1Url : null, 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1920&q=80');
-                setSrc('pub-slide-2', settings ? settings.slide2Url : null, 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1920&q=80');
-                setSrc('pub-slide-3', settings ? settings.slide3Url : null, 'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=1920&q=80');
+                setSrc('pub-slide-1', settings ? settings.slide1Url : null, 'https://i.ibb.co/RGg5zHWk/2f6bc71f349b.jpg');
+                setSrc('pub-slide-2', settings ? settings.slide2Url : null, 'https://i.ibb.co/BKn7XHM5/663c324daf39.jpg');
+                setSrc('pub-slide-3', settings ? settings.slide3Url : null, 'https://i.ibb.co/YB3yQ0YR/6225069d8b84.jpg');
                 setSrc('pub-about-image', settings ? settings.aboutPhotoUrl : null, 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=800&q=80');
                 setSrc('pub-wedding-cover', settings ? settings.weddingCoverUrl : null, 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80');
-                setSrc('pub-prewedding-cover', settings ? settings.preweddingCoverUrl : null, 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=800&q=80');
+                setSrc('pub-prewedding-cover', settings ? settings.preweddingCoverUrl : null, 'https://i.ibb.co/pBbhNCgS/005.jpg');
                 setSrc('pub-birthday-cover', settings ? settings.birthdayCoverUrl : null, 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80');
             } catch(e) {
                 console.error("Local cache load failed:", e);
