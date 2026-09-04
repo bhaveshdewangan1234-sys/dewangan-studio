@@ -1,4 +1,4 @@
-﻿/* ========================================================================= */
+/* ========================================================================= */
 /* DEWANGAN PHOTO & VIDEOGRAPHY - LUXURY GLASSMORPHISM BLACK & GOLD THEME    */
 /* ========================================================================= */
 
@@ -3525,4 +3525,38 @@ header.border-b.border-gold-500\/10 #pub-brand-logo-text .text-brand-sub {
     background: linear-gradient(90deg, #09090b 25%, #1c150c 50%, #09090b 75%) !important;
     background-size: 200% 100% !important;
     animation: premiumShimmer 2s infinite linear !important;
+}
+
+/* Review Management Featured Toggle Button */
+.featured-badge-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+.featured-badge-btn.active {
+    background: rgba(255, 215, 0, 0.15);
+    color: #ffd700;
+    border-color: rgba(255, 215, 0, 0.4);
+}
+.featured-badge-btn.active:hover {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+    border-color: rgba(239, 68, 68, 0.3);
+}
+.featured-badge-btn.inactive {
+    background: rgba(255, 255, 255, 0.05);
+    color: #a1a1aa;
+    border-color: rgba(255, 255, 255, 0.1);
+}
+.featured-badge-btn.inactive:hover {
+    background: rgba(255, 215, 0, 0.1);
+    color: #ffd700;
+    border-color: rgba(255, 215, 0, 0.3);
 }

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: 'unsafe-inline' 'unsafe-eval' data: blob:;">
@@ -209,6 +209,9 @@
                     </li>
                     <li class="nav-item" data-tab="manage-blog">
                         <a href="#"><i class="fa-solid fa-feather"></i> Manage Blog</a>
+                    </li>
+                    <li class="nav-item" data-tab="manage-reviews">
+                        <a href="#"><i class="fa-solid fa-star text-gold-400"></i> Manage Reviews</a>
                     </li>
                     <li class="nav-item" data-tab="about-setting">
                         <a href="#"><i class="fa-solid fa-address-card"></i> About Setting</a>
@@ -500,6 +503,37 @@
                                 </tr>
                             </thead>
                             <tbody id="admin-blog-list-tbody">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- MANAGE REVIEWS TAB -->
+                <div id="tab-manage-reviews" class="tab-content">
+                    <div class="toolbar">
+                        <div class="toolbar-info">
+                            <h3>Manage Client Reviews</h3>
+                            <p>Add, edit, or feature client reviews. Up to 4 featured reviews automatically appear in the website's "Loved by Families" section.</p>
+                        </div>
+                        <button class="action-btn primary" id="admin-add-review-btn">
+                            <i class="fa-solid fa-plus"></i> Add New Review
+                        </button>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="premium-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 140px;">Featured ⭐</th>
+                                    <th>Customer Name</th>
+                                    <th style="width: 130px;">Rating</th>
+                                    <th>Review Text</th>
+                                    <th>Client Type / Location</th>
+                                    <th style="width: 110px;">Date</th>
+                                    <th style="width: 130px;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-reviews-list-tbody">
                                 <!-- Populated dynamically -->
                             </tbody>
                         </table>
@@ -1437,6 +1471,51 @@
                 <div class="modal-footer mt-20">
                     <button type="button" class="premium-btn secondary-btn" id="cancel-blog-modal-btn">Cancel</button>
                     <button type="submit" class="premium-btn primary-btn btn-gold" id="save-blog-btn">Publish Post</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MANAGE REVIEW MODAL -->
+    <div id="admin-review-modal" class="modal-overlay hidden">
+        <div class="modal-card">
+            <header class="modal-header">
+                <h3 id="review-modal-title">Add Client Review</h3>
+                <button class="modal-close-btn" id="close-review-modal-btn"><i class="fa-solid fa-xmark"></i></button>
+            </header>
+            <form id="admin-review-form">
+                <input type="hidden" id="review-id-hidden">
+                <div class="input-group">
+                    <label for="review-customer-name">Customer Name <span class="text-red">*</span></label>
+                    <input type="text" id="review-customer-name" required placeholder="e.g. Aakash & Priya">
+                </div>
+                <div class="form-row">
+                    <div class="input-group">
+                        <label for="review-rating">Star Rating (1 - 5) <span class="text-red">*</span></label>
+                        <select id="review-rating" required>
+                            <option value="5" selected>⭐⭐⭐⭐⭐ (5 Stars)</option>
+                            <option value="4">⭐⭐⭐⭐ (4 Stars)</option>
+                            <option value="3">⭐⭐⭐ (3 Stars)</option>
+                            <option value="2">⭐⭐ (2 Stars)</option>
+                            <option value="1">⭐ (1 Star)</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="review-client-type">Client Type / Location</label>
+                        <input type="text" id="review-client-type" placeholder="e.g. Wedding Client • Raipur">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="review-text">Review Text <span class="text-red">*</span></label>
+                    <textarea id="review-text" rows="4" required placeholder="Enter customer's review or testimonial..."></textarea>
+                </div>
+                <div class="input-group" style="flex-direction: row; align-items: center; gap: 10px; margin-top: 10px;">
+                    <input type="checkbox" id="review-is-featured" style="width: 18px; height: 18px; cursor: pointer;">
+                    <label for="review-is-featured" style="cursor: pointer; margin: 0; font-size: 13px; text-transform: none; font-weight: normal; color: var(--text-main);">Feature in "Loved by Families" on website ⭐</label>
+                </div>
+                <div class="modal-footer mt-20">
+                    <button type="button" class="premium-btn secondary-btn" id="cancel-review-modal-btn">Cancel</button>
+                    <button type="submit" class="premium-btn primary-btn btn-gold" id="save-review-btn">Save Review</button>
                 </div>
             </form>
         </div>

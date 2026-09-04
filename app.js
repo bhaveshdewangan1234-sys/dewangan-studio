@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Dewangan Photo & Videography - Studio Suite
  * Core State, Database Sync, Auth, Public Website Forms, Reports, and Signature Pad Script
  */
@@ -69,6 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
         blog: [],       // New blog articles state
         categories: [], // New category filters state
         mediaItems: [], // New social media manager state
+        reviews: [],    // Dynamic client reviews state
         settings: {
             studioName: "Dewangan Photo & Videography",
             studioPhone: "9301614549",
@@ -292,6 +293,40 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     ];
 
+    // Default Client Reviews
+    const defaultReviews = [
+        {
+            id: 'rev_1',
+            customerName: 'Aakash & Priya',
+            clientType: 'Wedding client \u2022 Raipur',
+            rating: 5,
+            reviewText: 'Dewangan Photo captured our wedding in Raipur, and the results are absolutely breath-taking! The candid portrait expressions they captured of my family are priceless. Highly recommend their cinematic wedding package!',
+            isFeatured: true,
+            featuredAt: 1729000000001,
+            createdAt: '2025-10-15 10:00:00'
+        },
+        {
+            id: 'rev_2',
+            customerName: 'Rohan & Shruti',
+            clientType: 'Pre-Wedding Client \u2022 Bhilai',
+            rating: 5,
+            reviewText: 'We booked them for our pre-wedding shoot in Bhilai. The director consulted on locations and costume coordination, and the cinematic Sunset video reel they compiled went viral on our social media! Pure class.',
+            isFeatured: true,
+            featuredAt: 1729000000002,
+            createdAt: '2025-11-20 14:30:00'
+        },
+        {
+            id: 'rev_3',
+            customerName: 'Megha Sharma',
+            clientType: 'Baby Shoot Client \u2022 Durg',
+            rating: 5,
+            reviewText: 'I am incredibly pleased with the baby shoot they did for my daughter. The setup was safe, warm, and comfortable. The leather-bound matte layflat album they generated is a family treasure.',
+            isFeatured: true,
+            featuredAt: 1729000000003,
+            createdAt: '2026-01-10 16:15:00'
+        }
+    ];
+
     // =========================================================================
     // 2. DOM ELEMENTS
     // =========================================================================
@@ -378,6 +413,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const adminBlogListTbody = document.getElementById('admin-blog-list-tbody');
     const publicBlogGrid = document.getElementById('public-blog-grid');
     const publicServicesGrid = document.getElementById('public-services-grid');
+
+    // Reviews Management DOM elements
+    const adminReviewModal = document.getElementById('admin-review-modal');
+    const adminReviewForm = document.getElementById('admin-review-form');
+    const closeReviewModalBtn = document.getElementById('close-review-modal-btn');
+    const cancelReviewModalBtn = document.getElementById('cancel-review-modal-btn');
+    const adminAddReviewBtn = document.getElementById('admin-add-review-btn');
+    const adminReviewsListTbody = document.getElementById('admin-reviews-list-tbody');
+    const publicReviewsGrid = document.getElementById('public-reviews-grid');
     
     const docModal = document.getElementById('doc-modal');
     const docForm = document.getElementById('doc-form');
@@ -853,6 +897,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initGalleryUploader();
         initCategoryUploader();
         initSettingsMediaUploaders();
+        initReviewManager();
 
         // Setup Public Portfolio Website links
         initPublicSite();
@@ -1484,6 +1529,15 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('demo_media_items', JSON.stringify(defaultMediaItems));
         }
 
+        // Load Reviews
+        const localReviews = localStorage.getItem('demo_reviews');
+        if (localReviews) {
+            appState.reviews = JSON.parse(localReviews);
+        } else {
+            appState.reviews = defaultReviews;
+            localStorage.setItem('demo_reviews', JSON.stringify(defaultReviews));
+        }
+
         // Check Login Session
         const sessionToken = sessionStorage.getItem('admin_session');
         const rememberToken = localStorage.getItem('admin_session_remember');
@@ -1560,6 +1614,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 appState.categories = defaultCategories;
             }
             renderPublicGallery();
+        };
+
+        const loadLocalReviewsFallback = () => {
+            const localReviews = localStorage.getItem('demo_reviews');
+            if (localReviews) {
+                appState.reviews = JSON.parse(localReviews);
+            } else {
+                appState.reviews = defaultReviews;
+            }
+            renderPublicReviews();
         };
 
         const loadLocalMediaFallback = () => {
@@ -1670,6 +1734,23 @@ document.addEventListener('DOMContentLoaded', () => {
             loadLocalMediaFallback();
         });
         unsubscribeFunctions.push(unsubMedia);
+
+        // 7. Sync Reviews
+        const unsubReviews = fbStore.collection('reviews').onSnapshot(snap => {
+            appState.reviews = [];
+            if (!snap.empty) {
+                snap.forEach(doc => {
+                    appState.reviews.push({ id: doc.id, ...doc.data() });
+                });
+                renderPublicReviews();
+            } else {
+                loadLocalReviewsFallback();
+            }
+        }, err => {
+            console.warn("Public Reviews sync error:", err);
+            loadLocalReviewsFallback();
+        });
+        unsubscribeFunctions.push(unsubReviews);
     };
 
     // Firebase listeners for Real-time database sync (Admin version, includes private data)
@@ -1818,6 +1899,23 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         unsubscribeFunctions.push(unsubMedia);
+
+        // 11. Sync Reviews (Admin)
+        const unsubReviewsAdmin = fbStore.collection('reviews').onSnapshot(snap => {
+            appState.reviews = [];
+            if (snap.empty) {
+                defaultReviews.forEach(r => {
+                    fbStore.collection('reviews').doc(r.id).set(r);
+                });
+            } else {
+                snap.forEach(doc => {
+                    appState.reviews.push({ id: doc.id, ...doc.data() });
+                });
+                renderAdminReviews();
+                renderPublicReviews();
+            }
+        });
+        unsubscribeFunctions.push(unsubReviewsAdmin);
     };
 
     // Apply active settings to website UI elements
@@ -2090,6 +2188,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderInvoicesList();
         renderBookingsList();
         renderEnquiriesList();
+        renderAdminReviews();
         renderAdminMedia();
         renderDashboard();
         renderPublicContent();
@@ -2101,6 +2200,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderPublicBlog();
         renderPublicServices();
         renderPublicMedia();
+        renderPublicReviews();
     };
 
     // =========================================================================
@@ -2492,6 +2592,11 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'terms':
                 title = "Terms & Conditions Rules";
                 desc = "Standard contract rules and legal guidelines for client signatures.";
+                break;
+            case 'manage-reviews':
+                title = "Manage Client Reviews";
+                desc = "Add, edit, feature, or remove client reviews displayed in the Loved by Families section.";
+                renderAdminReviews();
                 break;
             case 'media-manager':
                 title = "Manage Media Links";
@@ -4107,6 +4212,297 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Public Blog view modal details
+    // =========================================================================
+    // REVIEWS MANAGEMENT (CRUD & MAX 4 FEATURED SMART ROLLOVER SYSTEM)
+    // =========================================================================
+
+    const renderStarIcons = (rating) => {
+        const count = Math.max(1, Math.min(5, parseInt(rating) || 5));
+        let starsHtml = '';
+        for (let i = 1; i <= 5; i++) {
+            if (i <= count) {
+                starsHtml += '<i class="fa-solid fa-star text-gold-400"></i>';
+            } else {
+                starsHtml += '<i class="fa-regular fa-star text-stone-600"></i>';
+            }
+        }
+        return starsHtml;
+    };
+
+    const renderAdminReviews = () => {
+        if (!adminReviewsListTbody) return;
+        adminReviewsListTbody.innerHTML = '';
+        if (!appState.reviews || appState.reviews.length === 0) {
+            adminReviewsListTbody.innerHTML = '<tr><td colspan="7" class="empty-state-row">No client reviews added yet. Click "Add New Review" to create one.</td></tr>';
+            return;
+        }
+
+        // Sort: Featured first (sorted by featuredAt desc), then unfeatured by createdAt desc
+        const sorted = [...appState.reviews].sort((a, b) => {
+            const aFeat = Boolean(a.isFeatured);
+            const bFeat = Boolean(b.isFeatured);
+            if (aFeat && !bFeat) return -1;
+            if (!aFeat && bFeat) return 1;
+            if (aFeat && bFeat) {
+                return (b.featuredAt || 0) - (a.featuredAt || 0);
+            }
+            return String(b.createdAt || '').localeCompare(String(a.createdAt || ''));
+        });
+
+        sorted.forEach(rev => {
+            const tr = document.createElement('tr');
+            const isFeat = Boolean(rev.isFeatured);
+            tr.innerHTML = 
+                '<td>' +
+                    '<button class="featured-badge-btn ' + (isFeat ? 'active' : 'inactive') + '" data-id="' + rev.id + '" title="' + (isFeat ? 'Click to unfeature' : 'Click to feature on website') + '">' +
+                        (isFeat ? '\u2B50 Featured' : '\u2606 Make Featured') +
+                    '</button>' +
+                '</td>' +
+                '<td><strong>' + escapeHtml(rev.customerName || 'Anonymous') + '</strong></td>' +
+                '<td><div class="flex items-center gap-1 text-xs">' + renderStarIcons(rev.rating) + '</div></td>' +
+                '<td style="max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size:12px;" class="text-muted" title="' + escapeHtml(rev.reviewText || '') + '">' + escapeHtml(rev.reviewText || '') + '</td>' +
+                '<td style="font-size:12px;">' + escapeHtml(rev.clientType || '\u2014') + '</td>' +
+                '<td style="font-size:11px;" class="text-muted">' + (rev.createdAt ? String(rev.createdAt).split(' ')[0] : '\u2014') + '</td>' +
+                '<td>' +
+                    '<div class="table-actions">' +
+                        '<button class="table-action-btn edit" title="Edit Review" data-id="' + rev.id + '"><i class="fa-solid fa-pen-to-square"></i></button>' +
+                        '<button class="table-action-btn delete" title="Delete Review" data-id="' + rev.id + '"><i class="fa-solid fa-trash-can"></i></button>' +
+                    </div>' +
+                '</td>';
+
+            tr.querySelector('.featured-badge-btn').addEventListener('click', (e) => {
+                e.preventDefault();
+                toggleFeatureReview(rev.id);
+            });
+
+            tr.querySelector('.edit').addEventListener('click', () => editReviewItem(rev.id));
+            tr.querySelector('.delete').addEventListener('click', () => deleteReviewItem(rev.id));
+
+            adminReviewsListTbody.appendChild(tr);
+        });
+    };
+
+    const toggleFeatureReview = (id) => {
+        const rev = appState.reviews.find(r => r.id === id);
+        if (!rev) return;
+
+        if (rev.isFeatured) {
+            // Unfeature
+            rev.isFeatured = false;
+            rev.featuredAt = null;
+            persistReviewUpdate(rev, 'Review from "' + rev.customerName + '" unfeatured.');
+        } else {
+            // Feature this review with max 4 rollover rule
+            const currentlyFeatured = appState.reviews.filter(r => r.isFeatured && r.id !== id);
+
+            if (currentlyFeatured.length >= 4) {
+                // Find oldest featured review (lowest featuredAt timestamp)
+                currentlyFeatured.sort((a, b) => (a.featuredAt || 0) - (b.featuredAt || 0));
+                const oldest = currentlyFeatured[0];
+                oldest.isFeatured = false;
+                oldest.featuredAt = null;
+
+                if (appState.dbType === 'cloud') {
+                    fbStore.collection('reviews').doc(oldest.id).set(oldest, { merge: true });
+                }
+                showToast('Oldest review (' + oldest.customerName + ') unfeatured (Max 4).', 'info');
+            }
+
+            rev.isFeatured = true;
+            rev.featuredAt = Date.now();
+            persistReviewUpdate(rev, 'Review from "' + rev.customerName + '" is now Featured \u2B50!');
+        }
+    };
+
+    const persistReviewUpdate = (rev, successMsg) => {
+        if (appState.dbType === 'demo') {
+            const idx = appState.reviews.findIndex(r => r.id === rev.id);
+            if (idx !== -1) appState.reviews[idx] = rev;
+            localStorage.setItem('demo_reviews', JSON.stringify(appState.reviews));
+            showToast(successMsg);
+            renderAdminReviews();
+            renderPublicReviews();
+        } else {
+            fbStore.collection('reviews').doc(rev.id).set(rev, { merge: true })
+                .then(() => showToast(successMsg))
+                .catch(err => showToast('Update failed: ' + err.message, 'error'));
+        }
+    };
+
+    const editReviewItem = (id) => {
+        const rev = appState.reviews.find(r => r.id === id);
+        if (!rev) return;
+        const titleEl = document.getElementById('review-modal-title');
+        if (titleEl) titleEl.textContent = 'Edit Client Review';
+        document.getElementById('review-id-hidden').value = rev.id;
+        document.getElementById('review-customer-name').value = rev.customerName || '';
+        document.getElementById('review-rating').value = rev.rating || 5;
+        document.getElementById('review-client-type').value = rev.clientType || '';
+        document.getElementById('review-text').value = rev.reviewText || '';
+        document.getElementById('review-is-featured').checked = Boolean(rev.isFeatured);
+        if (adminReviewModal) adminReviewModal.classList.remove('hidden');
+    };
+
+    const deleteReviewItem = (id) => {
+        const rev = appState.reviews.find(r => r.id === id);
+        const name = rev ? rev.customerName : 'this client';
+        const confirmDel = confirm('Are you sure you want to permanently delete the review from "' + name + '"?');
+        if (!confirmDel) return;
+
+        if (appState.dbType === 'demo') {
+            appState.reviews = appState.reviews.filter(r => r.id !== id);
+            localStorage.setItem('demo_reviews', JSON.stringify(appState.reviews));
+            showToast('Review deleted successfully.');
+            renderAdminReviews();
+            renderPublicReviews();
+        } else {
+            fbStore.collection('reviews').doc(id).delete()
+                .then(() => showToast('Review deleted permanently from cloud.'))
+                .catch(err => showToast('Delete failed: ' + err.message, 'error'));
+        }
+    };
+
+    const renderPublicReviews = () => {
+        const grid = document.getElementById('public-reviews-grid');
+        if (!grid) return;
+        grid.innerHTML = '';
+
+        // Filter featured reviews
+        let featured = (appState.reviews || []).filter(r => r.isFeatured);
+        featured.sort((a, b) => (b.featuredAt || 0) - (a.featuredAt || 0));
+
+        // If no reviews are marked featured, fallback to first 4 reviews or defaultReviews
+        if (featured.length === 0) {
+            featured = (appState.reviews && appState.reviews.length > 0) ? appState.reviews.slice(0, 4) : defaultReviews;
+        }
+
+        // Limit strictly to 4
+        featured = featured.slice(0, 4);
+
+        featured.forEach(rev => {
+            const card = document.createElement('div');
+            card.className = 'bg-stone-900 border border-gold-500/10 p-8 rounded-sm relative w-full min-w-full md:w-auto md:min-w-0 snap-center shrink-0 flex flex-col justify-between';
+            card.innerHTML = 
+                '<i class="fa-solid fa-quote-left text-gold-500/20 text-5xl absolute top-6 right-8 pointer-events-none"></i>' +
+                '<div>' +
+                    '<div class="flex items-center gap-1 text-gold-400 text-xs mb-4">' +
+                        renderStarIcons(rev.rating) +
+                    '</div>' +
+                    '<p class="text-stone-300 text-xs leading-relaxed font-light mb-6">"' + escapeHtml(rev.reviewText || '') + '"</p>' +
+                '</div>' +
+                '<div class="border-t border-gold-500/5 pt-4">' +
+                    '<h5 class="font-bold text-xs text-white uppercase tracking-wider">' + escapeHtml(rev.customerName || 'Anonymous') + '</h5>' +
+                    (rev.clientType ? '<span class="text-[9px] text-stone-500 uppercase tracking-widest block mt-1">' + escapeHtml(rev.clientType) + '</span>' : '') +
+                '</div>';
+            grid.appendChild(card);
+        });
+
+        if (window.updateSwipeArrowsVisibility) window.updateSwipeArrowsVisibility();
+    };
+
+    const initReviewManager = () => {
+        if (adminAddReviewBtn) {
+            adminAddReviewBtn.addEventListener('click', () => {
+                const titleEl = document.getElementById('review-modal-title');
+                if (titleEl) titleEl.textContent = 'Add Client Review';
+                document.getElementById('review-id-hidden').value = '';
+                document.getElementById('review-customer-name').value = '';
+                document.getElementById('review-rating').value = '5';
+                document.getElementById('review-client-type').value = '';
+                document.getElementById('review-text').value = '';
+                document.getElementById('review-is-featured').checked = false;
+                if (adminReviewModal) adminReviewModal.classList.remove('hidden');
+            });
+        }
+
+        if (closeReviewModalBtn) {
+            closeReviewModalBtn.addEventListener('click', () => {
+                if (adminReviewModal) adminReviewModal.classList.add('hidden');
+            });
+        }
+
+        if (cancelReviewModalBtn) {
+            cancelReviewModalBtn.addEventListener('click', () => {
+                if (adminReviewModal) adminReviewModal.classList.add('hidden');
+            });
+        }
+
+        if (adminReviewForm) {
+            adminReviewForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const id = document.getElementById('review-id-hidden').value;
+                const customerName = document.getElementById('review-customer-name').value.trim();
+                const rating = parseInt(document.getElementById('review-rating').value) || 5;
+                const clientType = document.getElementById('review-client-type').value.trim();
+                const reviewText = document.getElementById('review-text').value.trim();
+                const isFeatured = document.getElementById('review-is-featured').checked;
+
+                if (!customerName || !reviewText) {
+                    showToast('Please enter customer name and review text.', 'error');
+                    return;
+                }
+
+                const existing = id ? appState.reviews.find(r => r.id === id) : null;
+                let featuredAt = existing ? existing.featuredAt : null;
+
+                if (isFeatured) {
+                    if (!existing || !existing.isFeatured) {
+                        featuredAt = Date.now();
+                        const currentlyFeatured = appState.reviews.filter(r => r.isFeatured && r.id !== id);
+                        if (currentlyFeatured.length >= 4) {
+                            currentlyFeatured.sort((a, b) => (a.featuredAt || 0) - (b.featuredAt || 0));
+                            const oldest = currentlyFeatured[0];
+                            oldest.isFeatured = false;
+                            oldest.featuredAt = null;
+                            if (appState.dbType === 'cloud') {
+                                fbStore.collection('reviews').doc(oldest.id).set(oldest, { merge: true });
+                            }
+                            showToast('Oldest review (' + oldest.customerName + ') unfeatured (Max 4).', 'info');
+                        }
+                    }
+                } else {
+                    featuredAt = null;
+                }
+
+                const nowStr = new Date().toISOString().replace('T', ' ').substring(0, 19);
+                const reviewData = {
+                    customerName,
+                    rating,
+                    clientType,
+                    reviewText,
+                    isFeatured,
+                    featuredAt,
+                    createdAt: existing && existing.createdAt ? existing.createdAt : nowStr
+                };
+
+                const revId = id || ('rev_' + Date.now());
+                reviewData.id = revId;
+
+                if (appState.dbType === 'demo') {
+                    if (id) {
+                        const idx = appState.reviews.findIndex(r => r.id === id);
+                        if (idx !== -1) appState.reviews[idx] = reviewData;
+                        showToast('Review updated successfully!');
+                    } else {
+                        appState.reviews.unshift(reviewData);
+                        showToast('Review added successfully!');
+                    }
+                    localStorage.setItem('demo_reviews', JSON.stringify(appState.reviews));
+                    if (adminReviewModal) adminReviewModal.classList.add('hidden');
+                    renderAdminReviews();
+                    renderPublicReviews();
+                } else {
+                    fbStore.collection('reviews').doc(revId).set(reviewData, { merge: true })
+                        .then(() => {
+                            showToast(id ? 'Review updated in cloud!' : 'Review added to cloud!');
+                            if (adminReviewModal) adminReviewModal.classList.add('hidden');
+                        })
+                        .catch(err => showToast('Save failed: ' + err.message, 'error'));
+                }
+            });
+        }
+    };
+
     window.readFullBlog = (id) => {
         const article = appState.blog.find(b => b.id === id);
         if (!article) return;
