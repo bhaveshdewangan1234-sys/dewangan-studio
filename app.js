@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Dewangan Photo & Videography - Studio Suite
  * Core State, Database Sync, Auth, Public Website Forms, Reports, and Signature Pad Script
  */
@@ -4267,7 +4267,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     '<div class="table-actions">' +
                         '<button class="table-action-btn edit" title="Edit Review" data-id="' + rev.id + '"><i class="fa-solid fa-pen-to-square"></i></button>' +
                         '<button class="table-action-btn delete" title="Delete Review" data-id="' + rev.id + '"><i class="fa-solid fa-trash-can"></i></button>' +
-                    </div>' +
+                    '</div>' +
                 '</td>';
 
             tr.querySelector('.featured-badge-btn').addEventListener('click', (e) => {
