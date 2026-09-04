@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Dewangan Photo & Videography - Studio Suite
  * Core State, Database Sync, Auth, Public Website Forms, Reports, and Signature Pad Script
  */
@@ -846,6 +846,40 @@ document.addEventListener('DOMContentLoaded', () => {
             console.warn("Cached settings hydration error:", e);
         }
 
+        // Immediately hydrate public dynamic data from local storage or defaults to eliminate any loading delay
+        try {
+            const cachedGallery = localStorage.getItem('studio_gallery');
+            appState.gallery = cachedGallery ? JSON.parse(cachedGallery) : defaultGallery;
+
+            const cachedReviews = localStorage.getItem('studio_reviews');
+            appState.reviews = cachedReviews ? JSON.parse(cachedReviews) : defaultReviews;
+
+            const cachedCategories = localStorage.getItem('studio_categories');
+            appState.categories = cachedCategories ? JSON.parse(cachedCategories) : defaultCategories;
+
+            const cachedServices = localStorage.getItem('studio_services');
+            appState.services = cachedServices ? JSON.parse(cachedServices) : defaultServices;
+
+            const cachedBlog = localStorage.getItem('studio_blog');
+            appState.blog = cachedBlog ? JSON.parse(cachedBlog) : defaultBlog;
+
+            const cachedMedia = localStorage.getItem('studio_mediaItems');
+            appState.mediaItems = cachedMedia ? JSON.parse(cachedMedia) : defaultMediaItems;
+        } catch (e) {
+            console.warn("Public content cache hydration warning:", e);
+            appState.gallery = defaultGallery;
+            appState.reviews = defaultReviews;
+            appState.categories = defaultCategories;
+            appState.services = defaultServices;
+            appState.blog = defaultBlog;
+            appState.mediaItems = defaultMediaItems;
+        }
+
+        // Render public content immediately on first tick without waiting for Firebase Auth or network
+        if (!isAdminPage) {
+            renderPublicContent();
+        }
+
         // Theme init
         const savedTheme = localStorage.getItem('theme') || 'dark';
         document.documentElement.setAttribute('data-theme', savedTheme);
@@ -1341,6 +1375,18 @@ document.addEventListener('DOMContentLoaded', () => {
             fbAuth = firebase.auth();
             fbStore = firebase.firestore();
 
+            // Enable offline persistence for instantaneous local cache reads on subsequent visits
+            try {
+                fbStore.enablePersistence({ synchronizeTabs: true }).catch(err => {
+                    // Ignore if persistence is already enabled or unsupported
+                });
+            } catch(e) {}
+
+            // For public pages, immediately initialize public listeners without waiting for auth state
+            if (!isAdminPage) {
+                setupPublicFirebaseListeners();
+            }
+
             // Set UI values
             if (dbStatusBadge) {
                 dbStatusBadge.className = 'db-badge cloud';
@@ -1363,7 +1409,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         showAdminPortal();
                         setupFirebaseListeners();
                     } else {
-                        setupPublicFirebaseListeners();
                         renderPublicContent();
                     }
                 } else {
@@ -1373,7 +1418,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (adminPortal) adminPortal.classList.add('hidden');
                         if (cancelLoginBtn) cancelLoginBtn.style.display = 'none';
                     } else {
-                        setupPublicFirebaseListeners();
                         showPublicSite();
                     }
                 }
@@ -1591,7 +1635,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const loadLocalServicesFallback = () => {
-            const localServices = localStorage.getItem('demo_services');
+            const localServices = localStorage.getItem('studio_services') || localStorage.getItem('demo_services');
             if (localServices) {
                 appState.services = JSON.parse(localServices);
             } else {
@@ -1601,7 +1645,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const loadLocalGalleryFallback = () => {
-            const localGallery = localStorage.getItem('demo_gallery');
+            const localGallery = localStorage.getItem('studio_gallery') || localStorage.getItem('demo_gallery');
             if (localGallery) {
                 appState.gallery = JSON.parse(localGallery);
             } else {
@@ -1611,7 +1655,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const loadLocalBlogFallback = () => {
-            const localBlog = localStorage.getItem('demo_blog');
+            const localBlog = localStorage.getItem('studio_blog') || localStorage.getItem('demo_blog');
             if (localBlog) {
                 appState.blog = JSON.parse(localBlog);
             } else {
@@ -1621,7 +1665,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const loadLocalCategoriesFallback = () => {
-            const localCategories = localStorage.getItem('demo_categories');
+            const localCategories = localStorage.getItem('studio_categories') || localStorage.getItem('demo_categories');
             if (localCategories) {
                 appState.categories = JSON.parse(localCategories);
             } else {
@@ -1631,7 +1675,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const loadLocalReviewsFallback = () => {
-            const localReviews = localStorage.getItem('demo_reviews');
+            const localReviews = localStorage.getItem('studio_reviews') || localStorage.getItem('demo_reviews');
             if (localReviews) {
                 appState.reviews = JSON.parse(localReviews);
             } else {
@@ -1641,7 +1685,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const loadLocalMediaFallback = () => {
-            const localMedia = localStorage.getItem('demo_media_items');
+            const localMedia = localStorage.getItem('studio_mediaItems') || localStorage.getItem('demo_media_items');
             if (localMedia) {
                 appState.mediaItems = JSON.parse(localMedia);
             } else {
@@ -1674,6 +1718,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 snap.forEach(doc => {
                     appState.services.push({ id: doc.id, ...doc.data() });
                 });
+                try {
+                    localStorage.setItem('studio_services', JSON.stringify(appState.services));
+                } catch(e) {}
                 renderPublicContent();
             } else {
                 loadLocalServicesFallback();
@@ -1691,6 +1738,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 snap.forEach(doc => {
                     appState.gallery.push({ id: doc.id, ...doc.data() });
                 });
+                try {
+                    localStorage.setItem('studio_gallery', JSON.stringify(appState.gallery));
+                } catch(e) {}
                 renderPublicGallery();
             } else {
                 loadLocalGalleryFallback();
@@ -1708,6 +1758,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 snap.forEach(doc => {
                     appState.blog.push({ id: doc.id, ...doc.data() });
                 });
+                try {
+                    localStorage.setItem('studio_blog', JSON.stringify(appState.blog));
+                } catch(e) {}
                 renderPublicBlog();
             } else {
                 loadLocalBlogFallback();
@@ -1725,6 +1778,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 snap.forEach(doc => {
                     appState.categories.push({ id: doc.id, ...doc.data() });
                 });
+                try {
+                    localStorage.setItem('studio_categories', JSON.stringify(appState.categories));
+                } catch(e) {}
                 renderPublicGallery();
             } else {
                 loadLocalCategoriesFallback();
@@ -1742,6 +1798,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 snap.forEach(doc => {
                     appState.mediaItems.push({ id: doc.id, ...doc.data() });
                 });
+                try {
+                    localStorage.setItem('studio_mediaItems', JSON.stringify(appState.mediaItems));
+                } catch(e) {}
                 renderPublicMedia();
             } else {
                 loadLocalMediaFallback();
@@ -1759,6 +1818,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 snap.forEach(doc => {
                     appState.reviews.push({ id: doc.id, ...doc.data() });
                 });
+                try {
+                    localStorage.setItem('studio_reviews', JSON.stringify(appState.reviews));
+                } catch(e) {}
                 renderPublicReviews();
             } else {
                 loadLocalReviewsFallback();
@@ -2004,16 +2066,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
 
-                img.style.opacity = '0';
-                img.style.transition = 'opacity 0.4s ease-in-out';
-                img.onload = () => {
-                    img.style.opacity = '1';
+                // Preload in background without blanking out the current image to prevent any buffering flicker
+                const preloader = new Image();
+                preloader.onload = () => {
+                    img.src = url;
                     const parent = img.parentElement;
-                    if (parent) {
-                        parent.classList.remove('shimmer-loader');
-                    }
+                    if (parent) parent.classList.remove('shimmer-loader');
                 };
-                img.src = url;
+                preloader.onerror = () => {
+                    img.src = url;
+                    const parent = img.parentElement;
+                    if (parent) parent.classList.remove('shimmer-loader');
+                };
+                preloader.src = url;
             }
         };
 

@@ -61,6 +61,12 @@
     <meta name="twitter:description" content="Explore our stunning portfolio of wedding stories, pre-wedding shoots, candid portraits, and drone captures across Bhilai, Durg, Jamul, and Chhattisgarh.">
     <meta name="twitter:image" content="https://dewanganphotoandvideography.in/assets/poster_background.jpg">
     
+        <!-- Resource Preconnects for Ultra-Fast CDN & Asset Fetching -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://i.ibb.co" crossorigin>
+    <link rel="dns-prefetch" href="https://images.unsplash.com">
     <!-- Google Fonts: Premium Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -102,17 +108,10 @@
     <!-- Custom Style Sheet -->
     <link rel="stylesheet" href="style.css?v=2.0.0">
     
-    <!-- Chart.js CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
-    <!-- html2pdf.js for exporting invoices to A4 PDF -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    
-    <!-- Firebase Compat SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
+        <!-- Firebase Compat SDKs (Deferred for lightning-fast page render) -->
+    <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
  
     <!-- Structured Data: Business Schema Markup -->
     <script type="application/ld+json">
@@ -414,13 +413,13 @@
                         <div class="absolute inset-0 bg-black/30 pointer-events-none"></div>
                     </div>
                     <!-- Slide 2 -->
-                    <div class="slide absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out bg-stone-950 shimmer-loader">
-                        <img id="pub-slide-2" src="https://i.ibb.co/BKn7XHM5/663c324daf39.jpg" data-src="https://i.ibb.co/BKn7XHM5/663c324daf39.jpg" alt="Romantic couple photoshoot during sunset" width="1920" height="1080" loading="eager" class="w-full h-full object-contain">
+                    <div class="slide absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out bg-stone-950">
+                        <img id="pub-slide-2" src="https://i.ibb.co/BKn7XHM5/663c324daf39.jpg" data-src="https://i.ibb.co/BKn7XHM5/663c324daf39.jpg" alt="Romantic couple photoshoot during sunset" width="1920" height="1080" loading="lazy" class="w-full h-full object-contain">
                         <div class="absolute inset-0 bg-black/30 pointer-events-none"></div>
                     </div>
                     <!-- Slide 3 -->
-                    <div class="slide absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out bg-stone-950 shimmer-loader">
-                        <img id="pub-slide-3" src="https://i.ibb.co/YB3yQ0YR/6225069d8b84.jpg" data-src="https://i.ibb.co/YB3yQ0YR/6225069d8b84.jpg" alt="Elegant engagement ring exchange ceremony" width="1920" height="1080" loading="eager" class="w-full h-full object-contain">
+                    <div class="slide absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out bg-stone-950">
+                        <img id="pub-slide-3" src="https://i.ibb.co/YB3yQ0YR/6225069d8b84.jpg" data-src="https://i.ibb.co/YB3yQ0YR/6225069d8b84.jpg" alt="Elegant engagement ring exchange ceremony" width="1920" height="1080" loading="lazy" class="w-full h-full object-contain">
                         <div class="absolute inset-0 bg-black/30 pointer-events-none"></div>
                     </div>
                 </div>
@@ -461,7 +460,7 @@
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                         <div class="relative">
                             <div class="absolute -top-4 -left-4 w-72 h-72 bg-gold-500/5 rounded-full filter blur-3xl"></div>
-                            <img id="pub-about-image" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=800&q=80" alt="Dewangan Photo & Videography studio director camera close-up" width="800" height="450" loading="lazy" class="rounded-sm border border-gold-500/15 relative z-10 shadow-2xl w-full h-[450px] object-cover">
+                            <img id="pub-about-image" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=800&q=80" alt="Dewangan Photo & Videography studio director camera close-up" width="800" height="450" loading="lazy" class="rounded-sm border border-gold-500/15 relative z-10 shadow-2xl w-full h-[450px] object-cover">
                             <!-- Overlay card -->
                             <div class="absolute -bottom-8 -right-8 bg-black/90 border border-gold-500/20 backdrop-blur-md p-6 rounded-sm shadow-2xl max-w-xs z-20 hidden sm:block">
                                 <i class="fa-solid fa-quote-left text-gold-400 text-3xl mb-4"></i>
@@ -511,7 +510,7 @@
                         <i class="fa-solid fa-arrow-left"></i> Back to Services
                     </button>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                        <img id="pub-wedding-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80" alt="Dewangan Photo & Videography wedding photography in Bhilai Durg" width="800" height="400" loading="lazy" class="rounded-sm border border-gold-500/15 w-full h-[400px] object-cover shadow-2xl">
+                        <img id="pub-wedding-cover" src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80" alt="Dewangan Photo & Videography wedding photography in Bhilai Durg" width="800" height="400" loading="lazy" class="rounded-sm border border-gold-500/15 w-full h-[400px] object-cover shadow-2xl">
                         <div>
                             <span class="text-xs uppercase tracking-widest text-gold-400 font-bold block mb-2">PAGE 3 OF 17</span>
                             <h1 class="font-serif text-4xl font-bold text-white mb-6">Wedding Photography</h1>
@@ -534,7 +533,7 @@
                         <i class="fa-solid fa-arrow-left"></i> Back to Services
                     </button>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                        <img id="pub-prewedding-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=800&q=80" alt="Dewangan Photo & Videography romantic pre-wedding shoot" width="800" height="400" loading="lazy" class="rounded-sm border border-gold-500/15 w-full h-[400px] object-cover shadow-2xl">
+                        <img id="pub-prewedding-cover" src="https://i.ibb.co/pBbhNCgS/005.jpg" alt="Dewangan Photo & Videography romantic pre-wedding shoot" width="800" height="400" loading="lazy" class="rounded-sm border border-gold-500/15 w-full h-[400px] object-cover shadow-2xl">
                         <div>
                             <span class="text-xs uppercase tracking-widest text-gold-400 font-bold block mb-2">PAGE 4 OF 17</span>
                             <h1 class="font-serif text-4xl font-bold text-white mb-6">Pre-Wedding Shoot</h1>
@@ -580,7 +579,7 @@
                         <i class="fa-solid fa-arrow-left"></i> Back to Services
                     </button>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                        <img id="pub-birthday-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80" alt="Dewangan Photo & Videography birthday anniversary celebration photography" width="800" height="400" loading="lazy" class="rounded-sm border border-gold-500/15 w-full h-[400px] object-cover shadow-2xl">
+                        <img id="pub-birthday-cover" src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80" alt="Dewangan Photo & Videography birthday anniversary celebration photography" width="800" height="400" loading="lazy" class="rounded-sm border border-gold-500/15 w-full h-[400px] object-cover shadow-2xl">
                         <div>
                             <span class="text-xs uppercase tracking-widest text-gold-400 font-bold block mb-2">PAGE 6 OF 17</span>
                             <h1 class="font-serif text-4xl font-bold text-white mb-6">Birthday & Anniversary</h1>
@@ -1223,16 +1222,18 @@
                             if (parent) parent.classList.remove('shimmer-loader');
                             return;
                         }
-                        el.style.opacity = '0';
-                        el.style.transition = 'opacity 0.4s ease-in-out';
-                        el.onload = () => {
-                            el.style.opacity = '1';
+                        const preloader = new Image();
+                        preloader.onload = () => {
+                            el.src = targetUrl;
                             const parent = el.parentElement;
-                            if (parent) {
-                                parent.classList.remove('shimmer-loader');
-                            }
+                            if (parent) parent.classList.remove('shimmer-loader');
                         };
-                        el.src = targetUrl;
+                        preloader.onerror = () => {
+                            el.src = targetUrl;
+                            const parent = el.parentElement;
+                            if (parent) parent.classList.remove('shimmer-loader');
+                        };
+                        preloader.src = targetUrl;
                     }
                 };
                 setSrc('pub-slide-1', settings ? settings.slide1Url : null, 'https://i.ibb.co/RGg5zHWk/2f6bc71f349b.jpg');
@@ -1247,7 +1248,7 @@
             }
         })();
     </script>
-    <script src="app.js?v=2.0.0"></script>
+    <script defer src="app.js?v=2.0.1"></script>
     <script>
         // Inline functions for quick FAQ/Menu actions
         function toggleFaq(btn) {
