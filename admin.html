@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: 'unsafe-inline' 'unsafe-eval' data: blob:;">
@@ -1754,25 +1754,10 @@
     <!-- Script Logic -->
     <script>
         window.onerror = function(message, source, lineno, colno, error) {
-            if (message === 'Script error.' || !source) {
-                return false; // Ignore generic cross-origin or extension errors
-            }
-            var errorDiv = document.createElement('div');
-            errorDiv.style.position = 'fixed';
-            errorDiv.style.top = '0';
-            errorDiv.style.left = '0';
-            errorDiv.style.width = '100%';
-            errorDiv.style.background = '#ef4444';
-            errorDiv.style.color = '#ffffff';
-            errorDiv.style.padding = '15px';
-            errorDiv.style.zIndex = '999999';
-            errorDiv.style.fontFamily = 'monospace';
-            errorDiv.style.fontSize = '14px';
-            errorDiv.innerHTML = '<strong>JS Compilation/Runtime Error:</strong> ' + message + ' <br><strong>File:</strong> ' + source + ' <br><strong>Line:</strong> ' + lineno + ' <strong>Col:</strong> ' + colno;
-            document.body.appendChild(errorDiv);
+            console.error("Runtime error:", message, "at", source, lineno, colno, error);
             return false;
         };
     </script>
-    <script src="app.js?v=2.0.0"></script>
+    <script src="app.js?v=2.0.2"></script>
 </body>
 </html>

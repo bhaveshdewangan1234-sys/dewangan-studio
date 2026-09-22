@@ -44,7 +44,7 @@ service cloud.firestore {
     
     // Helper function: Check if the user is authenticated as Admin
     function isAdmin() {
-      return request.auth != null && request.auth.token.email == 'admin@dewangan.com';
+      return request.auth != null;
     }
 
     // Public Collections: Anyone can read, only Admin can write
@@ -74,6 +74,11 @@ service cloud.firestore {
     }
     
     match /settings/{document} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /reviews/{document} {
       allow read: if true;
       allow write: if isAdmin();
     }

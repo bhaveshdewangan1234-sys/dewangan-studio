@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: 'unsafe-inline' 'unsafe-eval' data: blob:;">
@@ -103,6 +103,46 @@
                 }
             }
         }
+    </script>
+    
+    <!-- Immediate hero slider navigation handlers to prevent premature click ReferenceError -->
+    <script>
+        window.currentHeroSlideIndex = 0;
+        window.showHeroSlide = function(index) {
+            var slides = document.querySelectorAll('#hero-slider .slide');
+            if (!slides || slides.length === 0) return;
+            if (index >= slides.length) {
+                window.currentHeroSlideIndex = 0;
+            } else if (index < 0) {
+                window.currentHeroSlideIndex = slides.length - 1;
+            } else {
+                window.currentHeroSlideIndex = index;
+            }
+            for (var i = 0; i < slides.length; i++) {
+                if (i === window.currentHeroSlideIndex) {
+                    slides[i].classList.remove('opacity-0');
+                    slides[i].classList.add('opacity-100');
+                } else {
+                    slides[i].classList.remove('opacity-100');
+                    slides[i].classList.add('opacity-0');
+                }
+            }
+            var titles = [
+                "Creative Photo Graphy Agency",
+                "Ultimate Wedding Photoshoot",
+                "Cinematic Films & Drone Sweep"
+            ];
+            var titleEl = document.getElementById('hero-slider-title');
+            if (titleEl && titles[window.currentHeroSlideIndex]) {
+                titleEl.textContent = titles[window.currentHeroSlideIndex];
+            }
+        };
+        window.nextHeroSlide = function() {
+            window.showHeroSlide((window.currentHeroSlideIndex || 0) + 1);
+        };
+        window.prevHeroSlide = function() {
+            window.showHeroSlide((window.currentHeroSlideIndex || 0) - 1);
+        };
     </script>
     
     <!-- Custom Style Sheet -->
@@ -1171,22 +1211,7 @@
     <!-- Custom Script Logic -->
     <script>
         window.onerror = function(message, source, lineno, colno, error) {
-            if (message === 'Script error.' || !source) {
-                return false; // Ignore generic cross-origin or extension errors
-            }
-            var errorDiv = document.createElement('div');
-            errorDiv.style.position = 'fixed';
-            errorDiv.style.top = '0';
-            errorDiv.style.left = '0';
-            errorDiv.style.width = '100%';
-            errorDiv.style.background = '#ef4444';
-            errorDiv.style.color = '#ffffff';
-            errorDiv.style.padding = '15px';
-            errorDiv.style.zIndex = '999999';
-            errorDiv.style.fontFamily = 'monospace';
-            errorDiv.style.fontSize = '14px';
-            errorDiv.innerHTML = '<strong>JS Compilation/Runtime Error:</strong> ' + message + ' <br><strong>File:</strong> ' + source + ' <br><strong>Line:</strong> ' + lineno + ' <strong>Col:</strong> ' + colno;
-            document.body.appendChild(errorDiv);
+            console.error("Runtime error:", message, "at", source, lineno, colno, error);
             return false;
         };
     </script>
@@ -1239,7 +1264,7 @@
                 setSrc('pub-slide-1', settings ? settings.slide1Url : null, 'https://i.ibb.co/RGg5zHWk/2f6bc71f349b.jpg');
                 setSrc('pub-slide-2', settings ? settings.slide2Url : null, 'https://i.ibb.co/BKn7XHM5/663c324daf39.jpg');
                 setSrc('pub-slide-3', settings ? settings.slide3Url : null, 'https://i.ibb.co/YB3yQ0YR/6225069d8b84.jpg');
-                setSrc('pub-about-image', settings ? settings.aboutPhotoUrl : null, 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=800&q=80');
+                setSrc('pub-about-image', settings ? (settings.aboutImageUrl || settings.aboutPhotoUrl) : null, 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=800&q=80');
                 setSrc('pub-wedding-cover', settings ? settings.weddingCoverUrl : null, 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80');
                 setSrc('pub-prewedding-cover', settings ? settings.preweddingCoverUrl : null, 'https://i.ibb.co/pBbhNCgS/005.jpg');
                 setSrc('pub-birthday-cover', settings ? settings.birthdayCoverUrl : null, 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80');
@@ -1248,7 +1273,7 @@
             }
         })();
     </script>
-    <script defer src="app.js?v=2.0.1"></script>
+    <script defer src="app.js?v=2.0.2"></script>
     <script>
         // Inline functions for quick FAQ/Menu actions
         function toggleFaq(btn) {
