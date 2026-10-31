@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: 'unsafe-inline' 'unsafe-eval' data: blob:;">
@@ -31,7 +31,7 @@
         })();
     </script>
     <link rel="preload" as="image" id="preload-brand-logo" href="assets/logo.png">
-    <link rel="preload" as="image" id="preload-hero-banner" href="https://i.ibb.co/RGg5zHWk/2f6bc71f349b.jpg">
+    <link rel="preload" as="image" id="preload-hero-banner" href="assets/slide1.jpg">
     <script>
         (function() {
             if (window.__CACHED_SETTINGS__) {
@@ -65,7 +65,7 @@
     <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
     <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://i.ibb.co" crossorigin>
+    <!-- Local Assets Cached -->
     <link rel="dns-prefetch" href="https://images.unsplash.com">
     <!-- Google Fonts: Premium Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -449,17 +449,17 @@
                 <div class="absolute inset-0 z-0" id="hero-slider">
                     <!-- Slide 1 -->
                     <div class="slide absolute inset-0 opacity-100 transition-opacity duration-1000 ease-in-out bg-stone-950">
-                        <img id="pub-slide-1" src="https://i.ibb.co/RGg5zHWk/2f6bc71f349b.jpg" data-src="https://i.ibb.co/RGg5zHWk/2f6bc71f349b.jpg" alt="Dewangan Photo & Videography wedding event backdrop" width="1920" height="1080" loading="eager" class="w-full h-full object-contain">
+                        <img id="pub-slide-1" src="assets/slide1.jpg" data-src="assets/slide1.jpg" alt="Dewangan Photo & Videography wedding event backdrop" width="1920" height="1080" loading="eager" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
                         <div class="absolute inset-0 bg-black/30 pointer-events-none"></div>
                     </div>
                     <!-- Slide 2 -->
                     <div class="slide absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out bg-stone-950">
-                        <img id="pub-slide-2" src="https://i.ibb.co/BKn7XHM5/663c324daf39.jpg" data-src="https://i.ibb.co/BKn7XHM5/663c324daf39.jpg" alt="Romantic couple photoshoot during sunset" width="1920" height="1080" loading="lazy" class="w-full h-full object-contain">
+                        <img id="pub-slide-2" src="assets/slide2.jpg" data-src="assets/slide2.jpg" alt="Romantic couple photoshoot during sunset" width="1920" height="1080" loading="lazy" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
                         <div class="absolute inset-0 bg-black/30 pointer-events-none"></div>
                     </div>
                     <!-- Slide 3 -->
                     <div class="slide absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out bg-stone-950">
-                        <img id="pub-slide-3" src="https://i.ibb.co/YB3yQ0YR/6225069d8b84.jpg" data-src="https://i.ibb.co/YB3yQ0YR/6225069d8b84.jpg" alt="Elegant engagement ring exchange ceremony" width="1920" height="1080" loading="lazy" class="w-full h-full object-contain">
+                        <img id="pub-slide-3" src="assets/slide3.jpg" data-src="assets/slide3.jpg" alt="Elegant engagement ring exchange ceremony" width="1920" height="1080" loading="lazy" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
                         <div class="absolute inset-0 bg-black/30 pointer-events-none"></div>
                     </div>
                 </div>
@@ -500,7 +500,7 @@
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                         <div class="relative">
                             <div class="absolute -top-4 -left-4 w-72 h-72 bg-gold-500/5 rounded-full filter blur-3xl"></div>
-                            <img id="pub-about-image" src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=800&q=80" alt="Dewangan Photo & Videography studio director camera close-up" width="800" height="450" loading="lazy" class="rounded-sm border border-gold-500/15 relative z-10 shadow-2xl w-full h-[450px] object-cover">
+                            <img id="pub-about-image" src="assets/poster_background.jpg" alt="Dewangan Photo & Videography studio director camera close-up" width="800" height="450" loading="lazy" class="rounded-sm border border-gold-500/15 relative z-10 shadow-2xl w-full h-[450px] object-cover" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
                             <!-- Overlay card -->
                             <div class="absolute -bottom-8 -right-8 bg-black/90 border border-gold-500/20 backdrop-blur-md p-6 rounded-sm shadow-2xl max-w-xs z-20 hidden sm:block">
                                 <i class="fa-solid fa-quote-left text-gold-400 text-3xl mb-4"></i>
@@ -573,7 +573,7 @@
                         <i class="fa-solid fa-arrow-left"></i> Back to Services
                     </button>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                        <img id="pub-prewedding-cover" src="https://i.ibb.co/pBbhNCgS/005.jpg" alt="Dewangan Photo & Videography romantic pre-wedding shoot" width="800" height="400" loading="lazy" class="rounded-sm border border-gold-500/15 w-full h-[400px] object-cover shadow-2xl">
+                        <img id="pub-prewedding-cover" src="assets/cover-prewedding.jpg" alt="Dewangan Photo & Videography romantic pre-wedding shoot" width="800" height="400" loading="lazy" class="rounded-sm border border-gold-500/15 w-full h-[400px] object-cover shadow-2xl" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
                         <div>
                             <span class="text-xs uppercase tracking-widest text-gold-400 font-bold block mb-2">PAGE 4 OF 17</span>
                             <h1 class="font-serif text-4xl font-bold text-white mb-6">Pre-Wedding Shoot</h1>
@@ -1261,19 +1261,19 @@
                         preloader.src = targetUrl;
                     }
                 };
-                setSrc('pub-slide-1', settings ? settings.slide1Url : null, 'https://i.ibb.co/RGg5zHWk/2f6bc71f349b.jpg');
-                setSrc('pub-slide-2', settings ? settings.slide2Url : null, 'https://i.ibb.co/BKn7XHM5/663c324daf39.jpg');
-                setSrc('pub-slide-3', settings ? settings.slide3Url : null, 'https://i.ibb.co/YB3yQ0YR/6225069d8b84.jpg');
-                setSrc('pub-about-image', settings ? (settings.aboutImageUrl || settings.aboutPhotoUrl) : null, 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=800&q=80');
+                setSrc('pub-slide-1', settings ? settings.slide1Url : null, 'assets/slide1.jpg');
+                setSrc('pub-slide-2', settings ? settings.slide2Url : null, 'assets/slide2.jpg');
+                setSrc('pub-slide-3', settings ? settings.slide3Url : null, 'assets/slide3.jpg');
+                setSrc('pub-about-image', settings ? (settings.aboutImageUrl || settings.aboutPhotoUrl) : null, 'assets/poster_background.jpg');
                 setSrc('pub-wedding-cover', settings ? settings.weddingCoverUrl : null, 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80');
-                setSrc('pub-prewedding-cover', settings ? settings.preweddingCoverUrl : null, 'https://i.ibb.co/pBbhNCgS/005.jpg');
+                setSrc('pub-prewedding-cover', settings ? settings.preweddingCoverUrl : null, 'assets/cover-prewedding.jpg');
                 setSrc('pub-birthday-cover', settings ? settings.birthdayCoverUrl : null, 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80');
             } catch(e) {
                 console.error("Local cache load failed:", e);
             }
         })();
     </script>
-    <script defer src="app.js?v=2.0.2"></script>
+    <script defer src="app.js?v=2.0.3"></script>
     <script>
         // Inline functions for quick FAQ/Menu actions
         function toggleFaq(btn) {

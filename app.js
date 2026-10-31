@@ -29,22 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
     window.onerror = function(message, source, lineno, colno, error) {
-        if (message === 'Script error.' || !source || (lineno === 0 && colno === 0)) {
-            return false; // Ignore generic cross-origin or extension errors
-        }
-        const errorDiv = document.createElement('div');
-        errorDiv.style.position = 'fixed';
-        errorDiv.style.top = '0';
-        errorDiv.style.left = '0';
-        errorDiv.style.width = '100%';
-        errorDiv.style.background = '#ef4444';
-        errorDiv.style.color = '#ffffff';
-        errorDiv.style.padding = '10px';
-        errorDiv.style.zIndex = '999999';
-        errorDiv.style.fontFamily = 'monospace';
-        errorDiv.style.fontSize = '12px';
-        errorDiv.innerHTML = '<strong>JS Error:</strong> ' + message + ' at ' + source + ':' + lineno + ':' + colno;
-        document.body.appendChild(errorDiv);
+        console.error("JS Runtime Error:", message, "at", source, lineno, colno, error);
         return false;
     };
 
@@ -84,15 +69,15 @@ document.addEventListener('DOMContentLoaded', () => {
             alternateEmail: "bhaveshdewangan1234@gmail.com",
             alternatePhone: "9301614549",
             currency: "INR",
-            faviconUrl: "https://i.ibb.co/4gdkrb67/Untitled-1.jpg",
-            slide1Url: "https://i.ibb.co/RGg5zHWk/2f6bc71f349b.jpg",
-            slide2Url: "https://i.ibb.co/BKn7XHM5/663c324daf39.jpg",
-            slide3Url: "https://i.ibb.co/YB3yQ0YR/6225069d8b84.jpg",
+            faviconUrl: "assets/favicon.png",
+            slide1Url: "assets/slide1.jpg",
+            slide2Url: "assets/slide2.jpg",
+            slide3Url: "assets/slide3.jpg",
             aboutTitle: "Dewangan Photo & Videography",
             aboutDescHtml: `<h3><strong>Best Photo &amp; Videography in Shivpuri</strong></h3><p>Best Photo &amp; Videography in Shivpuri, If you are looking for the <strong>best photo and videography in Shivpuri</strong>, you've come to the right place. Our team offers a wide range of professional photography and videography services, including wedding shoots, engagement sessions, maternity photoshoots, birthday parties, corporate events, and more. Every frame we capture tells a unique story &mdash; your story &mdash; filled with emotions, colors, and memories that last a lifetime. Our goal is to make you relive your special moments every time you look at your photographs or videos. We combine traditional and modern styles to deliver cinematic visuals that are vibrant, natural, and timeless. Whether it's an intimate celebration or a grand destination wedding, we ensure every detail is beautifully captured with precision and passion.</p>`,
-            aboutImageUrl: "https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=800&q=80",
+            aboutImageUrl: "assets/poster_background.jpg",
             weddingCoverUrl: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
-            preweddingCoverUrl: "https://i.ibb.co/pBbhNCgS/005.jpg",
+            preweddingCoverUrl: "assets/cover-prewedding.jpg",
             engagementCoverUrl: "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=800&q=80",
             birthdayCoverUrl: "https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=80",
             maternityCoverUrl: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=800&q=80",
@@ -1460,16 +1445,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 appState.settings.studioWebsite = 'dewanganphotoandvideography.in';
                 migrated = true;
             }
-            if (!appState.settings.slide1Url) {
-                appState.settings.slide1Url = "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1920&q=80";
+            if (!appState.settings.slide1Url || appState.settings.slide1Url.includes('i.ibb.co/RGg5zHWk')) {
+                appState.settings.slide1Url = "assets/slide1.jpg";
                 migrated = true;
             }
-            if (!appState.settings.slide2Url) {
-                appState.settings.slide2Url = "https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=1920&q=80";
+            if (!appState.settings.slide2Url || appState.settings.slide2Url.includes('i.ibb.co/BKn7XHM5')) {
+                appState.settings.slide2Url = "assets/slide2.jpg";
                 migrated = true;
             }
-            if (!appState.settings.slide3Url) {
-                appState.settings.slide3Url = "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=1920&q=80";
+            if (!appState.settings.slide3Url || appState.settings.slide3Url.includes('i.ibb.co/YB3yQ0YR') || appState.settings.slide3Url.includes('i.ibb.co')) {
+                appState.settings.slide3Url = "assets/slide3.jpg";
+                migrated = true;
+            }
+            if (!appState.settings.preweddingCoverUrl || appState.settings.preweddingCoverUrl.includes('i.ibb.co/pBbhNCgS') || appState.settings.preweddingCoverUrl.includes('i.ibb.co')) {
+                appState.settings.preweddingCoverUrl = "assets/cover-prewedding.jpg";
+                migrated = true;
+            }
+            if (!appState.settings.faviconUrl || appState.settings.faviconUrl.includes('i.ibb.co')) {
+                appState.settings.faviconUrl = "assets/favicon.png";
                 migrated = true;
             }
             if (!appState.settings.aboutTitle) {
@@ -2052,9 +2045,32 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.href = `https://wa.me/${finalWaPhone}?text=Hi%20${encodeURIComponent(appState.settings.studioName)}%2C%20I%20am%20interested%20in%20your%20photography%20services.%20Please%20share%20details.`;
         });
 
-        const updateImgSrc = (id, url) => {
+        // Sanitize legacy or broken ImgBB links to reliable local assets
+        if (!appState.settings.slide1Url || appState.settings.slide1Url.includes('i.ibb.co/RGg5zHWk')) {
+            appState.settings.slide1Url = 'assets/slide1.jpg';
+        }
+        if (!appState.settings.slide2Url || appState.settings.slide2Url.includes('i.ibb.co/BKn7XHM5')) {
+            appState.settings.slide2Url = 'assets/slide2.jpg';
+        }
+        if (!appState.settings.slide3Url || appState.settings.slide3Url.includes('i.ibb.co/YB3yQ0YR') || appState.settings.slide3Url.includes('i.ibb.co')) {
+            appState.settings.slide3Url = 'assets/slide3.jpg';
+        }
+        if (!appState.settings.preweddingCoverUrl || appState.settings.preweddingCoverUrl.includes('i.ibb.co/pBbhNCgS') || appState.settings.preweddingCoverUrl.includes('i.ibb.co')) {
+            appState.settings.preweddingCoverUrl = 'assets/cover-prewedding.jpg';
+        }
+        if (!appState.settings.faviconUrl || appState.settings.faviconUrl.includes('i.ibb.co')) {
+            appState.settings.faviconUrl = 'assets/favicon.png';
+        }
+
+        const updateImgSrc = (id, url, fallback) => {
             const img = document.getElementById(id);
             if (img && url) {
+                if (!img.getAttribute('onerror')) {
+                    img.onerror = function() {
+                        this.onerror = null;
+                        this.src = fallback || 'assets/poster_background.jpg';
+                    };
+                }
                 const tempAnchor = document.createElement('a');
                 tempAnchor.href = url;
                 const absoluteUrl = tempAnchor.href;
@@ -2074,7 +2090,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (parent) parent.classList.remove('shimmer-loader');
                 };
                 preloader.onerror = () => {
-                    img.src = url;
+                    if (fallback && fallback !== url) {
+                        img.src = fallback;
+                    }
                     const parent = img.parentElement;
                     if (parent) parent.classList.remove('shimmer-loader');
                 };
@@ -2082,10 +2100,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
 
-        updateImgSrc('pub-slide-1', appState.settings.slide1Url);
-        updateImgSrc('pub-slide-2', appState.settings.slide2Url);
-        updateImgSrc('pub-slide-3', appState.settings.slide3Url);
-        updateImgSrc('pub-about-image', appState.settings.aboutImageUrl);
+        updateImgSrc('pub-slide-1', appState.settings.slide1Url, 'assets/slide1.jpg');
+        updateImgSrc('pub-slide-2', appState.settings.slide2Url, 'assets/slide2.jpg');
+        updateImgSrc('pub-slide-3', appState.settings.slide3Url, 'assets/slide3.jpg');
+        updateImgSrc('pub-about-image', appState.settings.aboutImageUrl, 'assets/poster_background.jpg');
 
         // Dynamic Brand Logo logic
         const pubBrandLogo = document.getElementById('pub-brand-logo');
@@ -2152,7 +2170,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const pubAboutDescContainer = document.getElementById('pub-about-desc-container');
         if (pubAboutDescContainer) pubAboutDescContainer.innerHTML = appState.settings.aboutDescHtml || '';
         updateImgSrc('pub-wedding-cover', appState.settings.weddingCoverUrl);
-        updateImgSrc('pub-prewedding-cover', appState.settings.preweddingCoverUrl);
+        updateImgSrc('pub-prewedding-cover', appState.settings.preweddingCoverUrl, 'assets/cover-prewedding.jpg');
         updateImgSrc('pub-engagement-cover', appState.settings.engagementCoverUrl);
         updateImgSrc('pub-birthday-cover', appState.settings.birthdayCoverUrl);
         updateImgSrc('pub-maternity-cover', appState.settings.maternityCoverUrl);
@@ -4060,7 +4078,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const categoryLabel = catObj ? catObj.title : img.category;
             
             card.innerHTML = `
-                <img src="${img.thumbUrl || img.url}" alt="${img.title}" width="400" height="300" class="w-full h-40 sm:h-56 md:h-72 object-contain bg-stone-950 group-hover:scale-105 transition duration-700 opacity-90 group-hover:opacity-100" loading="lazy">
+                <img src="${img.thumbUrl || img.url}" alt="${img.title}" width="400" height="300" class="w-full h-40 sm:h-56 md:h-72 object-contain bg-stone-950 group-hover:scale-105 transition duration-700 opacity-90 group-hover:opacity-100" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
                 <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end p-4 md:p-6 z-10">
                     <span class="text-gold-400 text-[9px] uppercase tracking-widest font-bold">${categoryLabel}</span>
                     <h4 class="font-serif text-sm md:text-lg text-white font-bold mt-1">${img.title}</h4>
@@ -6759,19 +6777,5 @@ document.addEventListener('DOMContentLoaded', () => {
     initApp();
     } catch (err) {
         console.error("Bootstrap error:", err);
-        const errContainer = document.createElement('div');
-        errContainer.style.position = 'fixed';
-        errContainer.style.top = '0';
-        errContainer.style.left = '0';
-        errContainer.style.width = '100%';
-        errContainer.style.background = '#881337';
-        errContainer.style.color = '#fda4af';
-        errContainer.style.padding = '20px';
-        errContainer.style.zIndex = '9999999';
-        errContainer.style.fontFamily = 'monospace';
-        errContainer.style.fontSize = '14px';
-        errContainer.style.borderBottom = '5px solid #f43f5e';
-        errContainer.innerHTML = '<strong>Bootstrap Execution Crash:</strong> ' + err.message + '<br><br><strong>Stack Trace:</strong><br>' + (err.stack ? err.stack.replace(/\n/g, '<br>') : 'No stack trace available');
-        document.body.appendChild(errContainer);
     }
 });
