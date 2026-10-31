@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Dewangan Photo & Videography - Studio Suite
  * Core State, Database Sync, Auth, Public Website Forms, Reports, and Signature Pad Script
  */
@@ -611,13 +611,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // Helper to upload File, Blob, or Base64 string directly to ImgBB (returns CDN URL in cloud mode, or base64 in local mode)
+    // Helper to upload File, Blob, or Base64 string directly to Cloudinary (returns optimized CDN URL in cloud mode, or base64 in local mode)
     const uploadToStorage = (data, folder, filename = 'image.jpg') => {
-        const apiKey = "bbea5a968110bc1719612964ca054653";
-        const uploadUrl = `https://api.imgbb.com/1/upload?key=${apiKey}`;
+        const cloudName = "jxgk8nsr";
+        const uploadPreset = "dewangan_studio";
+        const uploadUrl = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
 
         return new Promise((resolve, reject) => {
-            // If we are in local demo offline mode, bypass ImgBB and save locally as base64
+            // If we are in local demo offline mode, bypass Cloudinary and save locally as base64
             if (appState.dbType === 'demo') {
                 if (typeof data === 'string') {
                     resolve(data);
@@ -631,12 +632,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const formData = new FormData();
-            if (typeof data === 'string' && data.startsWith('data:')) {
-                const base64Data = data.split(',')[1];
-                formData.append('image', base64Data);
-            } else {
-                formData.append('image', data);
+            formData.append('upload_preset', uploadPreset);
+            if (folder) {
+                formData.append('folder', 'dewangan_' + folder);
             }
+            formData.append('file', data);
 
             fetch(uploadUrl, {
                 method: 'POST',
@@ -644,19 +644,23 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error('HTTP error ' + response.status);
+                    throw new Error('Cloudinary HTTP error ' + response.status);
                 }
                 return response.json();
             })
             .then(result => {
-                if (result && result.data && result.data.url) {
-                    resolve(result.data.url);
+                if (result && result.secure_url) {
+                    let optimizedUrl = result.secure_url;
+                    if (optimizedUrl.includes('/image/upload/')) {
+                        optimizedUrl = optimizedUrl.replace('/image/upload/', '/image/upload/f_auto,q_auto/');
+                    }
+                    resolve(optimizedUrl);
                 } else {
-                    reject(new Error(result.error ? result.error.message : 'Invalid ImgBB API response'));
+                    reject(new Error(result.error ? result.error.message : 'Invalid Cloudinary API response'));
                 }
             })
             .catch(err => {
-                console.error("ImgBB upload failed, falling back to local storage:", err);
+                console.error("Cloudinary upload failed, falling back to local storage:", err);
                 if (typeof data === 'string') {
                     resolve(data);
                 } else {
