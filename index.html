@@ -347,6 +347,36 @@
         color: #d6d3d1 !important;
     }
     </style>
+    <style>
+    /* Cinema Filmstrip Sprockets & Infinite Marquee */
+    .filmstrip-sprockets {
+        background-image: radial-gradient(#3a3a3a 35%, transparent 35%);
+        background-size: 18px 12px;
+        background-repeat: repeat-x;
+        height: 12px;
+        opacity: 0.9;
+    }
+    .filmstrip-track {
+        display: flex;
+        width: max-content;
+        animation: filmstripMarquee 38s linear infinite;
+        will-change: transform;
+    }
+    .filmstrip-container:hover .filmstrip-track {
+        animation-play-state: paused;
+    }
+    @keyframes filmstripMarquee {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+    .film-frame-card {
+        transition: all 0.4s ease;
+    }
+    .film-frame-card:hover {
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 10px 25px -5px rgba(234, 159, 42, 0.25);
+    }
+    </style>
 </head>
 <body class="bg-black text-stone-100 font-sans selection:bg-gold-500 selection:text-black">
 
@@ -542,6 +572,309 @@
                             Contact Us <i class="fa-solid fa-chevron-right text-[10px]"></i>
                         </a>
                     </div>
+                </div>
+            </section>
+
+            <!-- CINEMA TECH & GEAR BADGES BAR -->
+            <div class="bg-black/95 border-b border-gold-500/15 py-5 backdrop-blur-md relative z-20">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-5">
+                        <!-- Badge 1 -->
+                        <div class="flex items-center gap-3 p-3 rounded-sm bg-stone-900/60 border border-gold-500/10 hover:border-gold-500/30 transition group">
+                            <div class="w-9 h-9 rounded-sm bg-gold-500/10 border border-gold-500/20 flex items-center justify-center text-gold-400 group-hover:bg-gold-500 group-hover:text-black transition duration-300 shrink-0">
+                                <i class="fa-solid fa-video text-xs sm:text-sm"></i>
+                            </div>
+                            <div class="overflow-hidden">
+                                <h4 class="text-[11px] sm:text-xs font-bold text-white tracking-wider uppercase truncate">4K HDR Cinema</h4>
+                                <p class="text-[9px] sm:text-[10px] text-stone-400 font-light truncate">Sony 10-Bit D-Log</p>
+                            </div>
+                        </div>
+                        <!-- Badge 2 -->
+                        <div class="flex items-center gap-3 p-3 rounded-sm bg-stone-900/60 border border-gold-500/10 hover:border-gold-500/30 transition group">
+                            <div class="w-9 h-9 rounded-sm bg-gold-500/10 border border-gold-500/20 flex items-center justify-center text-gold-400 group-hover:bg-gold-500 group-hover:text-black transition duration-300 shrink-0">
+                                <i class="fa-solid fa-helicopter text-xs sm:text-sm"></i>
+                            </div>
+                            <div class="overflow-hidden">
+                                <h4 class="text-[11px] sm:text-xs font-bold text-white tracking-wider uppercase truncate">Dual-Op Drone</h4>
+                                <p class="text-[9px] sm:text-[10px] text-stone-400 font-light truncate">Aerial 4K 60fps Sweeps</p>
+                            </div>
+                        </div>
+                        <!-- Badge 3 -->
+                        <div class="flex items-center gap-3 p-3 rounded-sm bg-stone-900/60 border border-gold-500/10 hover:border-gold-500/30 transition group">
+                            <div class="w-9 h-9 rounded-sm bg-gold-500/10 border border-gold-500/20 flex items-center justify-center text-gold-400 group-hover:bg-gold-500 group-hover:text-black transition duration-300 shrink-0">
+                                <i class="fa-solid fa-bolt text-xs sm:text-sm"></i>
+                            </div>
+                            <div class="overflow-hidden">
+                                <h4 class="text-[11px] sm:text-xs font-bold text-white tracking-wider uppercase truncate">Zero-Lag Delivery</h4>
+                                <p class="text-[9px] sm:text-[10px] text-stone-400 font-light truncate">Same-Day Teaser Reels</p>
+                            </div>
+                        </div>
+                        <!-- Badge 4 -->
+                        <div class="flex items-center gap-3 p-3 rounded-sm bg-stone-900/60 border border-gold-500/10 hover:border-gold-500/30 transition group">
+                            <div class="w-9 h-9 rounded-sm bg-gold-500/10 border border-gold-500/20 flex items-center justify-center text-gold-400 group-hover:bg-gold-500 group-hover:text-black transition duration-300 shrink-0">
+                                <i class="fa-solid fa-crown text-xs sm:text-sm"></i>
+                            </div>
+                            <div class="overflow-hidden">
+                                <h4 class="text-[11px] sm:text-xs font-bold text-white tracking-wider uppercase truncate">Bollywood Color</h4>
+                                <p class="text-[9px] sm:text-[10px] text-stone-400 font-light truncate">Sabyasachi Royal Grade</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CINEMA FILMSTRIP REEL SECTION: The Reel of Real Moments -->
+            <section id="sec-filmstrip" class="py-14 bg-stone-950 border-b border-gold-500/10 overflow-hidden relative">
+                <div class="max-w-7xl mx-auto px-4 text-center mb-8">
+                    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gold-500/10 border border-gold-500/20 text-gold-400 text-[10px] uppercase font-bold tracking-widest mb-3">
+                        <i class="fa-solid fa-film text-[10px]"></i> Bespoke Cinema Grade
+                    </span>
+                    <h2 class="font-serif text-3xl md:text-5xl font-bold text-white tracking-tight">
+                        The Reel of Real Moments
+                    </h2>
+                    <p class="text-stone-400 text-xs md:text-sm mt-3 max-w-xl mx-auto font-light leading-relaxed">
+                        Unscripted laughter, royal bridal grandeur, and timeless memories captured in true 24fps cinematic aesthetic.
+                    </p>
+                </div>
+
+                <!-- 35mm Filmstrip Ticker Container -->
+                <div class="filmstrip-container relative w-full overflow-hidden bg-black py-4 border-y border-stone-800 shadow-2xl">
+                    <!-- Top Sprockets -->
+                    <div class="filmstrip-sprockets w-full mb-3"></div>
+
+                    <!-- Marquee Track (Repeated 2x for smooth infinite continuous loop) -->
+                    <div class="filmstrip-track flex items-center gap-5 px-4 cursor-pointer">
+                        
+                        <!-- Slide 1 -->
+                        <div class="film-frame-card shrink-0 w-64 sm:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group" onclick="window.openLightbox('assets/slide1.jpg', 'Royal Wedding Backdrop', 'Dewangan Photo & Videography')">
+                            <div class="flex justify-between items-center text-[8px] font-mono text-stone-400 mb-1.5 px-1 tracking-wider uppercase">
+                                <span>DPV 35MM</span>
+                                <span class="text-gold-400">#FRAME 01</span>
+                            </div>
+                            <div class="h-40 sm:h-48 overflow-hidden rounded-xs bg-stone-950 relative">
+                                <img src="assets/slide1.jpg" alt="Royal Wedding Mandap" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-2.5">
+                                    <span class="text-white text-xs font-semibold">Royal Wedding Mandap</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 2 -->
+                        <div class="film-frame-card shrink-0 w-64 sm:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group" onclick="window.openLightbox('assets/slide2.jpg', 'Sunset Silhouette Couple', 'Dewangan Photo & Videography')">
+                            <div class="flex justify-between items-center text-[8px] font-mono text-stone-400 mb-1.5 px-1 tracking-wider uppercase">
+                                <span>DPV 35MM</span>
+                                <span class="text-gold-400">#FRAME 02</span>
+                            </div>
+                            <div class="h-40 sm:h-48 overflow-hidden rounded-xs bg-stone-950 relative">
+                                <img src="assets/slide2.jpg" alt="Sunset Couple Shoot" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-2.5">
+                                    <span class="text-white text-xs font-semibold">Sunset Couple Silhouette</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 3 -->
+                        <div class="film-frame-card shrink-0 w-64 sm:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group" onclick="window.openLightbox('assets/cover-prewedding.jpg', 'Cinematic Pre-Wedding', 'Dewangan Photo & Videography')">
+                            <div class="flex justify-between items-center text-[8px] font-mono text-stone-400 mb-1.5 px-1 tracking-wider uppercase">
+                                <span>DPV 35MM</span>
+                                <span class="text-gold-400">#FRAME 03</span>
+                            </div>
+                            <div class="h-40 sm:h-48 overflow-hidden rounded-xs bg-stone-950 relative">
+                                <img src="assets/cover-prewedding.jpg" alt="Pre-Wedding Romance" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-2.5">
+                                    <span class="text-white text-xs font-semibold">Pre-Wedding Romance</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 4 -->
+                        <div class="film-frame-card shrink-0 w-64 sm:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group" onclick="window.openLightbox('https://res.cloudinary.com/jxgk8nsr/image/upload/f_auto,q_auto/v1793438338/cbhn51qiykkdgywjra5p.jpg', 'Candid Bridal Joy', 'Dewangan Photo & Videography')">
+                            <div class="flex justify-between items-center text-[8px] font-mono text-stone-400 mb-1.5 px-1 tracking-wider uppercase">
+                                <span>DPV 35MM</span>
+                                <span class="text-gold-400">#FRAME 04</span>
+                            </div>
+                            <div class="h-40 sm:h-48 overflow-hidden rounded-xs bg-stone-950 relative">
+                                <img src="https://res.cloudinary.com/jxgk8nsr/image/upload/f_auto,q_auto,w_600/v1793438338/cbhn51qiykkdgywjra5p.jpg" alt="Candid Bridal Joy" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-2.5">
+                                    <span class="text-white text-xs font-semibold">Candid Bridal Joy</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 5 -->
+                        <div class="film-frame-card shrink-0 w-64 sm:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group" onclick="window.openLightbox('assets/slide3.jpg', 'Engagement Ring Ceremony', 'Dewangan Photo & Videography')">
+                            <div class="flex justify-between items-center text-[8px] font-mono text-stone-400 mb-1.5 px-1 tracking-wider uppercase">
+                                <span>DPV 35MM</span>
+                                <span class="text-gold-400">#FRAME 05</span>
+                            </div>
+                            <div class="h-40 sm:h-48 overflow-hidden rounded-xs bg-stone-950 relative">
+                                <img src="assets/slide3.jpg" alt="Ring Ceremony" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-2.5">
+                                    <span class="text-white text-xs font-semibold">Engagement Ring Ceremony</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 6 -->
+                        <div class="film-frame-card shrink-0 w-64 sm:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group" onclick="window.openLightbox('https://res.cloudinary.com/jxgk8nsr/image/upload/f_auto,q_auto/v1793438356/ykx1xj1me2fwfgt3edym.jpg', 'Cinematic Garland Exchange', 'Dewangan Photo & Videography')">
+                            <div class="flex justify-between items-center text-[8px] font-mono text-stone-400 mb-1.5 px-1 tracking-wider uppercase">
+                                <span>DPV 35MM</span>
+                                <span class="text-gold-400">#FRAME 06</span>
+                            </div>
+                            <div class="h-40 sm:h-48 overflow-hidden rounded-xs bg-stone-950 relative">
+                                <img src="https://res.cloudinary.com/jxgk8nsr/image/upload/f_auto,q_auto,w_600/v1793438356/ykx1xj1me2fwfgt3edym.jpg" alt="Garland Ceremony" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-2.5">
+                                    <span class="text-white text-xs font-semibold">Garland Exchange Ritual</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 7 -->
+                        <div class="film-frame-card shrink-0 w-64 sm:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group" onclick="window.openLightbox('assets/poster_background.jpg', 'Director Camera Rig', 'Dewangan Photo & Videography')">
+                            <div class="flex justify-between items-center text-[8px] font-mono text-stone-400 mb-1.5 px-1 tracking-wider uppercase">
+                                <span>DPV 35MM</span>
+                                <span class="text-gold-400">#FRAME 07</span>
+                            </div>
+                            <div class="h-40 sm:h-48 overflow-hidden rounded-xs bg-stone-950 relative">
+                                <img src="assets/poster_background.jpg" alt="Director Camera Rig" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-2.5">
+                                    <span class="text-white text-xs font-semibold">Cinema Camera Setup</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 8 -->
+                        <div class="film-frame-card shrink-0 w-64 sm:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group" onclick="window.openLightbox('https://res.cloudinary.com/jxgk8nsr/image/upload/f_auto,q_auto/v1793438378/aoaud6rfwl5zzhuwhao3.jpg', 'Maternity Portrait Session', 'Dewangan Photo & Videography')">
+                            <div class="flex justify-between items-center text-[8px] font-mono text-stone-400 mb-1.5 px-1 tracking-wider uppercase">
+                                <span>DPV 35MM</span>
+                                <span class="text-gold-400">#FRAME 08</span>
+                            </div>
+                            <div class="h-40 sm:h-48 overflow-hidden rounded-xs bg-stone-950 relative">
+                                <img src="https://res.cloudinary.com/jxgk8nsr/image/upload/f_auto,q_auto,w_600/v1793438378/aoaud6rfwl5zzhuwhao3.jpg" alt="Maternity Portrait" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-2.5">
+                                    <span class="text-white text-xs font-semibold">Maternity Portrait Glow</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ================= DUPLICATED SET FOR SEAMLESS INFINITE LOOP ================= -->
+
+                        <!-- Slide 1 (dup) -->
+                        <div class="film-frame-card shrink-0 w-64 sm:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group" onclick="window.openLightbox('assets/slide1.jpg', 'Royal Wedding Backdrop', 'Dewangan Photo & Videography')">
+                            <div class="flex justify-between items-center text-[8px] font-mono text-stone-400 mb-1.5 px-1 tracking-wider uppercase">
+                                <span>DPV 35MM</span>
+                                <span class="text-gold-400">#FRAME 01</span>
+                            </div>
+                            <div class="h-40 sm:h-48 overflow-hidden rounded-xs bg-stone-950 relative">
+                                <img src="assets/slide1.jpg" alt="Royal Wedding Mandap" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-2.5">
+                                    <span class="text-white text-xs font-semibold">Royal Wedding Mandap</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 2 (dup) -->
+                        <div class="film-frame-card shrink-0 w-64 sm:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group" onclick="window.openLightbox('assets/slide2.jpg', 'Sunset Silhouette Couple', 'Dewangan Photo & Videography')">
+                            <div class="flex justify-between items-center text-[8px] font-mono text-stone-400 mb-1.5 px-1 tracking-wider uppercase">
+                                <span>DPV 35MM</span>
+                                <span class="text-gold-400">#FRAME 02</span>
+                            </div>
+                            <div class="h-40 sm:h-48 overflow-hidden rounded-xs bg-stone-950 relative">
+                                <img src="assets/slide2.jpg" alt="Sunset Couple Shoot" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-2.5">
+                                    <span class="text-white text-xs font-semibold">Sunset Couple Silhouette</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 3 (dup) -->
+                        <div class="film-frame-card shrink-0 w-64 sm:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group" onclick="window.openLightbox('assets/cover-prewedding.jpg', 'Cinematic Pre-Wedding', 'Dewangan Photo & Videography')">
+                            <div class="flex justify-between items-center text-[8px] font-mono text-stone-400 mb-1.5 px-1 tracking-wider uppercase">
+                                <span>DPV 35MM</span>
+                                <span class="text-gold-400">#FRAME 03</span>
+                            </div>
+                            <div class="h-40 sm:h-48 overflow-hidden rounded-xs bg-stone-950 relative">
+                                <img src="assets/cover-prewedding.jpg" alt="Pre-Wedding Romance" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-2.5">
+                                    <span class="text-white text-xs font-semibold">Pre-Wedding Romance</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 4 (dup) -->
+                        <div class="film-frame-card shrink-0 w-64 sm:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group" onclick="window.openLightbox('https://res.cloudinary.com/jxgk8nsr/image/upload/f_auto,q_auto/v1793438338/cbhn51qiykkdgywjra5p.jpg', 'Candid Bridal Joy', 'Dewangan Photo & Videography')">
+                            <div class="flex justify-between items-center text-[8px] font-mono text-stone-400 mb-1.5 px-1 tracking-wider uppercase">
+                                <span>DPV 35MM</span>
+                                <span class="text-gold-400">#FRAME 04</span>
+                            </div>
+                            <div class="h-40 sm:h-48 overflow-hidden rounded-xs bg-stone-950 relative">
+                                <img src="https://res.cloudinary.com/jxgk8nsr/image/upload/f_auto,q_auto,w_600/v1793438338/cbhn51qiykkdgywjra5p.jpg" alt="Candid Bridal Joy" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-2.5">
+                                    <span class="text-white text-xs font-semibold">Candid Bridal Joy</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 5 (dup) -->
+                        <div class="film-frame-card shrink-0 w-64 sm:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group" onclick="window.openLightbox('assets/slide3.jpg', 'Engagement Ring Ceremony', 'Dewangan Photo & Videography')">
+                            <div class="flex justify-between items-center text-[8px] font-mono text-stone-400 mb-1.5 px-1 tracking-wider uppercase">
+                                <span>DPV 35MM</span>
+                                <span class="text-gold-400">#FRAME 05</span>
+                            </div>
+                            <div class="h-40 sm:h-48 overflow-hidden rounded-xs bg-stone-950 relative">
+                                <img src="assets/slide3.jpg" alt="Ring Ceremony" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-2.5">
+                                    <span class="text-white text-xs font-semibold">Engagement Ring Ceremony</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 6 (dup) -->
+                        <div class="film-frame-card shrink-0 w-64 sm:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group" onclick="window.openLightbox('https://res.cloudinary.com/jxgk8nsr/image/upload/f_auto,q_auto/v1793438356/ykx1xj1me2fwfgt3edym.jpg', 'Cinematic Garland Exchange', 'Dewangan Photo & Videography')">
+                            <div class="flex justify-between items-center text-[8px] font-mono text-stone-400 mb-1.5 px-1 tracking-wider uppercase">
+                                <span>DPV 35MM</span>
+                                <span class="text-gold-400">#FRAME 06</span>
+                            </div>
+                            <div class="h-40 sm:h-48 overflow-hidden rounded-xs bg-stone-950 relative">
+                                <img src="https://res.cloudinary.com/jxgk8nsr/image/upload/f_auto,q_auto,w_600/v1793438356/ykx1xj1me2fwfgt3edym.jpg" alt="Garland Ceremony" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-2.5">
+                                    <span class="text-white text-xs font-semibold">Garland Exchange Ritual</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 7 (dup) -->
+                        <div class="film-frame-card shrink-0 w-64 sm:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group" onclick="window.openLightbox('assets/poster_background.jpg', 'Director Camera Rig', 'Dewangan Photo & Videography')">
+                            <div class="flex justify-between items-center text-[8px] font-mono text-stone-400 mb-1.5 px-1 tracking-wider uppercase">
+                                <span>DPV 35MM</span>
+                                <span class="text-gold-400">#FRAME 07</span>
+                            </div>
+                            <div class="h-40 sm:h-48 overflow-hidden rounded-xs bg-stone-950 relative">
+                                <img src="assets/poster_background.jpg" alt="Director Camera Rig" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-2.5">
+                                    <span class="text-white text-xs font-semibold">Cinema Camera Setup</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 8 (dup) -->
+                        <div class="film-frame-card shrink-0 w-64 sm:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group" onclick="window.openLightbox('https://res.cloudinary.com/jxgk8nsr/image/upload/f_auto,q_auto/v1793438378/aoaud6rfwl5zzhuwhao3.jpg', 'Maternity Portrait Session', 'Dewangan Photo & Videography')">
+                            <div class="flex justify-between items-center text-[8px] font-mono text-stone-400 mb-1.5 px-1 tracking-wider uppercase">
+                                <span>DPV 35MM</span>
+                                <span class="text-gold-400">#FRAME 08</span>
+                            </div>
+                            <div class="h-40 sm:h-48 overflow-hidden rounded-xs bg-stone-950 relative">
+                                <img src="https://res.cloudinary.com/jxgk8nsr/image/upload/f_auto,q_auto,w_600/v1793438378/aoaud6rfwl5zzhuwhao3.jpg" alt="Maternity Portrait" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-2.5">
+                                    <span class="text-white text-xs font-semibold">Maternity Portrait Glow</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Bottom Sprockets -->
+                    <div class="filmstrip-sprockets w-full mt-3"></div>
                 </div>
             </section>
 
