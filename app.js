@@ -4211,7 +4211,7 @@ document.addEventListener('DOMContentLoaded', () => {
             validItems.forEach((img, idx) => {
                 const frameNum = String(idx + 1).padStart(2, '0');
                 const card = document.createElement('div');
-                card.className = "film-frame-card shrink-0 w-64 sm:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group cursor-pointer";
+                card.className = "film-frame-card shrink-0 w-56 sm:w-72 md:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group cursor-pointer shadow-xl";
                 
                 const rawTitle = img.title || 'Dewangan Photography';
                 const displayTitle = rawTitle.includes('|') ? rawTitle.split('|')[0].trim() : rawTitle;
@@ -4222,9 +4222,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         <span>DPV 35MM</span>
                         <span class="text-gold-400">#FRAME ${frameNum}</span>
                     </div>
-                    <div class="h-40 sm:h-48 overflow-hidden rounded-xs bg-stone-950 relative">
-                        <img src="${imgSrc}" alt="${rawTitle}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-2.5">
+                    <div class="h-72 sm:h-88 md:h-[380px] overflow-hidden rounded-xs bg-stone-950 relative flex items-center justify-center">
+                        <img src="${imgSrc}" alt="" class="absolute inset-0 w-full h-full object-cover blur-xl opacity-35 scale-110 pointer-events-none" aria-hidden="true" onerror="this.style.display='none'">
+                        <div class="absolute inset-0 bg-black/25 pointer-events-none"></div>
+                        <img src="${imgSrc}" alt="${rawTitle}" class="relative z-10 max-w-full max-h-full object-contain group-hover:scale-105 transition duration-500 shadow-xl" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-3 z-20">
                             <span class="text-white text-xs font-semibold truncate">${displayTitle}</span>
                         </div>
                     </div>
