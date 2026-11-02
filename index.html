@@ -348,18 +348,28 @@
     }
     </style>
     <style>
-    /* Cinema Filmstrip Sprockets & Infinite Marquee */
-    .filmstrip-sprockets {
-        background-image: radial-gradient(#3a3a3a 35%, transparent 35%);
-        background-size: 18px 12px;
-        background-repeat: repeat-x;
-        height: 12px;
-        opacity: 0.9;
+    /* Authentic 35mm Cinema Reel & Moving Sprockets */
+    .sprocket-hole {
+        width: 13px;
+        height: 9px;
+        background: #000000;
+        border-radius: 2.5px;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        box-shadow: inset 0 1.5px 3px rgba(0, 0, 0, 0.9), 0 0 1px rgba(0, 0, 0, 0.8);
+        display: inline-block;
+        flex-shrink: 0;
+    }
+    .film-reel-unit {
+        transition: filter 0.3s ease, transform 0.3s ease;
+    }
+    .film-reel-unit:hover {
+        filter: brightness(1.12);
     }
     .filmstrip-track {
         display: flex;
         width: max-content;
-        animation: filmstripMarquee 38s linear infinite;
+        align-items: stretch;
+        animation: filmstripMarquee 36s linear infinite;
         will-change: transform;
     }
     .filmstrip-container:hover .filmstrip-track {
@@ -368,13 +378,6 @@
     @keyframes filmstripMarquee {
         0% { transform: translateX(0); }
         100% { transform: translateX(-50%); }
-    }
-    .film-frame-card {
-        transition: all 0.4s ease;
-    }
-    .film-frame-card:hover {
-        transform: translateY(-4px) scale(1.02);
-        box-shadow: 0 10px 25px -5px rgba(234, 159, 42, 0.25);
     }
     </style>
 </head>
@@ -638,288 +641,407 @@
                 </div>
 
                 <!-- 35mm Filmstrip Ticker Container -->
-                <div class="filmstrip-container relative w-full overflow-hidden bg-black py-4 border-y border-stone-800 shadow-2xl">
-                    <!-- Top Sprockets -->
-                    <div class="filmstrip-sprockets w-full mb-3"></div>
+                <div class="filmstrip-container relative w-full overflow-hidden bg-black py-2 shadow-2xl border-y-2 border-stone-800">
 
-                    
-                    
                     <!-- Marquee Track (Repeated 2x for smooth infinite continuous loop) -->
-                    <div class="filmstrip-track flex items-center gap-5 px-4 cursor-pointer" id="filmstrip-track">
-                        <!-- Slide 01 -->
-                        <div class="film-frame-card shrink-0 w-56 sm:w-72 md:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group cursor-pointer shadow-xl" onclick="window.openLightbox('https://i.ibb.co/VYsbwJjT/b428324f601b.jpg', 'Dewangan Photo and Videography Wedding Photography Jamul Durg 2026', 'Dewangan Photo & Videography')">
-                            <div class="flex justify-between items-center text-[8px] font-mono text-stone-400 mb-1.5 px-1 tracking-wider uppercase">
-                                <span>DPV 35MM</span>
-                                <span class="text-gold-400">#FRAME 01</span>
+                    <div class="filmstrip-track flex items-stretch cursor-pointer select-none" id="filmstrip-track">
+                        <!-- Film Reel Frame 01 -->
+                        <div class="film-reel-unit shrink-0 flex flex-col bg-[#111113] border-r-4 border-black relative group cursor-pointer shadow-xl" onclick="window.openLightbox('https://i.ibb.co/VYsbwJjT/b428324f601b.jpg', 'Dewangan Photo and Videography Wedding Photography Jamul Durg 2026', 'Dewangan Photo & Videography')">
+                            <!-- Top Sprocket Ribbon (Moves with film) -->
+                            <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-b border-stone-800/90 select-none">
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                                <div class="font-mono text-[8px] text-amber-500/90 font-bold tracking-widest px-2">DPV 35MM â–¶ 01</div>
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
                             </div>
-                            <div class="h-72 sm:h-88 md:h-[380px] overflow-hidden rounded-xs bg-stone-950 relative flex items-center justify-center">
-                                <img src="https://i.ibb.co/VYsbwJjT/b428324f601b.jpg" alt="" class="absolute inset-0 w-full h-full object-cover blur-xl opacity-35 scale-110 pointer-events-none" aria-hidden="true" onerror="this.style.display='none'">
-                                <div class="absolute inset-0 bg-black/25 pointer-events-none"></div>
-                                <img src="https://i.ibb.co/VYsbwJjT/b428324f601b.jpg" alt="Dewangan Photo and Videography Wedding Photography Jamul Durg 2026" class="relative z-10 max-w-full max-h-full object-contain group-hover:scale-105 transition duration-500 shadow-xl" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-3 z-20">
+                            <!-- Aperture Window (Photo) -->
+                            <div class="relative overflow-hidden bg-black mx-2 my-1 border border-stone-800/80 rounded-xs h-48 sm:h-60 aspect-[2/3]">
+                                <img src="https://i.ibb.co/VYsbwJjT/b428324f601b.jpg" alt="Dewangan Photo and Videography Wedding Photography Jamul Durg 2026" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 block" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-2.5 pointer-events-none">
                                     <span class="text-white text-xs font-semibold truncate">Wedding Photography Jamul</span>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Slide 02 -->
-                        <div class="film-frame-card shrink-0 w-56 sm:w-72 md:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group cursor-pointer shadow-xl" onclick="window.openLightbox('https://i.ibb.co/qMWdQgqh/c067a7132d74.jpg', 'Wedding Photography in Jamul-Durg 2026 | Dewangan Photo and Videography', 'Dewangan Photo & Videography')">
-                            <div class="flex justify-between items-center text-[8px] font-mono text-stone-400 mb-1.5 px-1 tracking-wider uppercase">
-                                <span>DPV 35MM</span>
-                                <span class="text-gold-400">#FRAME 02</span>
+                            <!-- Bottom Sprocket Ribbon (Moves with film) -->
+                            <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-t border-stone-800/90 select-none">
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                                <div class="font-mono text-[7px] text-stone-500 tracking-wider px-2"><span class="text-amber-500/70">SAFE 24FPS</span> ||||| #01</div>
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
                             </div>
-                            <div class="h-72 sm:h-88 md:h-[380px] overflow-hidden rounded-xs bg-stone-950 relative flex items-center justify-center">
-                                <img src="https://i.ibb.co/qMWdQgqh/c067a7132d74.jpg" alt="" class="absolute inset-0 w-full h-full object-cover blur-xl opacity-35 scale-110 pointer-events-none" aria-hidden="true" onerror="this.style.display='none'">
-                                <div class="absolute inset-0 bg-black/25 pointer-events-none"></div>
-                                <img src="https://i.ibb.co/qMWdQgqh/c067a7132d74.jpg" alt="Wedding Photography in Jamul-Durg 2026 | Dewangan Photo and Videography" class="relative z-10 max-w-full max-h-full object-contain group-hover:scale-105 transition duration-500 shadow-xl" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-3 z-20">
+                        </div>
+                        <!-- Film Reel Frame 02 -->
+                        <div class="film-reel-unit shrink-0 flex flex-col bg-[#111113] border-r-4 border-black relative group cursor-pointer shadow-xl" onclick="window.openLightbox('https://i.ibb.co/qMWdQgqh/c067a7132d74.jpg', 'Wedding Photography in Jamul-Durg 2026 | Dewangan Photo and Videography', 'Dewangan Photo & Videography')">
+                            <!-- Top Sprocket Ribbon (Moves with film) -->
+                            <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-b border-stone-800/90 select-none">
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                                <div class="font-mono text-[8px] text-amber-500/90 font-bold tracking-widest px-2">DPV 35MM â–¶ 02</div>
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                            </div>
+                            <!-- Aperture Window (Photo) -->
+                            <div class="relative overflow-hidden bg-black mx-2 my-1 border border-stone-800/80 rounded-xs h-48 sm:h-60 aspect-[2/3]">
+                                <img src="https://i.ibb.co/qMWdQgqh/c067a7132d74.jpg" alt="Wedding Photography in Jamul-Durg 2026 | Dewangan Photo and Videography" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 block" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-2.5 pointer-events-none">
                                     <span class="text-white text-xs font-semibold truncate">Wedding Moments Durg</span>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Slide 03 -->
-                        <div class="film-frame-card shrink-0 w-56 sm:w-72 md:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group cursor-pointer shadow-xl" onclick="window.openLightbox('https://i.ibb.co/wrzJyXCK/6a81f9570823.jpg', 'Candid Wedding Photography in Bhilai | Dewangan Photo and Videography', 'Dewangan Photo & Videography')">
-                            <div class="flex justify-between items-center text-[8px] font-mono text-stone-400 mb-1.5 px-1 tracking-wider uppercase">
-                                <span>DPV 35MM</span>
-                                <span class="text-gold-400">#FRAME 03</span>
+                            <!-- Bottom Sprocket Ribbon (Moves with film) -->
+                            <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-t border-stone-800/90 select-none">
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                                <div class="font-mono text-[7px] text-stone-500 tracking-wider px-2"><span class="text-amber-500/70">SAFE 24FPS</span> ||||| #02</div>
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
                             </div>
-                            <div class="h-72 sm:h-88 md:h-[380px] overflow-hidden rounded-xs bg-stone-950 relative flex items-center justify-center">
-                                <img src="https://i.ibb.co/wrzJyXCK/6a81f9570823.jpg" alt="" class="absolute inset-0 w-full h-full object-cover blur-xl opacity-35 scale-110 pointer-events-none" aria-hidden="true" onerror="this.style.display='none'">
-                                <div class="absolute inset-0 bg-black/25 pointer-events-none"></div>
-                                <img src="https://i.ibb.co/wrzJyXCK/6a81f9570823.jpg" alt="Candid Wedding Photography in Bhilai | Dewangan Photo and Videography" class="relative z-10 max-w-full max-h-full object-contain group-hover:scale-105 transition duration-500 shadow-xl" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-3 z-20">
+                        </div>
+                        <!-- Film Reel Frame 03 -->
+                        <div class="film-reel-unit shrink-0 flex flex-col bg-[#111113] border-r-4 border-black relative group cursor-pointer shadow-xl" onclick="window.openLightbox('https://i.ibb.co/wrzJyXCK/6a81f9570823.jpg', 'Candid Wedding Photography in Bhilai | Dewangan Photo and Videography', 'Dewangan Photo & Videography')">
+                            <!-- Top Sprocket Ribbon (Moves with film) -->
+                            <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-b border-stone-800/90 select-none">
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                                <div class="font-mono text-[8px] text-amber-500/90 font-bold tracking-widest px-2">DPV 35MM CINEMA â–¶ 03</div>
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                            </div>
+                            <!-- Aperture Window (Photo) -->
+                            <div class="relative overflow-hidden bg-black mx-2 my-1 border border-stone-800/80 rounded-xs h-48 sm:h-60 aspect-[3/2]">
+                                <img src="https://i.ibb.co/wrzJyXCK/6a81f9570823.jpg" alt="Candid Wedding Photography in Bhilai | Dewangan Photo and Videography" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 block" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-2.5 pointer-events-none">
                                     <span class="text-white text-xs font-semibold truncate">Candid Wedding Bhilai</span>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Slide 04 -->
-                        <div class="film-frame-card shrink-0 w-56 sm:w-72 md:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group cursor-pointer shadow-xl" onclick="window.openLightbox('https://res.cloudinary.com/jxgk8nsr/image/upload/f_auto,q_auto/v1793438338/cbhn51qiykkdgywjra5p.jpg', 'Candid Wedding Photographer in Durg | Dewangan Photo and Videography', 'Dewangan Photo & Videography')">
-                            <div class="flex justify-between items-center text-[8px] font-mono text-stone-400 mb-1.5 px-1 tracking-wider uppercase">
-                                <span>DPV 35MM</span>
-                                <span class="text-gold-400">#FRAME 04</span>
+                            <!-- Bottom Sprocket Ribbon (Moves with film) -->
+                            <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-t border-stone-800/90 select-none">
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                                <div class="font-mono text-[7px] text-stone-500 tracking-wider px-2"><span class="text-amber-500/70">EASTMAN COLOR 24FPS</span> ||||||| #03</div>
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
                             </div>
-                            <div class="h-72 sm:h-88 md:h-[380px] overflow-hidden rounded-xs bg-stone-950 relative flex items-center justify-center">
-                                <img src="https://res.cloudinary.com/jxgk8nsr/image/upload/f_auto,q_auto/v1793438338/cbhn51qiykkdgywjra5p.jpg" alt="" class="absolute inset-0 w-full h-full object-cover blur-xl opacity-35 scale-110 pointer-events-none" aria-hidden="true" onerror="this.style.display='none'">
-                                <div class="absolute inset-0 bg-black/25 pointer-events-none"></div>
-                                <img src="https://res.cloudinary.com/jxgk8nsr/image/upload/f_auto,q_auto/v1793438338/cbhn51qiykkdgywjra5p.jpg" alt="Candid Wedding Photographer in Durg | Dewangan Photo and Videography" class="relative z-10 max-w-full max-h-full object-contain group-hover:scale-105 transition duration-500 shadow-xl" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-3 z-20">
+                        </div>
+                        <!-- Film Reel Frame 04 -->
+                        <div class="film-reel-unit shrink-0 flex flex-col bg-[#111113] border-r-4 border-black relative group cursor-pointer shadow-xl" onclick="window.openLightbox('https://res.cloudinary.com/jxgk8nsr/image/upload/f_auto,q_auto/v1793438338/cbhn51qiykkdgywjra5p.jpg', 'Candid Wedding Photographer in Durg | Dewangan Photo and Videography', 'Dewangan Photo & Videography')">
+                            <!-- Top Sprocket Ribbon (Moves with film) -->
+                            <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-b border-stone-800/90 select-none">
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                                <div class="font-mono text-[8px] text-amber-500/90 font-bold tracking-widest px-2">DPV 35MM â–¶ 04</div>
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                            </div>
+                            <!-- Aperture Window (Photo) -->
+                            <div class="relative overflow-hidden bg-black mx-2 my-1 border border-stone-800/80 rounded-xs h-48 sm:h-60 aspect-[2/3]">
+                                <img src="https://res.cloudinary.com/jxgk8nsr/image/upload/f_auto,q_auto/v1793438338/cbhn51qiykkdgywjra5p.jpg" alt="Candid Wedding Photographer in Durg | Dewangan Photo and Videography" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 block" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-2.5 pointer-events-none">
                                     <span class="text-white text-xs font-semibold truncate">Candid Photographer Durg</span>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Slide 05 -->
-                        <div class="film-frame-card shrink-0 w-56 sm:w-72 md:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group cursor-pointer shadow-xl" onclick="window.openLightbox('https://i.ibb.co/BVBQ6gs8/6088d712ccd8.jpg', 'Wedding Photo Studio Near Bhilai | Candid Photography.', 'Dewangan Photo & Videography')">
-                            <div class="flex justify-between items-center text-[8px] font-mono text-stone-400 mb-1.5 px-1 tracking-wider uppercase">
-                                <span>DPV 35MM</span>
-                                <span class="text-gold-400">#FRAME 05</span>
+                            <!-- Bottom Sprocket Ribbon (Moves with film) -->
+                            <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-t border-stone-800/90 select-none">
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                                <div class="font-mono text-[7px] text-stone-500 tracking-wider px-2"><span class="text-amber-500/70">SAFE 24FPS</span> ||||| #04</div>
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
                             </div>
-                            <div class="h-72 sm:h-88 md:h-[380px] overflow-hidden rounded-xs bg-stone-950 relative flex items-center justify-center">
-                                <img src="https://i.ibb.co/BVBQ6gs8/6088d712ccd8.jpg" alt="" class="absolute inset-0 w-full h-full object-cover blur-xl opacity-35 scale-110 pointer-events-none" aria-hidden="true" onerror="this.style.display='none'">
-                                <div class="absolute inset-0 bg-black/25 pointer-events-none"></div>
-                                <img src="https://i.ibb.co/BVBQ6gs8/6088d712ccd8.jpg" alt="Wedding Photo Studio Near Bhilai | Candid Photography." class="relative z-10 max-w-full max-h-full object-contain group-hover:scale-105 transition duration-500 shadow-xl" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-3 z-20">
+                        </div>
+                        <!-- Film Reel Frame 05 -->
+                        <div class="film-reel-unit shrink-0 flex flex-col bg-[#111113] border-r-4 border-black relative group cursor-pointer shadow-xl" onclick="window.openLightbox('https://i.ibb.co/BVBQ6gs8/6088d712ccd8.jpg', 'Wedding Photo Studio Near Bhilai | Candid Photography.', 'Dewangan Photo & Videography')">
+                            <!-- Top Sprocket Ribbon (Moves with film) -->
+                            <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-b border-stone-800/90 select-none">
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                                <div class="font-mono text-[8px] text-amber-500/90 font-bold tracking-widest px-2">DPV 35MM â–¶ 05</div>
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                            </div>
+                            <!-- Aperture Window (Photo) -->
+                            <div class="relative overflow-hidden bg-black mx-2 my-1 border border-stone-800/80 rounded-xs h-48 sm:h-60 aspect-[2/3]">
+                                <img src="https://i.ibb.co/BVBQ6gs8/6088d712ccd8.jpg" alt="Wedding Photo Studio Near Bhilai | Candid Photography." class="w-full h-full object-cover group-hover:scale-105 transition duration-500 block" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-2.5 pointer-events-none">
                                     <span class="text-white text-xs font-semibold truncate">Wedding Studio Bhilai</span>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Slide 06 -->
-                        <div class="film-frame-card shrink-0 w-56 sm:w-72 md:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group cursor-pointer shadow-xl" onclick="window.openLightbox('https://i.ibb.co/7N1npPZm/dd2456a74b98.jpg', 'Maternity Photography in Bhilai Durg | Dewangan Photo and Videography.', 'Dewangan Photo & Videography')">
-                            <div class="flex justify-between items-center text-[8px] font-mono text-stone-400 mb-1.5 px-1 tracking-wider uppercase">
-                                <span>DPV 35MM</span>
-                                <span class="text-gold-400">#FRAME 06</span>
+                            <!-- Bottom Sprocket Ribbon (Moves with film) -->
+                            <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-t border-stone-800/90 select-none">
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                                <div class="font-mono text-[7px] text-stone-500 tracking-wider px-2"><span class="text-amber-500/70">SAFE 24FPS</span> ||||| #05</div>
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
                             </div>
-                            <div class="h-72 sm:h-88 md:h-[380px] overflow-hidden rounded-xs bg-stone-950 relative flex items-center justify-center">
-                                <img src="https://i.ibb.co/7N1npPZm/dd2456a74b98.jpg" alt="" class="absolute inset-0 w-full h-full object-cover blur-xl opacity-35 scale-110 pointer-events-none" aria-hidden="true" onerror="this.style.display='none'">
-                                <div class="absolute inset-0 bg-black/25 pointer-events-none"></div>
-                                <img src="https://i.ibb.co/7N1npPZm/dd2456a74b98.jpg" alt="Maternity Photography in Bhilai Durg | Dewangan Photo and Videography." class="relative z-10 max-w-full max-h-full object-contain group-hover:scale-105 transition duration-500 shadow-xl" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-3 z-20">
+                        </div>
+                        <!-- Film Reel Frame 06 -->
+                        <div class="film-reel-unit shrink-0 flex flex-col bg-[#111113] border-r-4 border-black relative group cursor-pointer shadow-xl" onclick="window.openLightbox('https://i.ibb.co/7N1npPZm/dd2456a74b98.jpg', 'Maternity Photography in Bhilai Durg | Dewangan Photo and Videography.', 'Dewangan Photo & Videography')">
+                            <!-- Top Sprocket Ribbon (Moves with film) -->
+                            <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-b border-stone-800/90 select-none">
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                                <div class="font-mono text-[8px] text-amber-500/90 font-bold tracking-widest px-2">DPV 35MM â–¶ 06</div>
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                            </div>
+                            <!-- Aperture Window (Photo) -->
+                            <div class="relative overflow-hidden bg-black mx-2 my-1 border border-stone-800/80 rounded-xs h-48 sm:h-60 aspect-[2/3]">
+                                <img src="https://i.ibb.co/7N1npPZm/dd2456a74b98.jpg" alt="Maternity Photography in Bhilai Durg | Dewangan Photo and Videography." class="w-full h-full object-cover group-hover:scale-105 transition duration-500 block" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-2.5 pointer-events-none">
                                     <span class="text-white text-xs font-semibold truncate">Maternity Photography</span>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Slide 07 -->
-                        <div class="film-frame-card shrink-0 w-56 sm:w-72 md:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group cursor-pointer shadow-xl" onclick="window.openLightbox('https://i.ibb.co/QFj9M78Z/54d7f9a3d17c.jpg', 'Engagement Photography in Bhilai & Durg | Dewangan Photo and Videography.', 'Dewangan Photo & Videography')">
-                            <div class="flex justify-between items-center text-[8px] font-mono text-stone-400 mb-1.5 px-1 tracking-wider uppercase">
-                                <span>DPV 35MM</span>
-                                <span class="text-gold-400">#FRAME 07</span>
+                            <!-- Bottom Sprocket Ribbon (Moves with film) -->
+                            <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-t border-stone-800/90 select-none">
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                                <div class="font-mono text-[7px] text-stone-500 tracking-wider px-2"><span class="text-amber-500/70">SAFE 24FPS</span> ||||| #06</div>
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
                             </div>
-                            <div class="h-72 sm:h-88 md:h-[380px] overflow-hidden rounded-xs bg-stone-950 relative flex items-center justify-center">
-                                <img src="https://i.ibb.co/QFj9M78Z/54d7f9a3d17c.jpg" alt="" class="absolute inset-0 w-full h-full object-cover blur-xl opacity-35 scale-110 pointer-events-none" aria-hidden="true" onerror="this.style.display='none'">
-                                <div class="absolute inset-0 bg-black/25 pointer-events-none"></div>
-                                <img src="https://i.ibb.co/QFj9M78Z/54d7f9a3d17c.jpg" alt="Engagement Photography in Bhilai & Durg | Dewangan Photo and Videography." class="relative z-10 max-w-full max-h-full object-contain group-hover:scale-105 transition duration-500 shadow-xl" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-3 z-20">
+                        </div>
+                        <!-- Film Reel Frame 07 -->
+                        <div class="film-reel-unit shrink-0 flex flex-col bg-[#111113] border-r-4 border-black relative group cursor-pointer shadow-xl" onclick="window.openLightbox('https://i.ibb.co/QFj9M78Z/54d7f9a3d17c.jpg', 'Engagement Photography in Bhilai & Durg | Dewangan Photo and Videography.', 'Dewangan Photo & Videography')">
+                            <!-- Top Sprocket Ribbon (Moves with film) -->
+                            <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-b border-stone-800/90 select-none">
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                                <div class="font-mono text-[8px] text-amber-500/90 font-bold tracking-widest px-2">DPV 35MM â–¶ 07</div>
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                            </div>
+                            <!-- Aperture Window (Photo) -->
+                            <div class="relative overflow-hidden bg-black mx-2 my-1 border border-stone-800/80 rounded-xs h-48 sm:h-60 aspect-[2/3]">
+                                <img src="https://i.ibb.co/QFj9M78Z/54d7f9a3d17c.jpg" alt="Engagement Photography in Bhilai & Durg | Dewangan Photo and Videography." class="w-full h-full object-cover group-hover:scale-105 transition duration-500 block" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-2.5 pointer-events-none">
                                     <span class="text-white text-xs font-semibold truncate">Engagement Bhilai & Durg</span>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Slide 08 -->
-                        <div class="film-frame-card shrink-0 w-56 sm:w-72 md:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group cursor-pointer shadow-xl" onclick="window.openLightbox('https://i.ibb.co/Gfnnsfxk/d177b39dfcc2.jpg', 'Engagement Photography in Bhilai, Durg - Dewangan Photo and Videography.', 'Dewangan Photo & Videography')">
-                            <div class="flex justify-between items-center text-[8px] font-mono text-stone-400 mb-1.5 px-1 tracking-wider uppercase">
-                                <span>DPV 35MM</span>
-                                <span class="text-gold-400">#FRAME 08</span>
+                            <!-- Bottom Sprocket Ribbon (Moves with film) -->
+                            <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-t border-stone-800/90 select-none">
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                                <div class="font-mono text-[7px] text-stone-500 tracking-wider px-2"><span class="text-amber-500/70">SAFE 24FPS</span> ||||| #07</div>
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
                             </div>
-                            <div class="h-72 sm:h-88 md:h-[380px] overflow-hidden rounded-xs bg-stone-950 relative flex items-center justify-center">
-                                <img src="https://i.ibb.co/Gfnnsfxk/d177b39dfcc2.jpg" alt="" class="absolute inset-0 w-full h-full object-cover blur-xl opacity-35 scale-110 pointer-events-none" aria-hidden="true" onerror="this.style.display='none'">
-                                <div class="absolute inset-0 bg-black/25 pointer-events-none"></div>
-                                <img src="https://i.ibb.co/Gfnnsfxk/d177b39dfcc2.jpg" alt="Engagement Photography in Bhilai, Durg - Dewangan Photo and Videography." class="relative z-10 max-w-full max-h-full object-contain group-hover:scale-105 transition duration-500 shadow-xl" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-3 z-20">
+                        </div>
+                        <!-- Film Reel Frame 08 -->
+                        <div class="film-reel-unit shrink-0 flex flex-col bg-[#111113] border-r-4 border-black relative group cursor-pointer shadow-xl" onclick="window.openLightbox('https://i.ibb.co/Gfnnsfxk/d177b39dfcc2.jpg', 'Engagement Photography in Bhilai, Durg - Dewangan Photo and Videography.', 'Dewangan Photo & Videography')">
+                            <!-- Top Sprocket Ribbon (Moves with film) -->
+                            <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-b border-stone-800/90 select-none">
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                                <div class="font-mono text-[8px] text-amber-500/90 font-bold tracking-widest px-2">DPV 35MM â–¶ 08</div>
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                            </div>
+                            <!-- Aperture Window (Photo) -->
+                            <div class="relative overflow-hidden bg-black mx-2 my-1 border border-stone-800/80 rounded-xs h-48 sm:h-60 aspect-[2/3]">
+                                <img src="https://i.ibb.co/Gfnnsfxk/d177b39dfcc2.jpg" alt="Engagement Photography in Bhilai, Durg - Dewangan Photo and Videography." class="w-full h-full object-cover group-hover:scale-105 transition duration-500 block" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-2.5 pointer-events-none">
                                     <span class="text-white text-xs font-semibold truncate">Engagement Ceremony</span>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Slide 09 -->
-                        <div class="film-frame-card shrink-0 w-56 sm:w-72 md:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group cursor-pointer shadow-xl" onclick="window.openLightbox('https://i.ibb.co/jkMRCjVY/234660597d8c.jpg', 'Engagement Photographer in Bhilai Durg | Dewangan Photo and Videography', 'Dewangan Photo & Videography')">
-                            <div class="flex justify-between items-center text-[8px] font-mono text-stone-400 mb-1.5 px-1 tracking-wider uppercase">
-                                <span>DPV 35MM</span>
-                                <span class="text-gold-400">#FRAME 09</span>
+                            <!-- Bottom Sprocket Ribbon (Moves with film) -->
+                            <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-t border-stone-800/90 select-none">
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                                <div class="font-mono text-[7px] text-stone-500 tracking-wider px-2"><span class="text-amber-500/70">SAFE 24FPS</span> ||||| #08</div>
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
                             </div>
-                            <div class="h-72 sm:h-88 md:h-[380px] overflow-hidden rounded-xs bg-stone-950 relative flex items-center justify-center">
-                                <img src="https://i.ibb.co/jkMRCjVY/234660597d8c.jpg" alt="" class="absolute inset-0 w-full h-full object-cover blur-xl opacity-35 scale-110 pointer-events-none" aria-hidden="true" onerror="this.style.display='none'">
-                                <div class="absolute inset-0 bg-black/25 pointer-events-none"></div>
-                                <img src="https://i.ibb.co/jkMRCjVY/234660597d8c.jpg" alt="Engagement Photographer in Bhilai Durg | Dewangan Photo and Videography" class="relative z-10 max-w-full max-h-full object-contain group-hover:scale-105 transition duration-500 shadow-xl" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-3 z-20">
+                        </div>
+                        <!-- Film Reel Frame 09 -->
+                        <div class="film-reel-unit shrink-0 flex flex-col bg-[#111113] border-r-4 border-black relative group cursor-pointer shadow-xl" onclick="window.openLightbox('https://i.ibb.co/jkMRCjVY/234660597d8c.jpg', 'Engagement Photographer in Bhilai Durg | Dewangan Photo and Videography', 'Dewangan Photo & Videography')">
+                            <!-- Top Sprocket Ribbon (Moves with film) -->
+                            <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-b border-stone-800/90 select-none">
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                                <div class="font-mono text-[8px] text-amber-500/90 font-bold tracking-widest px-2">DPV 35MM CINEMA â–¶ 09</div>
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                            </div>
+                            <!-- Aperture Window (Photo) -->
+                            <div class="relative overflow-hidden bg-black mx-2 my-1 border border-stone-800/80 rounded-xs h-48 sm:h-60 aspect-[3/2]">
+                                <img src="https://i.ibb.co/jkMRCjVY/234660597d8c.jpg" alt="Engagement Photographer in Bhilai Durg | Dewangan Photo and Videography" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 block" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-2.5 pointer-events-none">
                                     <span class="text-white text-xs font-semibold truncate">Engagement Photographer</span>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Slide 01 -->
-                        <div class="film-frame-card shrink-0 w-56 sm:w-72 md:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group cursor-pointer shadow-xl" onclick="window.openLightbox('https://i.ibb.co/VYsbwJjT/b428324f601b.jpg', 'Dewangan Photo and Videography Wedding Photography Jamul Durg 2026', 'Dewangan Photo & Videography')">
-                            <div class="flex justify-between items-center text-[8px] font-mono text-stone-400 mb-1.5 px-1 tracking-wider uppercase">
-                                <span>DPV 35MM</span>
-                                <span class="text-gold-400">#FRAME 01</span>
+                            <!-- Bottom Sprocket Ribbon (Moves with film) -->
+                            <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-t border-stone-800/90 select-none">
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                                <div class="font-mono text-[7px] text-stone-500 tracking-wider px-2"><span class="text-amber-500/70">EASTMAN COLOR 24FPS</span> ||||||| #09</div>
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
                             </div>
-                            <div class="h-72 sm:h-88 md:h-[380px] overflow-hidden rounded-xs bg-stone-950 relative flex items-center justify-center">
-                                <img src="https://i.ibb.co/VYsbwJjT/b428324f601b.jpg" alt="" class="absolute inset-0 w-full h-full object-cover blur-xl opacity-35 scale-110 pointer-events-none" aria-hidden="true" onerror="this.style.display='none'">
-                                <div class="absolute inset-0 bg-black/25 pointer-events-none"></div>
-                                <img src="https://i.ibb.co/VYsbwJjT/b428324f601b.jpg" alt="Dewangan Photo and Videography Wedding Photography Jamul Durg 2026" class="relative z-10 max-w-full max-h-full object-contain group-hover:scale-105 transition duration-500 shadow-xl" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-3 z-20">
+                        </div>
+                        <!-- Film Reel Frame 01 -->
+                        <div class="film-reel-unit shrink-0 flex flex-col bg-[#111113] border-r-4 border-black relative group cursor-pointer shadow-xl" onclick="window.openLightbox('https://i.ibb.co/VYsbwJjT/b428324f601b.jpg', 'Dewangan Photo and Videography Wedding Photography Jamul Durg 2026', 'Dewangan Photo & Videography')">
+                            <!-- Top Sprocket Ribbon (Moves with film) -->
+                            <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-b border-stone-800/90 select-none">
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                                <div class="font-mono text-[8px] text-amber-500/90 font-bold tracking-widest px-2">DPV 35MM â–¶ 01</div>
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                            </div>
+                            <!-- Aperture Window (Photo) -->
+                            <div class="relative overflow-hidden bg-black mx-2 my-1 border border-stone-800/80 rounded-xs h-48 sm:h-60 aspect-[2/3]">
+                                <img src="https://i.ibb.co/VYsbwJjT/b428324f601b.jpg" alt="Dewangan Photo and Videography Wedding Photography Jamul Durg 2026" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 block" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-2.5 pointer-events-none">
                                     <span class="text-white text-xs font-semibold truncate">Wedding Photography Jamul</span>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Slide 02 -->
-                        <div class="film-frame-card shrink-0 w-56 sm:w-72 md:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group cursor-pointer shadow-xl" onclick="window.openLightbox('https://i.ibb.co/qMWdQgqh/c067a7132d74.jpg', 'Wedding Photography in Jamul-Durg 2026 | Dewangan Photo and Videography', 'Dewangan Photo & Videography')">
-                            <div class="flex justify-between items-center text-[8px] font-mono text-stone-400 mb-1.5 px-1 tracking-wider uppercase">
-                                <span>DPV 35MM</span>
-                                <span class="text-gold-400">#FRAME 02</span>
+                            <!-- Bottom Sprocket Ribbon (Moves with film) -->
+                            <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-t border-stone-800/90 select-none">
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                                <div class="font-mono text-[7px] text-stone-500 tracking-wider px-2"><span class="text-amber-500/70">SAFE 24FPS</span> ||||| #01</div>
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
                             </div>
-                            <div class="h-72 sm:h-88 md:h-[380px] overflow-hidden rounded-xs bg-stone-950 relative flex items-center justify-center">
-                                <img src="https://i.ibb.co/qMWdQgqh/c067a7132d74.jpg" alt="" class="absolute inset-0 w-full h-full object-cover blur-xl opacity-35 scale-110 pointer-events-none" aria-hidden="true" onerror="this.style.display='none'">
-                                <div class="absolute inset-0 bg-black/25 pointer-events-none"></div>
-                                <img src="https://i.ibb.co/qMWdQgqh/c067a7132d74.jpg" alt="Wedding Photography in Jamul-Durg 2026 | Dewangan Photo and Videography" class="relative z-10 max-w-full max-h-full object-contain group-hover:scale-105 transition duration-500 shadow-xl" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-3 z-20">
+                        </div>
+                        <!-- Film Reel Frame 02 -->
+                        <div class="film-reel-unit shrink-0 flex flex-col bg-[#111113] border-r-4 border-black relative group cursor-pointer shadow-xl" onclick="window.openLightbox('https://i.ibb.co/qMWdQgqh/c067a7132d74.jpg', 'Wedding Photography in Jamul-Durg 2026 | Dewangan Photo and Videography', 'Dewangan Photo & Videography')">
+                            <!-- Top Sprocket Ribbon (Moves with film) -->
+                            <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-b border-stone-800/90 select-none">
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                                <div class="font-mono text-[8px] text-amber-500/90 font-bold tracking-widest px-2">DPV 35MM â–¶ 02</div>
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                            </div>
+                            <!-- Aperture Window (Photo) -->
+                            <div class="relative overflow-hidden bg-black mx-2 my-1 border border-stone-800/80 rounded-xs h-48 sm:h-60 aspect-[2/3]">
+                                <img src="https://i.ibb.co/qMWdQgqh/c067a7132d74.jpg" alt="Wedding Photography in Jamul-Durg 2026 | Dewangan Photo and Videography" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 block" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-2.5 pointer-events-none">
                                     <span class="text-white text-xs font-semibold truncate">Wedding Moments Durg</span>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Slide 03 -->
-                        <div class="film-frame-card shrink-0 w-56 sm:w-72 md:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group cursor-pointer shadow-xl" onclick="window.openLightbox('https://i.ibb.co/wrzJyXCK/6a81f9570823.jpg', 'Candid Wedding Photography in Bhilai | Dewangan Photo and Videography', 'Dewangan Photo & Videography')">
-                            <div class="flex justify-between items-center text-[8px] font-mono text-stone-400 mb-1.5 px-1 tracking-wider uppercase">
-                                <span>DPV 35MM</span>
-                                <span class="text-gold-400">#FRAME 03</span>
+                            <!-- Bottom Sprocket Ribbon (Moves with film) -->
+                            <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-t border-stone-800/90 select-none">
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                                <div class="font-mono text-[7px] text-stone-500 tracking-wider px-2"><span class="text-amber-500/70">SAFE 24FPS</span> ||||| #02</div>
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
                             </div>
-                            <div class="h-72 sm:h-88 md:h-[380px] overflow-hidden rounded-xs bg-stone-950 relative flex items-center justify-center">
-                                <img src="https://i.ibb.co/wrzJyXCK/6a81f9570823.jpg" alt="" class="absolute inset-0 w-full h-full object-cover blur-xl opacity-35 scale-110 pointer-events-none" aria-hidden="true" onerror="this.style.display='none'">
-                                <div class="absolute inset-0 bg-black/25 pointer-events-none"></div>
-                                <img src="https://i.ibb.co/wrzJyXCK/6a81f9570823.jpg" alt="Candid Wedding Photography in Bhilai | Dewangan Photo and Videography" class="relative z-10 max-w-full max-h-full object-contain group-hover:scale-105 transition duration-500 shadow-xl" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-3 z-20">
+                        </div>
+                        <!-- Film Reel Frame 03 -->
+                        <div class="film-reel-unit shrink-0 flex flex-col bg-[#111113] border-r-4 border-black relative group cursor-pointer shadow-xl" onclick="window.openLightbox('https://i.ibb.co/wrzJyXCK/6a81f9570823.jpg', 'Candid Wedding Photography in Bhilai | Dewangan Photo and Videography', 'Dewangan Photo & Videography')">
+                            <!-- Top Sprocket Ribbon (Moves with film) -->
+                            <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-b border-stone-800/90 select-none">
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                                <div class="font-mono text-[8px] text-amber-500/90 font-bold tracking-widest px-2">DPV 35MM CINEMA â–¶ 03</div>
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                            </div>
+                            <!-- Aperture Window (Photo) -->
+                            <div class="relative overflow-hidden bg-black mx-2 my-1 border border-stone-800/80 rounded-xs h-48 sm:h-60 aspect-[3/2]">
+                                <img src="https://i.ibb.co/wrzJyXCK/6a81f9570823.jpg" alt="Candid Wedding Photography in Bhilai | Dewangan Photo and Videography" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 block" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-2.5 pointer-events-none">
                                     <span class="text-white text-xs font-semibold truncate">Candid Wedding Bhilai</span>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Slide 04 -->
-                        <div class="film-frame-card shrink-0 w-56 sm:w-72 md:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group cursor-pointer shadow-xl" onclick="window.openLightbox('https://res.cloudinary.com/jxgk8nsr/image/upload/f_auto,q_auto/v1793438338/cbhn51qiykkdgywjra5p.jpg', 'Candid Wedding Photographer in Durg | Dewangan Photo and Videography', 'Dewangan Photo & Videography')">
-                            <div class="flex justify-between items-center text-[8px] font-mono text-stone-400 mb-1.5 px-1 tracking-wider uppercase">
-                                <span>DPV 35MM</span>
-                                <span class="text-gold-400">#FRAME 04</span>
+                            <!-- Bottom Sprocket Ribbon (Moves with film) -->
+                            <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-t border-stone-800/90 select-none">
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                                <div class="font-mono text-[7px] text-stone-500 tracking-wider px-2"><span class="text-amber-500/70">EASTMAN COLOR 24FPS</span> ||||||| #03</div>
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
                             </div>
-                            <div class="h-72 sm:h-88 md:h-[380px] overflow-hidden rounded-xs bg-stone-950 relative flex items-center justify-center">
-                                <img src="https://res.cloudinary.com/jxgk8nsr/image/upload/f_auto,q_auto/v1793438338/cbhn51qiykkdgywjra5p.jpg" alt="" class="absolute inset-0 w-full h-full object-cover blur-xl opacity-35 scale-110 pointer-events-none" aria-hidden="true" onerror="this.style.display='none'">
-                                <div class="absolute inset-0 bg-black/25 pointer-events-none"></div>
-                                <img src="https://res.cloudinary.com/jxgk8nsr/image/upload/f_auto,q_auto/v1793438338/cbhn51qiykkdgywjra5p.jpg" alt="Candid Wedding Photographer in Durg | Dewangan Photo and Videography" class="relative z-10 max-w-full max-h-full object-contain group-hover:scale-105 transition duration-500 shadow-xl" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-3 z-20">
+                        </div>
+                        <!-- Film Reel Frame 04 -->
+                        <div class="film-reel-unit shrink-0 flex flex-col bg-[#111113] border-r-4 border-black relative group cursor-pointer shadow-xl" onclick="window.openLightbox('https://res.cloudinary.com/jxgk8nsr/image/upload/f_auto,q_auto/v1793438338/cbhn51qiykkdgywjra5p.jpg', 'Candid Wedding Photographer in Durg | Dewangan Photo and Videography', 'Dewangan Photo & Videography')">
+                            <!-- Top Sprocket Ribbon (Moves with film) -->
+                            <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-b border-stone-800/90 select-none">
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                                <div class="font-mono text-[8px] text-amber-500/90 font-bold tracking-widest px-2">DPV 35MM â–¶ 04</div>
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                            </div>
+                            <!-- Aperture Window (Photo) -->
+                            <div class="relative overflow-hidden bg-black mx-2 my-1 border border-stone-800/80 rounded-xs h-48 sm:h-60 aspect-[2/3]">
+                                <img src="https://res.cloudinary.com/jxgk8nsr/image/upload/f_auto,q_auto/v1793438338/cbhn51qiykkdgywjra5p.jpg" alt="Candid Wedding Photographer in Durg | Dewangan Photo and Videography" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 block" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-2.5 pointer-events-none">
                                     <span class="text-white text-xs font-semibold truncate">Candid Photographer Durg</span>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Slide 05 -->
-                        <div class="film-frame-card shrink-0 w-56 sm:w-72 md:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group cursor-pointer shadow-xl" onclick="window.openLightbox('https://i.ibb.co/BVBQ6gs8/6088d712ccd8.jpg', 'Wedding Photo Studio Near Bhilai | Candid Photography.', 'Dewangan Photo & Videography')">
-                            <div class="flex justify-between items-center text-[8px] font-mono text-stone-400 mb-1.5 px-1 tracking-wider uppercase">
-                                <span>DPV 35MM</span>
-                                <span class="text-gold-400">#FRAME 05</span>
+                            <!-- Bottom Sprocket Ribbon (Moves with film) -->
+                            <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-t border-stone-800/90 select-none">
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                                <div class="font-mono text-[7px] text-stone-500 tracking-wider px-2"><span class="text-amber-500/70">SAFE 24FPS</span> ||||| #04</div>
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
                             </div>
-                            <div class="h-72 sm:h-88 md:h-[380px] overflow-hidden rounded-xs bg-stone-950 relative flex items-center justify-center">
-                                <img src="https://i.ibb.co/BVBQ6gs8/6088d712ccd8.jpg" alt="" class="absolute inset-0 w-full h-full object-cover blur-xl opacity-35 scale-110 pointer-events-none" aria-hidden="true" onerror="this.style.display='none'">
-                                <div class="absolute inset-0 bg-black/25 pointer-events-none"></div>
-                                <img src="https://i.ibb.co/BVBQ6gs8/6088d712ccd8.jpg" alt="Wedding Photo Studio Near Bhilai | Candid Photography." class="relative z-10 max-w-full max-h-full object-contain group-hover:scale-105 transition duration-500 shadow-xl" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-3 z-20">
+                        </div>
+                        <!-- Film Reel Frame 05 -->
+                        <div class="film-reel-unit shrink-0 flex flex-col bg-[#111113] border-r-4 border-black relative group cursor-pointer shadow-xl" onclick="window.openLightbox('https://i.ibb.co/BVBQ6gs8/6088d712ccd8.jpg', 'Wedding Photo Studio Near Bhilai | Candid Photography.', 'Dewangan Photo & Videography')">
+                            <!-- Top Sprocket Ribbon (Moves with film) -->
+                            <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-b border-stone-800/90 select-none">
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                                <div class="font-mono text-[8px] text-amber-500/90 font-bold tracking-widest px-2">DPV 35MM â–¶ 05</div>
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                            </div>
+                            <!-- Aperture Window (Photo) -->
+                            <div class="relative overflow-hidden bg-black mx-2 my-1 border border-stone-800/80 rounded-xs h-48 sm:h-60 aspect-[2/3]">
+                                <img src="https://i.ibb.co/BVBQ6gs8/6088d712ccd8.jpg" alt="Wedding Photo Studio Near Bhilai | Candid Photography." class="w-full h-full object-cover group-hover:scale-105 transition duration-500 block" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-2.5 pointer-events-none">
                                     <span class="text-white text-xs font-semibold truncate">Wedding Studio Bhilai</span>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Slide 06 -->
-                        <div class="film-frame-card shrink-0 w-56 sm:w-72 md:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group cursor-pointer shadow-xl" onclick="window.openLightbox('https://i.ibb.co/7N1npPZm/dd2456a74b98.jpg', 'Maternity Photography in Bhilai Durg | Dewangan Photo and Videography.', 'Dewangan Photo & Videography')">
-                            <div class="flex justify-between items-center text-[8px] font-mono text-stone-400 mb-1.5 px-1 tracking-wider uppercase">
-                                <span>DPV 35MM</span>
-                                <span class="text-gold-400">#FRAME 06</span>
+                            <!-- Bottom Sprocket Ribbon (Moves with film) -->
+                            <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-t border-stone-800/90 select-none">
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                                <div class="font-mono text-[7px] text-stone-500 tracking-wider px-2"><span class="text-amber-500/70">SAFE 24FPS</span> ||||| #05</div>
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
                             </div>
-                            <div class="h-72 sm:h-88 md:h-[380px] overflow-hidden rounded-xs bg-stone-950 relative flex items-center justify-center">
-                                <img src="https://i.ibb.co/7N1npPZm/dd2456a74b98.jpg" alt="" class="absolute inset-0 w-full h-full object-cover blur-xl opacity-35 scale-110 pointer-events-none" aria-hidden="true" onerror="this.style.display='none'">
-                                <div class="absolute inset-0 bg-black/25 pointer-events-none"></div>
-                                <img src="https://i.ibb.co/7N1npPZm/dd2456a74b98.jpg" alt="Maternity Photography in Bhilai Durg | Dewangan Photo and Videography." class="relative z-10 max-w-full max-h-full object-contain group-hover:scale-105 transition duration-500 shadow-xl" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-3 z-20">
+                        </div>
+                        <!-- Film Reel Frame 06 -->
+                        <div class="film-reel-unit shrink-0 flex flex-col bg-[#111113] border-r-4 border-black relative group cursor-pointer shadow-xl" onclick="window.openLightbox('https://i.ibb.co/7N1npPZm/dd2456a74b98.jpg', 'Maternity Photography in Bhilai Durg | Dewangan Photo and Videography.', 'Dewangan Photo & Videography')">
+                            <!-- Top Sprocket Ribbon (Moves with film) -->
+                            <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-b border-stone-800/90 select-none">
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                                <div class="font-mono text-[8px] text-amber-500/90 font-bold tracking-widest px-2">DPV 35MM â–¶ 06</div>
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                            </div>
+                            <!-- Aperture Window (Photo) -->
+                            <div class="relative overflow-hidden bg-black mx-2 my-1 border border-stone-800/80 rounded-xs h-48 sm:h-60 aspect-[2/3]">
+                                <img src="https://i.ibb.co/7N1npPZm/dd2456a74b98.jpg" alt="Maternity Photography in Bhilai Durg | Dewangan Photo and Videography." class="w-full h-full object-cover group-hover:scale-105 transition duration-500 block" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-2.5 pointer-events-none">
                                     <span class="text-white text-xs font-semibold truncate">Maternity Photography</span>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Slide 07 -->
-                        <div class="film-frame-card shrink-0 w-56 sm:w-72 md:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group cursor-pointer shadow-xl" onclick="window.openLightbox('https://i.ibb.co/QFj9M78Z/54d7f9a3d17c.jpg', 'Engagement Photography in Bhilai & Durg | Dewangan Photo and Videography.', 'Dewangan Photo & Videography')">
-                            <div class="flex justify-between items-center text-[8px] font-mono text-stone-400 mb-1.5 px-1 tracking-wider uppercase">
-                                <span>DPV 35MM</span>
-                                <span class="text-gold-400">#FRAME 07</span>
+                            <!-- Bottom Sprocket Ribbon (Moves with film) -->
+                            <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-t border-stone-800/90 select-none">
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                                <div class="font-mono text-[7px] text-stone-500 tracking-wider px-2"><span class="text-amber-500/70">SAFE 24FPS</span> ||||| #06</div>
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
                             </div>
-                            <div class="h-72 sm:h-88 md:h-[380px] overflow-hidden rounded-xs bg-stone-950 relative flex items-center justify-center">
-                                <img src="https://i.ibb.co/QFj9M78Z/54d7f9a3d17c.jpg" alt="" class="absolute inset-0 w-full h-full object-cover blur-xl opacity-35 scale-110 pointer-events-none" aria-hidden="true" onerror="this.style.display='none'">
-                                <div class="absolute inset-0 bg-black/25 pointer-events-none"></div>
-                                <img src="https://i.ibb.co/QFj9M78Z/54d7f9a3d17c.jpg" alt="Engagement Photography in Bhilai & Durg | Dewangan Photo and Videography." class="relative z-10 max-w-full max-h-full object-contain group-hover:scale-105 transition duration-500 shadow-xl" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-3 z-20">
+                        </div>
+                        <!-- Film Reel Frame 07 -->
+                        <div class="film-reel-unit shrink-0 flex flex-col bg-[#111113] border-r-4 border-black relative group cursor-pointer shadow-xl" onclick="window.openLightbox('https://i.ibb.co/QFj9M78Z/54d7f9a3d17c.jpg', 'Engagement Photography in Bhilai & Durg | Dewangan Photo and Videography.', 'Dewangan Photo & Videography')">
+                            <!-- Top Sprocket Ribbon (Moves with film) -->
+                            <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-b border-stone-800/90 select-none">
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                                <div class="font-mono text-[8px] text-amber-500/90 font-bold tracking-widest px-2">DPV 35MM â–¶ 07</div>
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                            </div>
+                            <!-- Aperture Window (Photo) -->
+                            <div class="relative overflow-hidden bg-black mx-2 my-1 border border-stone-800/80 rounded-xs h-48 sm:h-60 aspect-[2/3]">
+                                <img src="https://i.ibb.co/QFj9M78Z/54d7f9a3d17c.jpg" alt="Engagement Photography in Bhilai & Durg | Dewangan Photo and Videography." class="w-full h-full object-cover group-hover:scale-105 transition duration-500 block" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-2.5 pointer-events-none">
                                     <span class="text-white text-xs font-semibold truncate">Engagement Bhilai & Durg</span>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Slide 08 -->
-                        <div class="film-frame-card shrink-0 w-56 sm:w-72 md:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group cursor-pointer shadow-xl" onclick="window.openLightbox('https://i.ibb.co/Gfnnsfxk/d177b39dfcc2.jpg', 'Engagement Photography in Bhilai, Durg - Dewangan Photo and Videography.', 'Dewangan Photo & Videography')">
-                            <div class="flex justify-between items-center text-[8px] font-mono text-stone-400 mb-1.5 px-1 tracking-wider uppercase">
-                                <span>DPV 35MM</span>
-                                <span class="text-gold-400">#FRAME 08</span>
+                            <!-- Bottom Sprocket Ribbon (Moves with film) -->
+                            <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-t border-stone-800/90 select-none">
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                                <div class="font-mono text-[7px] text-stone-500 tracking-wider px-2"><span class="text-amber-500/70">SAFE 24FPS</span> ||||| #07</div>
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
                             </div>
-                            <div class="h-72 sm:h-88 md:h-[380px] overflow-hidden rounded-xs bg-stone-950 relative flex items-center justify-center">
-                                <img src="https://i.ibb.co/Gfnnsfxk/d177b39dfcc2.jpg" alt="" class="absolute inset-0 w-full h-full object-cover blur-xl opacity-35 scale-110 pointer-events-none" aria-hidden="true" onerror="this.style.display='none'">
-                                <div class="absolute inset-0 bg-black/25 pointer-events-none"></div>
-                                <img src="https://i.ibb.co/Gfnnsfxk/d177b39dfcc2.jpg" alt="Engagement Photography in Bhilai, Durg - Dewangan Photo and Videography." class="relative z-10 max-w-full max-h-full object-contain group-hover:scale-105 transition duration-500 shadow-xl" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-3 z-20">
+                        </div>
+                        <!-- Film Reel Frame 08 -->
+                        <div class="film-reel-unit shrink-0 flex flex-col bg-[#111113] border-r-4 border-black relative group cursor-pointer shadow-xl" onclick="window.openLightbox('https://i.ibb.co/Gfnnsfxk/d177b39dfcc2.jpg', 'Engagement Photography in Bhilai, Durg - Dewangan Photo and Videography.', 'Dewangan Photo & Videography')">
+                            <!-- Top Sprocket Ribbon (Moves with film) -->
+                            <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-b border-stone-800/90 select-none">
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                                <div class="font-mono text-[8px] text-amber-500/90 font-bold tracking-widest px-2">DPV 35MM â–¶ 08</div>
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                            </div>
+                            <!-- Aperture Window (Photo) -->
+                            <div class="relative overflow-hidden bg-black mx-2 my-1 border border-stone-800/80 rounded-xs h-48 sm:h-60 aspect-[2/3]">
+                                <img src="https://i.ibb.co/Gfnnsfxk/d177b39dfcc2.jpg" alt="Engagement Photography in Bhilai, Durg - Dewangan Photo and Videography." class="w-full h-full object-cover group-hover:scale-105 transition duration-500 block" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-2.5 pointer-events-none">
                                     <span class="text-white text-xs font-semibold truncate">Engagement Ceremony</span>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Slide 09 -->
-                        <div class="film-frame-card shrink-0 w-56 sm:w-72 md:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group cursor-pointer shadow-xl" onclick="window.openLightbox('https://i.ibb.co/jkMRCjVY/234660597d8c.jpg', 'Engagement Photographer in Bhilai Durg | Dewangan Photo and Videography', 'Dewangan Photo & Videography')">
-                            <div class="flex justify-between items-center text-[8px] font-mono text-stone-400 mb-1.5 px-1 tracking-wider uppercase">
-                                <span>DPV 35MM</span>
-                                <span class="text-gold-400">#FRAME 09</span>
+                            <!-- Bottom Sprocket Ribbon (Moves with film) -->
+                            <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-t border-stone-800/90 select-none">
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                                <div class="font-mono text-[7px] text-stone-500 tracking-wider px-2"><span class="text-amber-500/70">SAFE 24FPS</span> ||||| #08</div>
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
                             </div>
-                            <div class="h-72 sm:h-88 md:h-[380px] overflow-hidden rounded-xs bg-stone-950 relative flex items-center justify-center">
-                                <img src="https://i.ibb.co/jkMRCjVY/234660597d8c.jpg" alt="" class="absolute inset-0 w-full h-full object-cover blur-xl opacity-35 scale-110 pointer-events-none" aria-hidden="true" onerror="this.style.display='none'">
-                                <div class="absolute inset-0 bg-black/25 pointer-events-none"></div>
-                                <img src="https://i.ibb.co/jkMRCjVY/234660597d8c.jpg" alt="Engagement Photographer in Bhilai Durg | Dewangan Photo and Videography" class="relative z-10 max-w-full max-h-full object-contain group-hover:scale-105 transition duration-500 shadow-xl" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-3 z-20">
+                        </div>
+                        <!-- Film Reel Frame 09 -->
+                        <div class="film-reel-unit shrink-0 flex flex-col bg-[#111113] border-r-4 border-black relative group cursor-pointer shadow-xl" onclick="window.openLightbox('https://i.ibb.co/jkMRCjVY/234660597d8c.jpg', 'Engagement Photographer in Bhilai Durg | Dewangan Photo and Videography', 'Dewangan Photo & Videography')">
+                            <!-- Top Sprocket Ribbon (Moves with film) -->
+                            <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-b border-stone-800/90 select-none">
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                                <div class="font-mono text-[8px] text-amber-500/90 font-bold tracking-widest px-2">DPV 35MM CINEMA â–¶ 09</div>
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                            </div>
+                            <!-- Aperture Window (Photo) -->
+                            <div class="relative overflow-hidden bg-black mx-2 my-1 border border-stone-800/80 rounded-xs h-48 sm:h-60 aspect-[3/2]">
+                                <img src="https://i.ibb.co/jkMRCjVY/234660597d8c.jpg" alt="Engagement Photographer in Bhilai Durg | Dewangan Photo and Videography" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 block" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-2.5 pointer-events-none">
                                     <span class="text-white text-xs font-semibold truncate">Engagement Photographer</span>
                                 </div>
+                            </div>
+                            <!-- Bottom Sprocket Ribbon (Moves with film) -->
+                            <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-t border-stone-800/90 select-none">
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
+                                <div class="font-mono text-[7px] text-stone-500 tracking-wider px-2"><span class="text-amber-500/70">EASTMAN COLOR 24FPS</span> ||||||| #09</div>
+                                <div class="flex items-center gap-1.5"><span class="sprocket-hole"></span><span class="sprocket-hole"></span><span class="sprocket-hole"></span><span class="sprocket-hole"></span></div>
                             </div>
                         </div>
                     </div>
-
-<!-- Bottom Sprockets -->
-                    <div class="filmstrip-sprockets w-full mt-3"></div>
                 </div>
             </section>
 

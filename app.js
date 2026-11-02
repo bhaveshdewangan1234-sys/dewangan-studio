@@ -4182,7 +4182,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         renderFilmstrip();
     };
-    // Render 35mm Cinema Filmstrip Reel using strictly portfolio gallery photos
+    // Render 35mm Cinema Filmstrip Reel with authentic moving sprockets & dynamic orientation
     const renderFilmstrip = () => {
         const track = document.getElementById('filmstrip-track');
         const section = document.getElementById('sec-filmstrip');
@@ -4205,32 +4205,68 @@ document.addEventListener('DOMContentLoaded', () => {
 
         track.innerHTML = '';
         const totalItems = validItems.length * repeatCount;
-        track.style.animationDuration = Math.max(30, totalItems * 2.5) + 's';
+        track.style.animationDuration = Math.max(30, totalItems * 2.8) + 's';
 
         for (let r = 0; r < repeatCount; r++) {
             validItems.forEach((img, idx) => {
                 const frameNum = String(idx + 1).padStart(2, '0');
-                const card = document.createElement('div');
-                card.className = "film-frame-card shrink-0 w-56 sm:w-72 md:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group cursor-pointer shadow-xl";
-                
                 const rawTitle = img.title || 'Dewangan Photography';
                 const displayTitle = rawTitle.includes('|') ? rawTitle.split('|')[0].trim() : rawTitle;
                 const imgSrc = img.thumbUrl || img.url;
 
+                // Smart default aspect ratio: 3/2 for landscape, 2/3 for portrait
+                const isLandscape = (img.id === 'gal_1790521409232' || img.id === 'gal_1790524618437');
+                const defaultAspect = isLandscape ? '3/2' : '2/3';
+
+                const sprockets = isLandscape
+                    ? `<span class="sprocket-hole"></span><span class="sprocket-hole"></span><span class="sprocket-hole"></span><span class="sprocket-hole"></span>`
+                    : `<span class="sprocket-hole"></span><span class="sprocket-hole"></span>`;
+
+                const topLabel = isLandscape ? `DPV 35MM CINEMA ▶ ${frameNum}` : `DPV 35MM ▶ ${frameNum}`;
+                const bottomLabel = isLandscape ? `<span class="text-amber-500/70">EASTMAN COLOR 24FPS</span> ||||||| #${frameNum}` : `<span class="text-amber-500/70">SAFE 24FPS</span> ||||| #${frameNum}`;
+
+                const card = document.createElement('div');
+                card.className = "film-reel-unit shrink-0 flex flex-col bg-[#111113] border-r-4 border-black relative group cursor-pointer shadow-xl";
+
                 card.innerHTML = `
-                    <div class="flex justify-between items-center text-[8px] font-mono text-stone-400 mb-1.5 px-1 tracking-wider uppercase">
-                        <span>DPV 35MM</span>
-                        <span class="text-gold-400">#FRAME ${frameNum}</span>
+                    <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-b border-stone-800/90 select-none">
+                        <div class="sprocket-group-left flex items-center gap-1.5">${sprockets}</div>
+                        <div class="font-mono text-[8px] text-amber-500/90 font-bold tracking-widest px-2">${topLabel}</div>
+                        <div class="sprocket-group-right flex items-center gap-1.5">${sprockets}</div>
                     </div>
-                    <div class="h-72 sm:h-88 md:h-[380px] overflow-hidden rounded-xs bg-stone-950 relative flex items-center justify-center">
-                        <img src="${imgSrc}" alt="" class="absolute inset-0 w-full h-full object-cover blur-xl opacity-35 scale-110 pointer-events-none" aria-hidden="true" onerror="this.style.display='none'">
-                        <div class="absolute inset-0 bg-black/25 pointer-events-none"></div>
-                        <img src="${imgSrc}" alt="${rawTitle}" class="relative z-10 max-w-full max-h-full object-contain group-hover:scale-105 transition duration-500 shadow-xl" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-3 z-20">
+                    <div class="media-box relative overflow-hidden bg-black mx-2 my-1 border border-stone-800/80 rounded-xs h-48 sm:h-60" style="aspect-ratio: ${defaultAspect};">
+                        <img src="${imgSrc}" alt="${rawTitle}" class="film-img w-full h-full object-cover group-hover:scale-105 transition duration-500 block" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-2.5 pointer-events-none">
                             <span class="text-white text-xs font-semibold truncate">${displayTitle}</span>
                         </div>
                     </div>
+                    <div class="flex items-center justify-between px-2.5 py-1.5 bg-[#08080a] border-t border-stone-800/90 select-none">
+                        <div class="sprocket-group-left flex items-center gap-1.5">${sprockets}</div>
+                        <div class="font-mono text-[7px] text-stone-500 tracking-wider px-2">${bottomLabel}</div>
+                        <div class="sprocket-group-right flex items-center gap-1.5">${sprockets}</div>
+                    </div>
                 `;
+
+                // Auto-detect and adapt aspect ratio when image loads
+                const mediaBox = card.querySelector('.media-box');
+                const imgTag = card.querySelector('.film-img');
+                if (mediaBox && imgTag) {
+                    const adjustRatio = () => {
+                        if (imgTag.naturalWidth && imgTag.naturalHeight) {
+                            const ratio = imgTag.naturalWidth / imgTag.naturalHeight;
+                            mediaBox.style.aspectRatio = `${imgTag.naturalWidth} / ${imgTag.naturalHeight}`;
+                            const isLand = ratio > 1.1;
+                            const newSprockets = isLand
+                                ? `<span class="sprocket-hole"></span><span class="sprocket-hole"></span><span class="sprocket-hole"></span><span class="sprocket-hole"></span>`
+                                : `<span class="sprocket-hole"></span><span class="sprocket-hole"></span>`;
+                            card.querySelectorAll('.sprocket-group-left, .sprocket-group-right').forEach(g => {
+                                g.innerHTML = newSprockets;
+                            });
+                        }
+                    };
+                    imgTag.onload = adjustRatio;
+                    if (imgTag.complete) adjustRatio();
+                }
 
                 card.addEventListener('click', () => {
                     if (typeof window.openLightbox === 'function') {
