@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Dewangan Photo & Videography - Studio Suite
  * Core State, Database Sync, Auth, Public Website Forms, Reports, and Signature Pad Script
  */
@@ -231,14 +231,17 @@ document.addEventListener('DOMContentLoaded', () => {
         { id: 'maternity', title: 'Maternity Shoot', desc: 'Sanitized safe indoor/outdoor baby shower and maternity cover shoots.', imgUrl: 'https://images.unsplash.com/photo-1504194184404-4aa24119721b?auto=format&fit=crop&w=150&q=80', createdAt: '2025-10-13 06:56:44' }
     ];
 
-    // Mock Gallery portfolio items
+    // Default Gallery portfolio items (User's real portfolio)
     const defaultGallery = [
-        { id: 'gal_1', title: 'Royal Wedding Entry', category: 'wedding', url: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80', desc: 'Sabyasachi themed captures' },
-        { id: 'gal_2', title: 'Cinematic Garland Exchange', category: 'wedding', url: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80', desc: 'Slow motion framing' },
-        { id: 'gal_3', title: 'Sunset Silhouette Couple', category: 'prewedding', url: 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=800&q=80', desc: 'Golden golden hour reflection' },
-        { id: 'gal_4', title: 'Romantic Lakeside Walk', category: 'prewedding', url: 'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=800&q=80', desc: 'Concept narrative' },
-        { id: 'gal_5', title: 'Sparkling Ring Exchange', category: 'engagement', url: 'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=800&q=80', desc: 'Macro close-up details' },
-        { id: 'gal_6', title: 'Cute Infant Themed Setup', category: 'maternity', url: 'https://images.unsplash.com/photo-1504194184404-4aa24119721b?auto=format&fit=crop&w=800&q=80', desc: 'Sanitized safe indoor set' }
+        { id: 'gal_1790520469954', title: 'Dewangan Photo and Videography Wedding Photography Jamul Durg 2026', category: 'wedding', url: 'https://i.ibb.co/VYsbwJjT/b428324f601b.jpg', desc: 'Wedding Photography' },
+        { id: 'gal_1790520766385', title: 'Wedding Photography in Jamul-Durg 2026 | Dewangan Photo and Videography', category: 'wedding', url: 'https://i.ibb.co/qMWdQgqh/c067a7132d74.jpg', desc: 'Wedding Photography' },
+        { id: 'gal_1790521409232', title: 'Candid Wedding Photography in Bhilai | Dewangan Photo and Videography', category: 'birthday', url: 'https://i.ibb.co/wrzJyXCK/6a81f9570823.jpg', desc: 'Candid Wedding Photography' },
+        { id: 'gal_1790521458951', title: 'Candid Wedding Photographer in Durg | Dewangan Photo and Videography', category: 'birthday', url: 'https://res.cloudinary.com/jxgk8nsr/image/upload/f_auto,q_auto/v1793438338/cbhn51qiykkdgywjra5p.jpg', desc: 'Candid Photography' },
+        { id: 'gal_1790522947839', title: 'Wedding Photo Studio Near Bhilai | Candid Photography.', category: 'birthday', url: 'https://i.ibb.co/BVBQ6gs8/6088d712ccd8.jpg', desc: 'Candid Photography' },
+        { id: 'gal_1790523222708', title: 'Maternity Photography in Bhilai Durg | Dewangan Photo and Videography.', category: 'maternity', url: 'https://i.ibb.co/7N1npPZm/dd2456a74b98.jpg', desc: 'Maternity Photography' },
+        { id: 'gal_1790524154876', title: 'Engagement Photography in Bhilai & Durg | Dewangan Photo and Videography.', category: 'engagement', url: 'https://i.ibb.co/QFj9M78Z/54d7f9a3d17c.jpg', desc: 'Engagement Photography' },
+        { id: 'gal_1790524319307', title: 'Engagement Photography in Bhilai, Durg - Dewangan Photo and Videography.', category: 'engagement', url: 'https://i.ibb.co/Gfnnsfxk/d177b39dfcc2.jpg', desc: 'Engagement Photography' },
+        { id: 'gal_1790524618437', title: 'Engagement Photographer in Bhilai Durg | Dewangan Photo and Videography', category: 'engagement', url: 'https://i.ibb.co/jkMRCjVY/234660597d8c.jpg', desc: 'Engagement Photography' }
     ];
 
     // Default Social Media streaming items (YouTube & Instagram)
@@ -4175,6 +4178,65 @@ document.addEventListener('DOMContentLoaded', () => {
                         ctaBanner.classList.add('hidden');
                     }
                 });
+            });
+        }
+        renderFilmstrip();
+    };
+    // Render 35mm Cinema Filmstrip Reel using strictly portfolio gallery photos
+    const renderFilmstrip = () => {
+        const track = document.getElementById('filmstrip-track');
+        const section = document.getElementById('sec-filmstrip');
+        if (!track) return;
+
+        const galleryItems = (appState.gallery && appState.gallery.length > 0) ? appState.gallery : defaultGallery;
+        if (!galleryItems || galleryItems.length === 0) {
+            if (section) section.style.display = 'none';
+            return;
+        }
+        if (section) section.style.display = 'block';
+
+        // Filter valid items with a URL
+        const validItems = galleryItems.filter(img => img && img.url && typeof img.url === 'string');
+        if (validItems.length === 0) return;
+
+        // Ensure at least 14 items total for smooth infinite marquee looping (translateX(-50%))
+        let repeatCount = Math.max(2, Math.ceil(14 / validItems.length));
+        if (repeatCount % 2 !== 0) repeatCount++;
+
+        track.innerHTML = '';
+        const totalItems = validItems.length * repeatCount;
+        track.style.animationDuration = Math.max(30, totalItems * 2.5) + 's';
+
+        for (let r = 0; r < repeatCount; r++) {
+            validItems.forEach((img, idx) => {
+                const frameNum = String(idx + 1).padStart(2, '0');
+                const card = document.createElement('div');
+                card.className = "film-frame-card shrink-0 w-64 sm:w-80 bg-stone-900 border border-stone-800 rounded-sm overflow-hidden p-2 group cursor-pointer";
+                
+                const rawTitle = img.title || 'Dewangan Photography';
+                const displayTitle = rawTitle.includes('|') ? rawTitle.split('|')[0].trim() : rawTitle;
+                const imgSrc = img.thumbUrl || img.url;
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-center text-[8px] font-mono text-stone-400 mb-1.5 px-1 tracking-wider uppercase">
+                        <span>DPV 35MM</span>
+                        <span class="text-gold-400">#FRAME ${frameNum}</span>
+                    </div>
+                    <div class="h-40 sm:h-48 overflow-hidden rounded-xs bg-stone-950 relative">
+                        <img src="${imgSrc}" alt="${rawTitle}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" loading="lazy" onerror="this.onerror=null; this.src='assets/poster_background.jpg';">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-2.5">
+                            <span class="text-white text-xs font-semibold truncate">${displayTitle}</span>
+                        </div>
+                    </div>
+                `;
+
+                card.addEventListener('click', () => {
+                    if (typeof window.openLightbox === 'function') {
+                        window.openLightbox(img.url, rawTitle, img.desc || 'Dewangan Photo & Videography');
+                    }
+                });
+
+                track.appendChild(card);
             });
         }
     };
